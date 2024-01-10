@@ -1,0 +1,7 @@
+
+server:
+  port: 8081
+
+logging:
+  level:
+    com.vet.appointment.system: DEBUG

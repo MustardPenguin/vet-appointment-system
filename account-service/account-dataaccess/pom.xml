@@ -5,17 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.vet.appointment.system</groupId>
-        <artifactId>vet-appointment-system</artifactId>
+        <artifactId>account-service</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>account-service</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>account-domain</module>
-        <module>account-application</module>
-        <module>account-dataaccess</module>
-        <module>account-container</module>
-    </modules>
+    <artifactId>account-dataaccess</artifactId>
 
 </project>
