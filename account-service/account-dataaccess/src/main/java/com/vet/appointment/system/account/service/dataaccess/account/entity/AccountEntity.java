@@ -1,23 +1,34 @@
-package com.vet.appointment.service.account.service.domain.entity;
+package com.vet.appointment.system.account.service.dataaccess.account.entity;
 
-import com.vet.appointment.system.domain.entity.AggregateRoot;
-import com.vet.appointment.system.domain.valueobject.AccountId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.UUID;
 
-public class Account extends AggregateRoot<AccountId> {
+@Entity
+@Table(name = "accounts", schema = "account")
+public class AccountEntity {
 
-    private final String email;
-    private final String password;
-    private final String firstName;
-    private final String lastName;
+    @Id
+    private UUID id;
+    private String email;
+    private String password;
+    private String firstName;
+    private String lastName;
 
-    private Account(Builder builder) {
-        super.setId(new AccountId(UUID.randomUUID()));
+    public AccountEntity() {}
+
+    private AccountEntity(Builder builder) {
+        id = builder.id;
         email = builder.email;
         password = builder.password;
         firstName = builder.firstName;
         lastName = builder.lastName;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getEmail() {
@@ -41,12 +52,18 @@ public class Account extends AggregateRoot<AccountId> {
     }
 
     public static final class Builder {
+        private UUID id;
         private String email;
         private String password;
         private String firstName;
         private String lastName;
 
         private Builder() {
+        }
+
+        public Builder id(UUID val) {
+            id = val;
+            return this;
         }
 
         public Builder email(String val) {
@@ -69,8 +86,8 @@ public class Account extends AggregateRoot<AccountId> {
             return this;
         }
 
-        public Account build() {
-            return new Account(this);
+        public AccountEntity build() {
+            return new AccountEntity(this);
         }
     }
 }

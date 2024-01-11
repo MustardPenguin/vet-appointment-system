@@ -1,9 +1,9 @@
 package com.vet.appointment.system.account.service.application.rest;
 
 import com.vet.appointment.system.account.service.domain.dto.create.CreateAccountCommand;
+import com.vet.appointment.system.account.service.domain.ports.input.AccountApplicationService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AccountController {
 
+    private final AccountApplicationService accountApplicationService;
+
+    public AccountController(AccountApplicationService accountApplicationService) {
+        this.accountApplicationService = accountApplicationService;
+    }
+
     @GetMapping("/api/test")
     public String test() {
         return "Hello world!";
@@ -20,8 +26,8 @@ public class AccountController {
 
     @PostMapping("/api/account")
     public String registerAccount(@RequestBody @Valid CreateAccountCommand createAccountCommand) {
-        log.info("Registering account with email: {}", createAccountCommand.getEmail());
-        
+        log.info("Creating account with email: {}", createAccountCommand.getEmail());
+        accountApplicationService.createAccount(createAccountCommand);
         return "Test";
     }
 }
