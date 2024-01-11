@@ -20,5 +20,9 @@
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>account-application-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>account-domain-core</artifactId>
+        </dependency>
     </dependencies>
 </project>
