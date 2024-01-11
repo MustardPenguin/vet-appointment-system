@@ -11,6 +11,7 @@
     <modules>
         <module>common</module>
         <module>account-service</module>
+        <module>infrastructure</module>
     </modules>
 
     <parent>
@@ -39,6 +40,17 @@
                 <artifactId>account-application</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.vet.appointment.system</groupId>
+                <artifactId>account-application-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vet.appointment.system</groupId>
+                <artifactId>account-domain-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -5,3 +5,10 @@ server:
 logging:
   level:
     com.vet.appointment.system: DEBUG
+
+spring:
+  jpa:
+    show-sql: true
+  sql:
+    init:
+      schema-locations: init-schema.sql
