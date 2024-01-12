@@ -22,11 +22,6 @@ public class AccountController {
         this.accountApplicationService = accountApplicationService;
     }
 
-    @GetMapping("/api/test")
-    public String test() {
-        return "Hello world!";
-    }
-
     @PostMapping("/api/account")
     public ResponseEntity<CreateAccountResponse> registerAccount(@RequestBody @Valid CreateAccountCommand createAccountCommand) {
         log.info("Creating account with email: {}", createAccountCommand.getEmail());
