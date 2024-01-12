@@ -7,6 +7,8 @@ import com.vet.appointment.system.account.service.dataaccess.account.repository.
 import com.vet.appointment.system.account.service.domain.ports.output.repository.AccountRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class AccountRepositoryImpl implements AccountRepository {
 
@@ -24,5 +26,10 @@ public class AccountRepositoryImpl implements AccountRepository {
         AccountEntity accountEntity = accountJpaRepository.save(
                 accountDataAccessMapper.accountToAccountEntity(account));
         return accountDataAccessMapper.accountEntityToAccount(accountEntity);
+    }
+
+    @Override
+    public boolean isEmailTaken(String email) {
+        return accountJpaRepository.findByEmail(email).isPresent();
     }
 }

@@ -32,8 +32,8 @@ public class CreateAccountCommandHandler {
         AccountCreatedEvent accountCreatedEvent = accountDomainService.validateAndInitiateAccount(account);
         Account savedAccount = accountRepository.registerAccount(account);
         if(savedAccount == null) {
-            log.error("Could not save account");
-            throw new AccountDomainException("Could not save account");
+            log.error("Could not save account!");
+            throw new AccountDomainException("Could not save account!");
         }
         log.info("Successfully saved account with email: {}", savedAccount.getEmail());
         return accountCreatedEvent;

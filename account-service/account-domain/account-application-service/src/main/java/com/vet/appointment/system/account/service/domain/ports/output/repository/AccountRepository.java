@@ -5,4 +5,6 @@ import org.springframework.stereotype.Repository;
 
 public interface AccountRepository {
     Account registerAccount(Account account);
+
+    boolean isEmailTaken(String email);
 }
