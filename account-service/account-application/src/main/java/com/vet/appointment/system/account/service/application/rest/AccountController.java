@@ -31,7 +31,7 @@ public class AccountController {
     public ResponseEntity<CreateAccountResponse> registerAccount(@RequestBody @Valid CreateAccountCommand createAccountCommand) {
         log.info("Creating account with email: {}", createAccountCommand.getEmail());
         CreateAccountResponse createAccountResponse = accountApplicationService.createAccount(createAccountCommand);
-        
+
 
         return ResponseEntity.ok(createAccountResponse);
     }
