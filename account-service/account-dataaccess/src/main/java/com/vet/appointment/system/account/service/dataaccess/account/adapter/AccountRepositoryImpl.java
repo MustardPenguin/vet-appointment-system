@@ -19,7 +19,6 @@ public class AccountRepositoryImpl implements AccountRepository {
         this.accountDataAccessMapper = accountDataAccessMapper;
     }
 
-
     @Override
     public Account registerAccount(Account account) {
         AccountEntity accountEntity = accountJpaRepository.save(

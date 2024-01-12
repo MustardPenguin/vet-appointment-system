@@ -10,13 +10,10 @@ public class CreateAccountCommand {
     @Email(message = "Please enter a valid email!")
     private final String email;
     @NotBlank(message = "Password must not be blank!")
-//    @Max(value = 50)
     private final String password;
     @NotBlank(message = "First name must not be blank!")
-//    @Max(value = 50)
     private final String firstName;
     @NotBlank(message = "Last name must not be blank!")
-//    @Max(value = 50)
     private final String lastName;
 
     public String getEmail() {
