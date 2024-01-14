@@ -61,6 +61,21 @@
                 <artifactId>pet-application</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.vet.appointment.system</groupId>
+                <artifactId>pet-application-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vet.appointment.system</groupId>
+                <artifactId>pet-domain-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vet.appointment.system</groupId>
+                <artifactId>pet-dataaccess</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

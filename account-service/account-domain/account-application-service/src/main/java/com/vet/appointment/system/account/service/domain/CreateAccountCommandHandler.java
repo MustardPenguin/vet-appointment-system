@@ -26,9 +26,8 @@ public class CreateAccountCommandHandler {
         this.accountRepository = accountRepository;
     }
 
-    public AccountCreatedEvent createAccount(CreateAccountCommand createAccountCommand) {
+    public AccountCreatedEvent createAccountFromCommand(CreateAccountCommand createAccountCommand) {
         Account account = accountDataMapper.createAccountCommandToAccount(createAccountCommand);
-
         AccountCreatedEvent accountCreatedEvent = accountDomainService.validateAndInitiateAccount(account);
         Account savedAccount = accountRepository.registerAccount(account);
         if(savedAccount == null) {

@@ -1,5 +1,7 @@
 package com.vet.appointment.system.domain.entity;
 
+import com.vet.appointment.system.domain.valueobject.BaseId;
+
 import java.util.Objects;
 
 public abstract class BaseEntity<ID> {

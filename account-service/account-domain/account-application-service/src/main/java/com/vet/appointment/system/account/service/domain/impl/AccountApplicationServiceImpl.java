@@ -32,7 +32,7 @@ public class AccountApplicationServiceImpl implements AccountApplicationService 
             return new CreateAccountResponse("Email " + createAccountCommand.getEmail() + " is already taken!", 400);
         }
 
-        AccountCreatedEvent accountCreatedEvent = createAccountCommandHandler.createAccount(createAccountCommand);
+        AccountCreatedEvent accountCreatedEvent = createAccountCommandHandler.createAccountFromCommand(createAccountCommand);
 
 
 

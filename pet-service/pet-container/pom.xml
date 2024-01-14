@@ -16,5 +16,22 @@
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>pet-application</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>pet-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>pet-application-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>pet-dataaccess</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

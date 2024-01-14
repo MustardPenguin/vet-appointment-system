@@ -1,3 +1,18 @@
 
 server:
   port: 8082
+
+
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: user
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      schema-locations: classpath:init-schema.sql
+      mode: always
+      platform: postgres
