@@ -1,6 +1,7 @@
 package com.vet.appointment.system.pet.service.application.rest;
 
 import com.vet.appointment.system.pet.service.domain.dto.create.CreatePetCommand;
+import com.vet.appointment.system.pet.service.domain.dto.create.CreatePetResponse;
 import com.vet.appointment.system.pet.service.domain.ports.input.PetApplicationService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +24,9 @@ public class PetController {
     }
 
     @PostMapping("/api/pet")
-    public String createPet(@RequestBody @Valid CreatePetCommand createPetCommand) {
+    public CreatePetResponse createPet(@RequestBody @Valid CreatePetCommand createPetCommand) {
         petApplicationService.createPet(createPetCommand);
 
-        return "test";
+        return new CreatePetResponse("Successfully created pet!", 201);
     }
 }

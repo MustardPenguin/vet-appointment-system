@@ -1,20 +1,10 @@
 package com.vet.appointment.system.account.service.domain.dto.create;
 
-public class CreateAccountResponse {
+import com.vet.appointment.system.domain.dto.ResponseMessage;
 
-    private final String message;
-    private final int statusCode;
+public class CreateAccountResponse extends ResponseMessage {
 
     public CreateAccountResponse(String message, int statusCode) {
-        this.message = message;
-        this.statusCode = statusCode;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public int getStatusCode() {
-        return statusCode;
+        super(message, statusCode);
     }
 }

@@ -34,8 +34,6 @@ public class AccountApplicationServiceImpl implements AccountApplicationService 
 
         AccountCreatedEvent accountCreatedEvent = createAccountCommandHandler.createAccountFromCommand(createAccountCommand);
 
-
-
         return new CreateAccountResponse("Successfully created account!", 201);
     }
 }
