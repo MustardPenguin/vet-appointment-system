@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories(basePackages = {"com.vet.appointment.system.account.service.dataaccess"})
 @EntityScan(basePackages = {"com.vet.appointment.system.account.service.dataaccess"})
-@SpringBootApplication(scanBasePackages = "com.vet.appointment.system")
+@SpringBootApplication(scanBasePackages = {"com.vet.appointment.system", "com.vet.appointment.system.application"})
 public class AccountServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(AccountServiceApplication.class, args);

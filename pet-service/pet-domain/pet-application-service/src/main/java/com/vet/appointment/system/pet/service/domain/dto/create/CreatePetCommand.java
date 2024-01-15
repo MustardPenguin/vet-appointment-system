@@ -1,6 +1,7 @@
 package com.vet.appointment.system.pet.service.domain.dto.create;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Past;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ public class CreatePetCommand {
     @NotBlank(message = "Species must not be blank!")
     private final String species;
     @DateTimeFormat
+    @Past(message = "Birth date must be in the past!")
     private final LocalDate birthDate;
 
     public CreatePetCommand(UUID ownerId, String name, String species, LocalDate birthDate) {

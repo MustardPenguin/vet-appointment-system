@@ -32,5 +32,9 @@
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>account-dataaccess</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>common-application</artifactId>
+        </dependency>
     </dependencies>
 </project>

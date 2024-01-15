@@ -5,6 +5,7 @@ import com.vet.appointment.system.domain.valueobject.PetId;
 import com.vet.appointment.system.pet.service.domain.exception.PetDomainException;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 public class Pet extends AggregateRoot<PetId> {
@@ -28,12 +29,6 @@ public class Pet extends AggregateRoot<PetId> {
 
     public LocalDate getBirthDate() {
         return birthDate;
-    }
-
-    public void validate() {
-        if(birthDate.isAfter(LocalDate.now())) {
-            throw new PetDomainException("Pet birth date must be in the past!");
-        }
     }
 
     private Pet(Builder builder) {

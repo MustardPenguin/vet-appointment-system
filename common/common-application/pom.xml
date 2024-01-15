@@ -5,28 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.vet.appointment.system</groupId>
-        <artifactId>account-service</artifactId>
+        <artifactId>common</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>account-application</artifactId>
+    <artifactId>common-application</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.vet.appointment.system</groupId>
-            <artifactId>account-application-service</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.vet.appointment.system</groupId>
-            <artifactId>account-domain-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.vet.appointment.system</groupId>
-            <artifactId>common-domain</artifactId>
         </dependency>
     </dependencies>
 </project>

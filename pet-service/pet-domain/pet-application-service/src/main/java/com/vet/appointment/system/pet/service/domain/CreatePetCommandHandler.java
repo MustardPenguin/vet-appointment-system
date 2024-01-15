@@ -9,6 +9,10 @@ import com.vet.appointment.system.pet.service.domain.ports.output.PetRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Slf4j
 @Component
 public class CreatePetCommandHandler {
@@ -27,6 +31,7 @@ public class CreatePetCommandHandler {
 
     public PetCreatedEvent createPetFromCommand(CreatePetCommand createPetCommand) {
         Pet pet = petDataMapper.createPetCommandToPet(createPetCommand);
+
         PetCreatedEvent petCreatedEvent = petDomainService.validateAndCreatePet(pet);
         Pet savedPet = petRepository.savePet(pet);
         if(savedPet == null) {
