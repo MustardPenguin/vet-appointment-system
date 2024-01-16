@@ -30,4 +30,19 @@ public class AccountController {
 
         return ResponseEntity.ok(createAccountResponse);
     }
+
+    @PostMapping("/api/authenticate")
+    public String authenticate() {
+        return "You are authenticated!";
+    }
+
+    @GetMapping("/api/any")
+    public String freeAccess() {
+        return "I can be freely accessed!";
+    }
+
+    @GetMapping("/api/protected")
+    public String authentication() {
+        return "You can access this because you are authenticated!";
+    }
 }
