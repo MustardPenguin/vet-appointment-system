@@ -1,6 +1,7 @@
 package com.vet.appointment.system.account.service.application.security.configuration;
 
 import com.vet.appointment.system.account.service.application.impl.UserDetailsServiceImpl;
+import com.vet.appointment.system.account.service.application.security.jwt.JwtAuthenticationFilter;
 import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,15 +20,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
     private final UserDetailsServiceImpl userDetailsService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfiguration(UserDetailsServiceImpl userDetailsService) {
+    public SecurityConfiguration(UserDetailsServiceImpl userDetailsService, JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
 
@@ -43,7 +47,8 @@ public class SecurityConfiguration {
 
                         .anyRequest().authenticated());
         http.csrf(AbstractHttpConfigurer::disable);
-
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.authenticationProvider(authenticationProvider());
         return http.build();
     }
 
