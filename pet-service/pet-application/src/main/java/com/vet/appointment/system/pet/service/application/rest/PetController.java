@@ -25,7 +25,7 @@ public class PetController {
     }
 
     @PostMapping("/api/pet")
-    public ResponseEntity<CreatePetResponse> createPet(@RequestBody @Valid CreatePetCommand createPetCommand) {
+    public ResponseEntity<CreatePetResponse> createPetRequest(@RequestBody @Valid CreatePetCommand createPetCommand) {
         CreatePetResponse createPetResponse = petApplicationService.createPet(createPetCommand);
 
         return ResponseEntity.ok(createPetResponse);

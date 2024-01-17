@@ -26,7 +26,7 @@ public class AccountController {
     }
 
     @PostMapping("/api/account")
-    public ResponseEntity<CreateAccountResponse> registerAccount(@RequestBody @Valid CreateAccountCommand createAccountCommand) {
+    public ResponseEntity<CreateAccountResponse> registerAccountRequest(@RequestBody @Valid CreateAccountCommand createAccountCommand) {
         log.info("Creating account with email: {}", createAccountCommand.getEmail());
         createAccountCommand.setPassword(passwordEncoder.encode(createAccountCommand.getPassword()));
         CreateAccountResponse createAccountResponse = accountApplicationService.createAccount(createAccountCommand);

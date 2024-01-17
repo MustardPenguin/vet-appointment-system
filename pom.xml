@@ -13,6 +13,7 @@
         <module>account-service</module>
         <module>infrastructure</module>
         <module>pet-service</module>
+        <module>appointment-service</module>
     </modules>
 
     <parent>
@@ -80,6 +81,21 @@
             <dependency>
                 <groupId>com.vet.appointment.system</groupId>
                 <artifactId>pet-dataaccess</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vet.appointment.system</groupId>
+                <artifactId>appointment-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vet.appointment.system</groupId>
+                <artifactId>appointment-application-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vet.appointment.system</groupId>
+                <artifactId>appointment-domain-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

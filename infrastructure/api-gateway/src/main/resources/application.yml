@@ -5,7 +5,7 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: posts-route
+        - id: account-route
           uri: ${POSTS_ROUTE_URI:http://localhost:8081}
           predicates:
             - Path=/account
