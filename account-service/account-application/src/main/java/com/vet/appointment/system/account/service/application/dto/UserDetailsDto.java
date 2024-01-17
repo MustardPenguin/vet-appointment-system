@@ -15,7 +15,6 @@ public class UserDetailsDto implements UserDetails {
         this.password = password;
     }
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

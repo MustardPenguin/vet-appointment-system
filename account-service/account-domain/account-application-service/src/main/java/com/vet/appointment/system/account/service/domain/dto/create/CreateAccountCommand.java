@@ -8,13 +8,13 @@ public class CreateAccountCommand {
 
     @NotBlank(message = "Email must not be blank!")
     @Email(message = "Please enter a valid email!")
-    private final String email;
+    private String email;
     @NotBlank(message = "Password must not be blank!")
-    private final String password;
+    private String password;
     @NotBlank(message = "First name must not be blank!")
-    private final String firstName;
+    private String firstName;
     @NotBlank(message = "Last name must not be blank!")
-    private final String lastName;
+    private String lastName;
 
     public String getEmail() {
         return email;
@@ -32,6 +32,11 @@ public class CreateAccountCommand {
         return lastName;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    public CreateAccountCommand() {}
+
     public CreateAccountCommand(String email, String password, String firstName, String lastName) {
         this.email = email;
         this.password = password;
@@ -39,49 +44,4 @@ public class CreateAccountCommand {
         this.lastName = lastName;
     }
 
-    private CreateAccountCommand(Builder builder) {
-        email = builder.email;
-        password = builder.password;
-        firstName = builder.firstName;
-        lastName = builder.lastName;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-
-    public static final class Builder {
-        private @NotBlank @Email String email;
-        private @NotBlank @Max(value = 50) String password;
-        private @NotBlank @Max(value = 50) String firstName;
-        private @NotBlank @Max(value = 50) String lastName;
-
-        private Builder() {
-        }
-
-        public Builder email(@NotBlank @Email String val) {
-            email = val;
-            return this;
-        }
-
-        public Builder password(@NotBlank @Max(value = 50) String val) {
-            password = val;
-            return this;
-        }
-
-        public Builder firstName(@NotBlank @Max(value = 50) String val) {
-            firstName = val;
-            return this;
-        }
-
-        public Builder lastName(@NotBlank @Max(value = 50) String val) {
-            lastName = val;
-            return this;
-        }
-
-        public CreateAccountCommand build() {
-            return new CreateAccountCommand(this);
-        }
-    }
 }

@@ -18,6 +18,7 @@ public class CreateAccountCommandHandler {
     private final AccountDataMapper accountDataMapper;
     private final AccountRepository accountRepository;
 
+
     public CreateAccountCommandHandler(AccountDomainService accountDomainService,
                                        AccountDataMapper accountDataMapper,
                                        AccountRepository accountRepository) {
@@ -29,6 +30,7 @@ public class CreateAccountCommandHandler {
     public AccountCreatedEvent createAccountFromCommand(CreateAccountCommand createAccountCommand) {
         Account account = accountDataMapper.createAccountCommandToAccount(createAccountCommand);
         AccountCreatedEvent accountCreatedEvent = accountDomainService.validateAndInitiateAccount(account);
+
         Account savedAccount = accountRepository.registerAccount(account);
         if(savedAccount == null) {
             log.error("Could not save account!");
