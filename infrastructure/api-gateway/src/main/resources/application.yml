@@ -1,13 +1,23 @@
 server:
   port: 8080
 
-spring:
-  cloud:
-    gateway:
-      routes:
-        - id: account-route
-          uri: ${POSTS_ROUTE_URI:http://localhost:8081}
-          predicates:
-            - Path=/account
-          filters:
-            - PrefixPath=/api
+logging:
+  level:
+    com.vet.appointment.system.api.gateway: DEBUG
+    org:
+      springframework: INFO
+
+jwt:
+  secret: eba2564000c1fa6172fb005030cd5c173dd15e8c6e5fb8d2b67093d6dc2712ce
+
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: account-route
+#          uri: ${POSTS_ROUTE_URI:http://localhost:8181}
+#          predicates:
+#            - Path=/account
+#          filters:
+#            - PrefixPath=/api
+

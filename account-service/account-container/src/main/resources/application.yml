@@ -1,10 +1,13 @@
 
 server:
   port: 8181
+  name: "account-service"
 
 logging:
   level:
     com.vet.appointment.system: DEBUG
+    org:
+      springframework: INFO
 
 spring:
   jpa:

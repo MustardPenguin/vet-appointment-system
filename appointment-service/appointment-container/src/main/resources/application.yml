@@ -3,6 +3,8 @@ server:
   port: 8183
 
 spring:
+  application:
+    name: "appointment-service"
   jpa:
     show-sql: true
   datasource:

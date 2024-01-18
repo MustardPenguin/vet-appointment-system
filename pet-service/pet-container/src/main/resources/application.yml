@@ -4,6 +4,8 @@ server:
 
 
 spring:
+  application:
+    name: "pet-service"
   jpa:
     show-sql: true
   datasource:
