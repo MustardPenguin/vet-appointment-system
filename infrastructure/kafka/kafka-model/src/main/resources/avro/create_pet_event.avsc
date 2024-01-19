@@ -1,12 +1,21 @@
 {
   "namespace": "com.vet.appointment.system.kafka.avro.model",
-  "name": "CreatePetRequestAvroModel",
+  "name": "CreatePetEventAvroModel",
   "type": "record",
   "fields": [
-    "name": "id",
-    "type": {
-      "type": "string",
-      "logicalType": "uuid"
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
+    },
+    {
+      "name": "ownerId",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      }
     }
   ]
 }

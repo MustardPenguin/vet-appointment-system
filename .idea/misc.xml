@@ -11,6 +11,7 @@
       <set>
         <option value="$PROJECT_DIR$/account-service/account-dataacess/pom.xml" />
         <option value="$PROJECT_DIR$/account-service/account-domain/account-service-application/pom.xml" />
+        <option value="$PROJECT_DIR$/infrastructure/kkafka/pom.xml" />
       </set>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
