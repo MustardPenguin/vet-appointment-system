@@ -37,9 +37,9 @@ public class SecurityConfiguration {
     // TODO remove unnecessary security configuration and beans
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html#match-by-dispatcher-type
 //        http.authorizeHttpRequests(
 //                auth -> auth
-                        // https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html#match-by-dispatcher-type
 //                        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
 //                        .requestMatchers(HttpMethod.POST, "/api/account", "/api/authenticate").permitAll()
 //
