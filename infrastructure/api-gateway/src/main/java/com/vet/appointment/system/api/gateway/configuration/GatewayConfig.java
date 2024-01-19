@@ -29,6 +29,7 @@ public class GatewayConfig {
                         .uri("http://localhost:8182/"))
                 .route("protected-misc", route -> route
                         .path("/api/protected")
+                        .filters(filter -> filter.filter(authenticationFilter))
                         .uri("http://localhost:8181"))
                 .route("anonymous", route -> route
                         .path("/api/authenticate", "/api/any")
