@@ -12,6 +12,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
 
@@ -39,8 +42,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return new AccountLoginResponse("Invalid credentials!", "");
         }
 
-        UserDetails userDetails = userDetailsService.loadUserByUsername(accountLoginRequest.getEmail());
-        String jwtToken = jwtTokenService.generateToken(userDetails);
+        UserDetailsDto userDetails = userDetailsService.loadUserByUsername(accountLoginRequest.getEmail());
+        Map<String, String> claims = new HashMap<>();
+        claims.put("AccountId", userDetails.getAccountId().toString());
+
+//        String jwtToken = jwtTokenService.generateToken(userDetails);
+        String jwtToken = jwtTokenService.generateToken(claims, userDetails);
 
         return new AccountLoginResponse("Successfully authenticated!", jwtToken);
     }

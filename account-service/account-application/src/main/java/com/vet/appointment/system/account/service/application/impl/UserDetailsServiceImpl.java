@@ -19,9 +19,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetailsDto loadUserByUsername(String email) throws UsernameNotFoundException {
         return accountJpaRepository.findByEmail(email).map(account ->
-                new UserDetailsDto(account.getEmail(), account.getPassword())
+                new UserDetailsDto(account.getId(), account.getEmail(), account.getPassword())
         ).orElseThrow(() -> new UsernameNotFoundException("Email of " + email + " not found!"));
     }
 }

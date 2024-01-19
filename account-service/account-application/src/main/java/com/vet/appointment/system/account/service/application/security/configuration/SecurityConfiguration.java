@@ -34,21 +34,21 @@ public class SecurityConfiguration {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
-
+    // TODO remove unnecessary security configuration and beans
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(
-                auth -> auth
+//        http.authorizeHttpRequests(
+//                auth -> auth
                         // https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html#match-by-dispatcher-type
-                        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/account", "/api/authenticate").permitAll()
-
-                        .requestMatchers("/api/any").permitAll()
-
-                        .anyRequest().authenticated());
+//                        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
+//                        .requestMatchers(HttpMethod.POST, "/api/account", "/api/authenticate").permitAll()
+//
+//                        .requestMatchers("/api/any").permitAll()
+//
+//                        .anyRequest().authenticated());
         http.csrf(AbstractHttpConfigurer::disable);
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.authenticationProvider(authenticationProvider());
+//        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//        http.authenticationProvider(authenticationProvider());
         return http.build();
     }
 

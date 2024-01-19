@@ -1,18 +1,26 @@
 package com.vet.appointment.system.account.service.application.dto;
 
+import com.vet.appointment.system.domain.valueobject.AccountId;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.UUID;
 
 public class UserDetailsDto implements UserDetails {
 
+    private final UUID accountId;
     private final String username;
     private final String password;
 
-    public UserDetailsDto(String username, String password) {
+    public UserDetailsDto(UUID accountId, String username, String password) {
+        this.accountId = accountId;
         this.username = username;
         this.password = password;
+    }
+
+    public UUID getAccountId() {
+        return accountId;
     }
 
     @Override
