@@ -39,35 +39,4 @@ public class JwtTokenService {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
-    public Claims extractAllClaims(String jwtToken) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(jwtToken)
-                .getBody();
-    }
-
-    public <T> T extractClaim(String jwtToken, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(jwtToken);
-        return claimsResolver.apply(claims);
-    }
-
-    private boolean isTokenValid(String token) {
-        return extractExpiration(token).before(new Date());
-    }
-
-    public boolean isTokenValid(String jwtToken, UserDetails userDetails) {
-        final String username = extractUsername(jwtToken);
-        return username.equals(userDetails.getUsername()) && !isTokenValid(jwtToken);
-    }
-
-    private Date extractExpiration(String jwtToken) {
-        return extractClaim(jwtToken, Claims::getExpiration);
-    }
-
-    public String extractUsername(String jwtToken) {
-        return extractClaim(jwtToken, Claims::getSubject);
-    }
 }
