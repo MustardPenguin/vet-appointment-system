@@ -25,6 +25,7 @@ public class PetApplicationServiceImpl implements PetApplicationService {
     @Override
     public CreatePetResponse createPet(CreatePetCommand createPetCommand) {
         log.info("Creating pet for user id {} at service layer", createPetCommand.getOwnerId());
+
         PetCreatedEvent petCreatedEvent = createPetCommandHandler.createPetFromCommand(createPetCommand);
 
         return new CreatePetResponse("Successfully created pet!", 201);

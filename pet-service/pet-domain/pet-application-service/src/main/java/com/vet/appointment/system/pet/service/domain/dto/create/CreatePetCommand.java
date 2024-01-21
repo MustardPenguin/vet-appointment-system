@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class CreatePetCommand {
 
-    private final UUID ownerId;
+    private UUID ownerId;
     @NotBlank(message = "Pet name must not be blank!")
     private final String name;
     @NotBlank(message = "Species must not be blank!")
@@ -18,11 +18,14 @@ public class CreatePetCommand {
     @Past(message = "Birth date must be in the past!")
     private final LocalDate birthDate;
 
-    public CreatePetCommand(UUID ownerId, String name, String species, LocalDate birthDate) {
-        this.ownerId = ownerId;
+    public CreatePetCommand(String name, String species, LocalDate birthDate) {
         this.name = name;
         this.species = species;
         this.birthDate = birthDate;
+    }
+
+    public void setOwnerId(UUID ownerId) {
+        this.ownerId = ownerId;
     }
 
     public UUID getOwnerId() {

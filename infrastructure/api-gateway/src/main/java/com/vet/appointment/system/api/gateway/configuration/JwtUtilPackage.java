@@ -12,8 +12,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
-@Slf4j
-@Component
+//@Component
 public class JwtUtil {
 
     @Value("${jwt.secret}")
