@@ -6,6 +6,8 @@ import com.vet.appointment.system.account.service.application.dto.UserDetailsDto
 import com.vet.appointment.system.account.service.application.security.AuthenticationService;
 import com.vet.appointment.system.account.service.application.security.jwt.JwtTokenService;
 import com.vet.appointment.system.account.service.dataaccess.account.entity.AccountEntity;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -46,7 +48,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         Map<String, String> claims = new HashMap<>();
         claims.put("AccountId", userDetails.getAccountId().toString());
 
-//        String jwtToken = jwtTokenService.generateToken(userDetails);
         String jwtToken = jwtTokenService.generateToken(claims, userDetails);
 
         return new AccountLoginResponse("Successfully authenticated!", jwtToken);
