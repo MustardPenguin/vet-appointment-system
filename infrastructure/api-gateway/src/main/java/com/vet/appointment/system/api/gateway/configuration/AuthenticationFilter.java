@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
-import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -17,9 +16,9 @@ import reactor.core.publisher.Mono;
 public class AuthenticationFilter implements GatewayFilter {
 
     private final RouterValidator routerValidator;
-    private final JwtUtil jwtUtil;
+    private final JwtUtilPackage jwtUtil;
 
-    public AuthenticationFilter(RouterValidator routerValidator, JwtUtil jwtUtil) {
+    public AuthenticationFilter(RouterValidator routerValidator, JwtUtilPackage jwtUtil) {
         this.routerValidator = routerValidator;
         this.jwtUtil = jwtUtil;
     }
@@ -38,9 +37,15 @@ public class AuthenticationFilter implements GatewayFilter {
                 return onError(exchange, HttpStatus.FORBIDDEN);
             }
             log.info("Verified JWT token of {}", token);
+            Claims claims = jwtUtil.extractAllClaims(token);
+            String accountId = claims.get("AccountId", String.class);
+
             String email = jwtUtil.extractUsername(token);
+
             exchange.getRequest().mutate()
-                    .header("email", email).build();
+                    .header("email", email)
+                    .header("accountId", accountId)
+                    .build();
         }
         return chain.filter(exchange);
     }
