@@ -1,7 +1,6 @@
 
 server:
   port: 8181
-  name: "account-service"
 
 logging:
   level:
@@ -9,7 +8,14 @@ logging:
     org:
       springframework: INFO
 
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
 spring:
+  application:
+    name: "account-service"
   jpa:
     show-sql: true
   datasource:
