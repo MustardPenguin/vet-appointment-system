@@ -34,7 +34,7 @@ public class GatewayConfig {
                 .route("anonymous", route -> route
                         .path("/api/authenticate", "/api/any")
                         .uri("http://localhost:8181"))
-
                 .build();
+
     }
 }

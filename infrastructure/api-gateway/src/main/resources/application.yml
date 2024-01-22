@@ -1,6 +1,10 @@
 server:
   port: 8080
 
+spring:
+  application:
+    name: "api-gateway"
+
 logging:
   level:
     com.vet.appointment.system.api.gateway: DEBUG
@@ -10,14 +14,8 @@ logging:
 jwt:
   secret: eba2564000c1fa6172fb005030cd5c173dd15e8c6e5fb8d2b67093d6dc2712ce
 
-#spring:
-#  cloud:
-#    gateway:
-#      routes:
-#        - id: account-route
-#          uri: ${POSTS_ROUTE_URI:http://localhost:8181}
-#          predicates:
-#            - Path=/account
-#          filters:
-#            - PrefixPath=/api
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
 
