@@ -6,6 +6,11 @@ spring:
   application:
     name: "eureka-server"
 
+logging:
+  level:
+    org:
+      springframework: DEBUG
+
 eureka:
   client:
     register-with-eureka: false
