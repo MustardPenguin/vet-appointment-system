@@ -1,0 +1,16 @@
+
+topics:
+
+
+kafka-config-data:
+  bootstrap-servers: localhost:29092
+  schema-registry-url: localhost:8081
+  schema-registry-url-key: schema.registry.url
+
+kafka-producer-data:
+  key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
+
+kafka-consumer-data:
+  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer

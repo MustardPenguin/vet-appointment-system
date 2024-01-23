@@ -2,7 +2,7 @@
 
 <h3>Services</h3>
 To start the services, run the service application found in service container.
-Ensure the API gateway found in infrastructure is started as well.
+In the infrastructure folder, run the API gateway and Eureka server as well.
 
 <h3>SQL Database</h3>
 To run a Postgres database, execute the command
