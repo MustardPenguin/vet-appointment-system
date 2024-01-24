@@ -32,6 +32,7 @@ public class AppointmentOutboxHelper {
 
     @Transactional
     public void save(AccountAppointmentOutboxMessage accountAppointmentOutboxMessage) {
+        log.info("Payload: {}", accountAppointmentOutboxMessage.getPayload());
         AccountAppointmentOutboxMessage response = appointmentOutboxRepository.save(accountAppointmentOutboxMessage);
         if(response == null) {
             log.error("Could not save AccountAppointmentOutboxMessage of id: {}", accountAppointmentOutboxMessage.getId());
