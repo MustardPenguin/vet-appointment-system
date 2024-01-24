@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+  init-kafka:
+    image: confluentinc/cp-kafka:latest
+    entrypoint: ['/bin/sh', '-c']
+    # For mac
+    platform: linux/amd64
+    command: |
+      "
+      echo -e 'Deleting kafka topics...'
+      kafka-topics --delete --topic account-created-event --bootstrap-server localhost:29092 --if-exists
+      kafka-topics --delete --topic pet-created-event --bootstrap-server localhost:29092 --if-exists
+      
+      kafka-topics --create --topic account-created-event --bootstrap-server localhost:29092 --if-not-exists
+      kafka-topics --create --topic pet-created-event --bootstrap-server localhost:29092 --if-not-exists
+      
+      echo -e 'Created kafka topics of'
+      kafka-topics --bootstrap-server localhost:29092 --list
+      "
+    network_mode: host
