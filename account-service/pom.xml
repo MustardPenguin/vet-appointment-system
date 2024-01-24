@@ -16,6 +16,7 @@
         <module>account-application</module>
         <module>account-dataaccess</module>
         <module>account-container</module>
+        <module>account-messaging</module>
     </modules>
 
 </project>

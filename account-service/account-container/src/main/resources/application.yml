@@ -19,7 +19,7 @@ spring:
   jpa:
     show-sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified
     username: user
     password: admin
     driver-class-name: org.postgresql.Driver
