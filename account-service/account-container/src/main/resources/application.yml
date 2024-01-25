@@ -1,4 +1,8 @@
 
+account-service:
+  outbox-scheduler-delay: 10000
+  outbox-scheduler-rate: 10000
+
 server:
   port: 8181
 

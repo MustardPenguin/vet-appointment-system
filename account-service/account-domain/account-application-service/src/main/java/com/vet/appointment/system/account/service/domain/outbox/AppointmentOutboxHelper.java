@@ -61,4 +61,6 @@ public class AppointmentOutboxHelper {
             throw new AccountDomainException("Could not create AccountAppointmentEventPayload object for account id: " + accountAppointmentEventPayload.getId());
         }
     }
+
+
 }
