@@ -10,10 +10,16 @@ public class AccountAppointmentEventPayload {
     private UUID id;
     @JsonProperty
     private String email;
+    @JsonProperty
+    private String firstName;
+    @JsonProperty
+    private String lastName;
 
-    public AccountAppointmentEventPayload(UUID id, String email) {
+    public AccountAppointmentEventPayload(UUID id, String email, String firstName, String lastName) {
         this.id = id;
         this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public UUID getId() {
@@ -22,5 +28,13 @@ public class AccountAppointmentEventPayload {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 }

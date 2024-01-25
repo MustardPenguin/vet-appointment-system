@@ -1,7 +1,7 @@
 package com.vet.appointment.system.account.service.domain.impl;
 
 import com.vet.appointment.service.account.service.domain.event.AccountCreatedEvent;
-import com.vet.appointment.system.account.service.domain.outbox.AppointmentOutboxHelper;
+import com.vet.appointment.system.account.service.domain.outbox.scheduler.appointment.AppointmentOutboxHelper;
 import com.vet.appointment.system.account.service.domain.CreateAccountCommandHandler;
 import com.vet.appointment.system.account.service.domain.dto.create.CreateAccountCommand;
 import com.vet.appointment.system.account.service.domain.dto.create.CreateAccountResponse;

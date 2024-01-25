@@ -21,6 +21,8 @@ public class AccountDataMapper {
     public AccountAppointmentEventPayload accountCreatedEventToAccountAppointmentEventPayload(AccountCreatedEvent accountCreatedEvent) {
         return new AccountAppointmentEventPayload(
                 accountCreatedEvent.getEntity().getId().getValue(),
-                accountCreatedEvent.getEntity().getEmail());
+                accountCreatedEvent.getEntity().getEmail(),
+                accountCreatedEvent.getEntity().getFirstName(),
+                accountCreatedEvent.getEntity().getLastName());
     }
 }

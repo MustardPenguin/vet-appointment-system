@@ -13,6 +13,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>
@@ -20,6 +24,10 @@
         <dependency>
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>kafka-config-data</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>kafka-model</artifactId>
         </dependency>
     </dependencies>
 </project>

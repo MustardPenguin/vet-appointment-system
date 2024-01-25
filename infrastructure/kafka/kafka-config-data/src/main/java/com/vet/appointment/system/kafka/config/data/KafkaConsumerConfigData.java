@@ -17,4 +17,12 @@ public class KafkaConsumerConfigData {
     public String getValueDeserializer() {
         return valueDeserializer;
     }
+
+    public void setKeyDeserializer(String keyDeserializer) {
+        this.keyDeserializer = keyDeserializer;
+    }
+
+    public void setValueDeserializer(String valueDeserializer) {
+        this.valueDeserializer = valueDeserializer;
+    }
 }

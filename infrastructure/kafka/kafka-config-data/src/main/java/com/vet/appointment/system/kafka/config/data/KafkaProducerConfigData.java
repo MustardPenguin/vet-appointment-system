@@ -17,4 +17,12 @@ public class KafkaProducerConfigData {
     public String getValueSerializerClass() {
         return valueSerializerClass;
     }
+
+    public void setKeySerializerClass(String keySerializerClass) {
+        this.keySerializerClass = keySerializerClass;
+    }
+
+    public void setValueSerializerClass(String valueSerializerClass) {
+        this.valueSerializerClass = valueSerializerClass;
+    }
 }

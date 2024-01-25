@@ -1,4 +1,4 @@
-package com.vet.appointment.system.account.service.domain.outbox;
+package com.vet.appointment.system.account.service.domain.outbox.scheduler.appointment;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,6 +60,5 @@ public class AppointmentOutboxHelper {
             throw new AccountDomainException("Could not create AccountAppointmentEventPayload object for account id: " + accountAppointmentEventPayload.getId());
         }
     }
-
 
 }
