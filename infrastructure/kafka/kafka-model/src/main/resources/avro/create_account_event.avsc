@@ -15,10 +15,6 @@
       "type": "string"
     },
     {
-      "name": "password",
-      "type": "string"
-    },
-    {
       "name": "firstName",
       "type": "string"
     },

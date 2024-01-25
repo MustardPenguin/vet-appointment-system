@@ -20,17 +20,6 @@
     {
       "name": "name",
       "type": "string"
-    },
-    {
-      "name": "species",
-      "type": "string"
-    },
-    {
-      "name": "birthDate",
-      "type": {
-        "type": "string",
-        "logicalType": "date"
-      }
     }
   ]
 }

@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class CreateAccountEventAvroModel extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -6719806065693482116L;
+  private static final long serialVersionUID = 1799902838834443703L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"CreateAccountEventAvroModel\",\"namespace\":\"com.vet.appointment.system.kafka.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"email\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"password\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"firstName\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"lastName\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"CreateAccountEventAvroModel\",\"namespace\":\"com.vet.appointment.system.kafka.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"email\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"firstName\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"lastName\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -75,7 +75,6 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
 
   private java.lang.String id;
   private java.lang.String email;
-  private java.lang.String password;
   private java.lang.String firstName;
   private java.lang.String lastName;
 
@@ -90,14 +89,12 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
    * All-args constructor.
    * @param id The new value for id
    * @param email The new value for email
-   * @param password The new value for password
    * @param firstName The new value for firstName
    * @param lastName The new value for lastName
    */
-  public CreateAccountEventAvroModel(java.lang.String id, java.lang.String email, java.lang.String password, java.lang.String firstName, java.lang.String lastName) {
+  public CreateAccountEventAvroModel(java.lang.String id, java.lang.String email, java.lang.String firstName, java.lang.String lastName) {
     this.id = id;
     this.email = email;
-    this.password = password;
     this.firstName = firstName;
     this.lastName = lastName;
   }
@@ -109,16 +106,14 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
     switch (field$) {
     case 0: return id;
     case 1: return email;
-    case 2: return password;
-    case 3: return firstName;
-    case 4: return lastName;
+    case 2: return firstName;
+    case 3: return lastName;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
   private static final org.apache.avro.Conversion<?>[] conversions =
       new org.apache.avro.Conversion<?>[] {
-      null,
       null,
       null,
       null,
@@ -137,9 +132,8 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
     switch (field$) {
     case 0: id = value$ != null ? value$.toString() : null; break;
     case 1: email = value$ != null ? value$.toString() : null; break;
-    case 2: password = value$ != null ? value$.toString() : null; break;
-    case 3: firstName = value$ != null ? value$.toString() : null; break;
-    case 4: lastName = value$ != null ? value$.toString() : null; break;
+    case 2: firstName = value$ != null ? value$.toString() : null; break;
+    case 3: lastName = value$ != null ? value$.toString() : null; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -176,23 +170,6 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
    */
   public void setEmail(java.lang.String value) {
     this.email = value;
-  }
-
-  /**
-   * Gets the value of the 'password' field.
-   * @return The value of the 'password' field.
-   */
-  public java.lang.String getPassword() {
-    return password;
-  }
-
-
-  /**
-   * Sets the value of the 'password' field.
-   * @param value the value to set.
-   */
-  public void setPassword(java.lang.String value) {
-    this.password = value;
   }
 
   /**
@@ -272,7 +249,6 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
 
     private java.lang.String id;
     private java.lang.String email;
-    private java.lang.String password;
     private java.lang.String firstName;
     private java.lang.String lastName;
 
@@ -295,17 +271,13 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
         this.email = data().deepCopy(fields()[1].schema(), other.email);
         fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
-      if (isValidValue(fields()[2], other.password)) {
-        this.password = data().deepCopy(fields()[2].schema(), other.password);
+      if (isValidValue(fields()[2], other.firstName)) {
+        this.firstName = data().deepCopy(fields()[2].schema(), other.firstName);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
-      if (isValidValue(fields()[3], other.firstName)) {
-        this.firstName = data().deepCopy(fields()[3].schema(), other.firstName);
+      if (isValidValue(fields()[3], other.lastName)) {
+        this.lastName = data().deepCopy(fields()[3].schema(), other.lastName);
         fieldSetFlags()[3] = other.fieldSetFlags()[3];
-      }
-      if (isValidValue(fields()[4], other.lastName)) {
-        this.lastName = data().deepCopy(fields()[4].schema(), other.lastName);
-        fieldSetFlags()[4] = other.fieldSetFlags()[4];
       }
     }
 
@@ -323,17 +295,13 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
         this.email = data().deepCopy(fields()[1].schema(), other.email);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.password)) {
-        this.password = data().deepCopy(fields()[2].schema(), other.password);
+      if (isValidValue(fields()[2], other.firstName)) {
+        this.firstName = data().deepCopy(fields()[2].schema(), other.firstName);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.firstName)) {
-        this.firstName = data().deepCopy(fields()[3].schema(), other.firstName);
+      if (isValidValue(fields()[3], other.lastName)) {
+        this.lastName = data().deepCopy(fields()[3].schema(), other.lastName);
         fieldSetFlags()[3] = true;
-      }
-      if (isValidValue(fields()[4], other.lastName)) {
-        this.lastName = data().deepCopy(fields()[4].schema(), other.lastName);
-        fieldSetFlags()[4] = true;
       }
     }
 
@@ -418,46 +386,6 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
     }
 
     /**
-      * Gets the value of the 'password' field.
-      * @return The value.
-      */
-    public java.lang.String getPassword() {
-      return password;
-    }
-
-
-    /**
-      * Sets the value of the 'password' field.
-      * @param value The value of 'password'.
-      * @return This builder.
-      */
-    public com.vet.appointment.system.kafka.avro.model.CreateAccountEventAvroModel.Builder setPassword(java.lang.String value) {
-      validate(fields()[2], value);
-      this.password = value;
-      fieldSetFlags()[2] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'password' field has been set.
-      * @return True if the 'password' field has been set, false otherwise.
-      */
-    public boolean hasPassword() {
-      return fieldSetFlags()[2];
-    }
-
-
-    /**
-      * Clears the value of the 'password' field.
-      * @return This builder.
-      */
-    public com.vet.appointment.system.kafka.avro.model.CreateAccountEventAvroModel.Builder clearPassword() {
-      password = null;
-      fieldSetFlags()[2] = false;
-      return this;
-    }
-
-    /**
       * Gets the value of the 'firstName' field.
       * @return The value.
       */
@@ -472,9 +400,9 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
       * @return This builder.
       */
     public com.vet.appointment.system.kafka.avro.model.CreateAccountEventAvroModel.Builder setFirstName(java.lang.String value) {
-      validate(fields()[3], value);
+      validate(fields()[2], value);
       this.firstName = value;
-      fieldSetFlags()[3] = true;
+      fieldSetFlags()[2] = true;
       return this;
     }
 
@@ -483,7 +411,7 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
       * @return True if the 'firstName' field has been set, false otherwise.
       */
     public boolean hasFirstName() {
-      return fieldSetFlags()[3];
+      return fieldSetFlags()[2];
     }
 
 
@@ -493,7 +421,7 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
       */
     public com.vet.appointment.system.kafka.avro.model.CreateAccountEventAvroModel.Builder clearFirstName() {
       firstName = null;
-      fieldSetFlags()[3] = false;
+      fieldSetFlags()[2] = false;
       return this;
     }
 
@@ -512,9 +440,9 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
       * @return This builder.
       */
     public com.vet.appointment.system.kafka.avro.model.CreateAccountEventAvroModel.Builder setLastName(java.lang.String value) {
-      validate(fields()[4], value);
+      validate(fields()[3], value);
       this.lastName = value;
-      fieldSetFlags()[4] = true;
+      fieldSetFlags()[3] = true;
       return this;
     }
 
@@ -523,7 +451,7 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
       * @return True if the 'lastName' field has been set, false otherwise.
       */
     public boolean hasLastName() {
-      return fieldSetFlags()[4];
+      return fieldSetFlags()[3];
     }
 
 
@@ -533,7 +461,7 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
       */
     public com.vet.appointment.system.kafka.avro.model.CreateAccountEventAvroModel.Builder clearLastName() {
       lastName = null;
-      fieldSetFlags()[4] = false;
+      fieldSetFlags()[3] = false;
       return this;
     }
 
@@ -544,9 +472,8 @@ public class CreateAccountEventAvroModel extends org.apache.avro.specific.Specif
         CreateAccountEventAvroModel record = new CreateAccountEventAvroModel();
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.String) defaultValue(fields()[0]);
         record.email = fieldSetFlags()[1] ? this.email : (java.lang.String) defaultValue(fields()[1]);
-        record.password = fieldSetFlags()[2] ? this.password : (java.lang.String) defaultValue(fields()[2]);
-        record.firstName = fieldSetFlags()[3] ? this.firstName : (java.lang.String) defaultValue(fields()[3]);
-        record.lastName = fieldSetFlags()[4] ? this.lastName : (java.lang.String) defaultValue(fields()[4]);
+        record.firstName = fieldSetFlags()[2] ? this.firstName : (java.lang.String) defaultValue(fields()[2]);
+        record.lastName = fieldSetFlags()[3] ? this.lastName : (java.lang.String) defaultValue(fields()[3]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
