@@ -5,7 +5,7 @@ To start the services, run the service application found in service container.
 In the infrastructure folder, run the API gateway and Eureka server as well.
 
 <h3>SQL Database</h3>
-To run a Postgres database, execute the command
+To run a Postgres database, execute the command:
 
 ```bash
 docker run -d -p 5432:5432 --name postgres -e POSTGRES_USER=user -e POSTGRES_PASSWORD=admin postgres
@@ -17,3 +17,11 @@ To run kafka deployment, run the following command in "infrastructure/docker-com
 ```bash
 docker-compose -f kafka-deployment.yml up
 ```
+
+This should run the necessary images, including kafka broker, zookeeper, and schema registry.
+
+To create topics for kafka:
+```bash
+docker-compose -f init-kafka.yml up
+```
+
