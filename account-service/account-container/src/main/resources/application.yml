@@ -12,7 +12,7 @@ logging:
   level:
     com.vet.appointment.system: DEBUG
     org:
-      springframework: INFO
+      springframework: DEBUG
 
 # Service registry
 eureka:

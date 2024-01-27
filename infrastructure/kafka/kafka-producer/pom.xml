@@ -20,6 +20,10 @@
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-avro-serializer</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.vet.appointment.system</groupId>
@@ -28,6 +32,11 @@
         <dependency>
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>kafka-model</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>outbox</artifactId>
         </dependency>
     </dependencies>
 </project>
