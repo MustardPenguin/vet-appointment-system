@@ -32,7 +32,6 @@ public class KafkaMessageHelper {
     public <T, U> BiConsumer<SendResult<String, T>, Throwable> getKafkaCallback(
             String topicName, T avroModel, U outboxMessage,
             BiConsumer<U, OutboxStatus> callback) {
-
         return (result, ex) -> {
             if(ex == null) {
                 log.info("Received response from kafka for topic {}", topicName);

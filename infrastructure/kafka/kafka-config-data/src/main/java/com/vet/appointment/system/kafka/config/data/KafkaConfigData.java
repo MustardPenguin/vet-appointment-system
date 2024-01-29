@@ -8,16 +8,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "kafka-config-data")
 public class KafkaConfigData {
-    private String bootstrapServers;
+    private String bootstrapServer;
     private String schemaRegistryUrlKey;
     private String schemaRegistryUrl;
 
-    public String getBootstrapServers() {
-        return bootstrapServers;
+    public String getBootstrapServer() {
+        return bootstrapServer;
     }
 
-    public void setBootstrapServers(String bootstrapServers) {
-        this.bootstrapServers = bootstrapServers;
+    public void setBootstrapServer(String bootstrapServer) {
+        this.bootstrapServer = bootstrapServer;
     }
 
     public String getSchemaRegistryUrlKey() {

@@ -26,7 +26,6 @@ public class KafkaProducerImpl<K extends Serializable, V extends SpecificRecordB
     @Override
     public void send(String topicName, K key, V message,
                      BiConsumer<SendResult<K, V>, Throwable> callback) {
-        log.info("Sending messages to kafka bus");
         try {
             CompletableFuture<SendResult<K, V>> kafkaResultFuture = kafkaTemplate.send(
                     topicName, key, message);
