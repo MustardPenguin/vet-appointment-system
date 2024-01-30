@@ -46,5 +46,9 @@
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>common-application</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>common-dataaccess</artifactId>
+        </dependency>
     </dependencies>
 </project>

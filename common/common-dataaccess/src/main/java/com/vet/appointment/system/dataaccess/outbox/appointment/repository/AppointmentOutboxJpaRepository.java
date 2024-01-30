@@ -1,6 +1,6 @@
-package com.vet.appointment.system.account.service.dataaccess.outbox.appointment.repository;
+package com.vet.appointment.system.dataaccess.outbox.appointment.repository;
 
-import com.vet.appointment.system.account.service.dataaccess.outbox.appointment.entity.AppointmentOutboxEntity;
+import com.vet.appointment.system.dataaccess.outbox.appointment.entity.AppointmentOutboxEntity;
 import com.vet.appointment.system.outbox.OutboxStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package com.vet.appointment.system.account.service.dataaccess.outbox.appointment.entity;
+package com.vet.appointment.system.dataaccess.outbox.appointment.entity;
 
 import com.vet.appointment.system.outbox.OutboxStatus;
 import jakarta.persistence.*;
