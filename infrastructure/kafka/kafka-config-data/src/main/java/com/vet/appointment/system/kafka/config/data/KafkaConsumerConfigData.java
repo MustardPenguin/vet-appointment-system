@@ -10,6 +10,25 @@ public class KafkaConsumerConfigData {
     private String keyDeserializer;
     private String valueDeserializer;
 
+    private String specificAvroReader;
+    private String specificAvroReaderKey;
+
+    public String getSpecificAvroReader() {
+        return specificAvroReader;
+    }
+
+    public void setSpecificAvroReader(String specificAvroReader) {
+        this.specificAvroReader = specificAvroReader;
+    }
+
+    public String getSpecificAvroReaderKey() {
+        return specificAvroReaderKey;
+    }
+
+    public void setSpecificAvroReaderKey(String specificAvroReaderKey) {
+        this.specificAvroReaderKey = specificAvroReaderKey;
+    }
+
     public String getKeyDeserializer() {
         return keyDeserializer;
     }
