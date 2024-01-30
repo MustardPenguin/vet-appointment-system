@@ -21,12 +21,20 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>appointment-application</artifactId>
         </dependency>
         <dependency>
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>appointment-messaging</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>appointment-dataaccess</artifactId>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

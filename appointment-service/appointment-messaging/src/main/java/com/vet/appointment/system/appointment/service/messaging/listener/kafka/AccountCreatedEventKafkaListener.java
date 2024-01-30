@@ -1,5 +1,7 @@
-package com.vet.appointment.system.account.messaging.listener.kafka;
+package com.vet.appointment.system.appointment.service.messaging.listener.kafka;
 
+import com.vet.appointment.system.appointment.service.domain.dto.message.AccountModel;
+import com.vet.appointment.system.appointment.service.domain.ports.input.AccountCreatedMessageListener;
 import com.vet.appointment.system.kafka.avro.model.CreateAccountEventAvroModel;
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +19,12 @@ import static com.vet.appointment.system.appointment.service.domain.config.Appoi
 @Component
 public class AccountCreatedEventKafkaListener implements KafkaConsumer<CreateAccountEventAvroModel> {
 
+    private final AccountCreatedMessageListener accountCreatedMessageListener;
+
+    public AccountCreatedEventKafkaListener(AccountCreatedMessageListener accountCreatedMessageListener) {
+        this.accountCreatedMessageListener = accountCreatedMessageListener;
+    }
+
     // TODO Add headers for arguments keys and partitions
     @Override
     @KafkaListener(topics = CreateAccountEventTopicName, groupId = "1")
@@ -29,5 +37,13 @@ public class AccountCreatedEventKafkaListener implements KafkaConsumer<CreateAcc
         log.info("Key: {}", keys);
         log.info("Partitions: {}", partitions);
         log.info("Offsets: {}", offsets);
+        messages.forEach(accountEventAvroModel ->
+                accountCreatedMessageListener.accountCreated(
+                        new AccountModel(
+                                accountEventAvroModel.getId(),
+                                accountEventAvroModel.getEmail(),
+                                accountEventAvroModel.getFirstName(),
+                                accountEventAvroModel.getLastName())));
+
     }
 }
