@@ -16,6 +16,7 @@
         <module>pet-application</module>
         <module>pet-container</module>
         <module>pet-dataaccess</module>
+        <module>pet-messaging</module>
     </modules>
 
 </project>

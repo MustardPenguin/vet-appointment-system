@@ -21,8 +21,16 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>pet-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>outbox</artifactId>
         </dependency>
     </dependencies>
 </project>

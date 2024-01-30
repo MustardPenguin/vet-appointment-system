@@ -1,26 +1,20 @@
-package com.vet.appointment.system.dataaccess.outbox.appointment.entity;
+package com.vet.appointment.system.pet.service.domain.outbox.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vet.appointment.system.outbox.OutboxStatus;
-import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-@Table(name = "appointment_outbox")
-@Entity
-public class AppointmentOutboxEntity {
+public class PetAppointmentOutboxMessage {
 
-    @Id
     private UUID id;
     private ZonedDateTime createdAt;
     private ZonedDateTime processedAt;
     private String payload;
-    @Enumerated(EnumType.STRING)
     private OutboxStatus outboxStatus;
-    @Version
     private int version;
-
-    public AppointmentOutboxEntity() {}
 
     public UUID getId() {
         return id;
@@ -46,21 +40,25 @@ public class AppointmentOutboxEntity {
         return version;
     }
 
-    public void setOutboxStatus(OutboxStatus outboxStatus) {
-        this.outboxStatus = outboxStatus;
-    }
-
-    private AppointmentOutboxEntity(Builder builder) {
+    private PetAppointmentOutboxMessage(Builder builder) {
         id = builder.id;
         createdAt = builder.createdAt;
-        processedAt = builder.processedAt;
+        setProcessedAt(builder.processedAt);
         payload = builder.payload;
-        outboxStatus = builder.outboxStatus;
+        setOutboxStatus(builder.outboxStatus);
         version = builder.version;
     }
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    public void setProcessedAt(ZonedDateTime processedAt) {
+        this.processedAt = processedAt;
+    }
+
+    public void setOutboxStatus(OutboxStatus outboxStatus) {
+        this.outboxStatus = outboxStatus;
     }
 
 
@@ -69,11 +67,11 @@ public class AppointmentOutboxEntity {
         private ZonedDateTime createdAt;
         private ZonedDateTime processedAt;
         private String payload;
-        @Enumerated(EnumType.STRING)
         private OutboxStatus outboxStatus;
         private int version;
 
-        private Builder() {}
+        private Builder() {
+        }
 
         public Builder id(UUID val) {
             id = val;
@@ -105,8 +103,8 @@ public class AppointmentOutboxEntity {
             return this;
         }
 
-        public AppointmentOutboxEntity build() {
-            return new AppointmentOutboxEntity(this);
+        public PetAppointmentOutboxMessage build() {
+            return new PetAppointmentOutboxMessage(this);
         }
     }
 }
