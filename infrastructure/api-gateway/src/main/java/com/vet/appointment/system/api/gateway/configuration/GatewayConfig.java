@@ -22,12 +22,15 @@ public class GatewayConfig {
                         .path("/api/account")
                         .and().method(HttpMethod.POST)
                         .filters(filter -> filter.filter(authenticationFilter))
-//                        .uri("http://localhost:8181/"))
                         .uri("lb://account-service"))
                 .route("register-pet", route -> route
                         .path("/api/pet")
                         .filters(filter -> filter.filter(authenticationFilter))
                         .uri("lb://pet-service"))
+                .route("create-appointment", route -> route
+                        .path("/api/appointment")
+                        .filters(filter -> filter.filter(authenticationFilter))
+                        .uri("lb://appointment-service"))
                 .route("protected-misc", route -> route
                         .path("/api/protected")
                         .filters(filter -> filter.filter(authenticationFilter))
