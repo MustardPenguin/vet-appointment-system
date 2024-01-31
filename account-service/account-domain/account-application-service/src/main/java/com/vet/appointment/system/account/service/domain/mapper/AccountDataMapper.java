@@ -19,10 +19,12 @@ public class AccountDataMapper {
     }
 
     public AccountAppointmentEventPayload accountCreatedEventToAccountAppointmentEventPayload(AccountCreatedEvent accountCreatedEvent) {
-        return new AccountAppointmentEventPayload(
-                accountCreatedEvent.getEntity().getId().getValue(),
-                accountCreatedEvent.getEntity().getEmail(),
-                accountCreatedEvent.getEntity().getFirstName(),
-                accountCreatedEvent.getEntity().getLastName());
+        return AccountAppointmentEventPayload.builder()
+                .id(accountCreatedEvent.getEntity().getId().getValue())
+                .createdAt(accountCreatedEvent.getCreatedAt())
+                .email(accountCreatedEvent.getEntity().getEmail())
+                .firstName(accountCreatedEvent.getEntity().getFirstName())
+                .lastName(accountCreatedEvent.getEntity().getLastName())
+                .build();
     }
 }

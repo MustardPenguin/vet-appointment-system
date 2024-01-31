@@ -46,7 +46,7 @@ public class AppointmentOutboxHelper {
                                              OutboxStatus outboxStatus) {
         save(AccountAppointmentOutboxMessage.builder()
                 .id(UUID.randomUUID())
-                .createdAt(ZonedDateTime.now(ZoneId.of(UTC)))
+                .createdAt(accountAppointmentEventPayload.getCreatedAt())
                 .payload(createPayload(accountAppointmentEventPayload))
                 .outboxStatus(outboxStatus)
                 .build());
