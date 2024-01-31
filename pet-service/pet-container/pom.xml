@@ -29,6 +29,10 @@
             <artifactId>pet-dataaccess</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>pet-messaging</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>

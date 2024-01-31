@@ -5,7 +5,7 @@ import com.vet.appointment.system.pet.service.domain.entity.Pet;
 import com.vet.appointment.system.pet.service.domain.event.PetCreatedEvent;
 import com.vet.appointment.system.pet.service.domain.exception.PetDomainException;
 import com.vet.appointment.system.pet.service.domain.mapper.PetDataMapper;
-import com.vet.appointment.system.pet.service.domain.ports.output.PetRepository;
+import com.vet.appointment.system.pet.service.domain.ports.output.repository.PetRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

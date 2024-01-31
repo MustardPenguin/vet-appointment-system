@@ -20,6 +20,14 @@
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>kafka-producer</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>kafka-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>pet-application-service</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

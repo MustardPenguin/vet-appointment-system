@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -1532116558442856844L;
+  private static final long serialVersionUID = 1484980113459675389L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"CreatePetEventAvroModel\",\"namespace\":\"com.vet.appointment.system.kafka.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"ownerId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"CreatePetEventAvroModel\",\"namespace\":\"com.vet.appointment.system.kafka.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"ownerId\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"name\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"species\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}},{\"name\":\"birthDate\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -76,6 +76,8 @@ public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRe
   private java.lang.String id;
   private java.lang.String ownerId;
   private java.lang.String name;
+  private java.lang.String species;
+  private java.lang.String birthDate;
 
   /**
    * Default constructor.  Note that this does not initialize fields
@@ -89,11 +91,15 @@ public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRe
    * @param id The new value for id
    * @param ownerId The new value for ownerId
    * @param name The new value for name
+   * @param species The new value for species
+   * @param birthDate The new value for birthDate
    */
-  public CreatePetEventAvroModel(java.lang.String id, java.lang.String ownerId, java.lang.String name) {
+  public CreatePetEventAvroModel(java.lang.String id, java.lang.String ownerId, java.lang.String name, java.lang.String species, java.lang.String birthDate) {
     this.id = id;
     this.ownerId = ownerId;
     this.name = name;
+    this.species = species;
+    this.birthDate = birthDate;
   }
 
   public org.apache.avro.specific.SpecificData getSpecificData() { return MODEL$; }
@@ -104,12 +110,16 @@ public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRe
     case 0: return id;
     case 1: return ownerId;
     case 2: return name;
+    case 3: return species;
+    case 4: return birthDate;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
 
   private static final org.apache.avro.Conversion<?>[] conversions =
       new org.apache.avro.Conversion<?>[] {
+      null,
+      null,
       null,
       null,
       null,
@@ -128,6 +138,8 @@ public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRe
     case 0: id = value$ != null ? value$.toString() : null; break;
     case 1: ownerId = value$ != null ? value$.toString() : null; break;
     case 2: name = value$ != null ? value$.toString() : null; break;
+    case 3: species = value$ != null ? value$.toString() : null; break;
+    case 4: birthDate = value$ != null ? value$.toString() : null; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -184,6 +196,40 @@ public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRe
   }
 
   /**
+   * Gets the value of the 'species' field.
+   * @return The value of the 'species' field.
+   */
+  public java.lang.String getSpecies() {
+    return species;
+  }
+
+
+  /**
+   * Sets the value of the 'species' field.
+   * @param value the value to set.
+   */
+  public void setSpecies(java.lang.String value) {
+    this.species = value;
+  }
+
+  /**
+   * Gets the value of the 'birthDate' field.
+   * @return The value of the 'birthDate' field.
+   */
+  public java.lang.String getBirthDate() {
+    return birthDate;
+  }
+
+
+  /**
+   * Sets the value of the 'birthDate' field.
+   * @param value the value to set.
+   */
+  public void setBirthDate(java.lang.String value) {
+    this.birthDate = value;
+  }
+
+  /**
    * Creates a new CreatePetEventAvroModel RecordBuilder.
    * @return A new CreatePetEventAvroModel RecordBuilder
    */
@@ -227,6 +273,8 @@ public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRe
     private java.lang.String id;
     private java.lang.String ownerId;
     private java.lang.String name;
+    private java.lang.String species;
+    private java.lang.String birthDate;
 
     /** Creates a new Builder */
     private Builder() {
@@ -251,6 +299,14 @@ public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRe
         this.name = data().deepCopy(fields()[2].schema(), other.name);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
+      if (isValidValue(fields()[3], other.species)) {
+        this.species = data().deepCopy(fields()[3].schema(), other.species);
+        fieldSetFlags()[3] = other.fieldSetFlags()[3];
+      }
+      if (isValidValue(fields()[4], other.birthDate)) {
+        this.birthDate = data().deepCopy(fields()[4].schema(), other.birthDate);
+        fieldSetFlags()[4] = other.fieldSetFlags()[4];
+      }
     }
 
     /**
@@ -270,6 +326,14 @@ public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRe
       if (isValidValue(fields()[2], other.name)) {
         this.name = data().deepCopy(fields()[2].schema(), other.name);
         fieldSetFlags()[2] = true;
+      }
+      if (isValidValue(fields()[3], other.species)) {
+        this.species = data().deepCopy(fields()[3].schema(), other.species);
+        fieldSetFlags()[3] = true;
+      }
+      if (isValidValue(fields()[4], other.birthDate)) {
+        this.birthDate = data().deepCopy(fields()[4].schema(), other.birthDate);
+        fieldSetFlags()[4] = true;
       }
     }
 
@@ -393,6 +457,86 @@ public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRe
       return this;
     }
 
+    /**
+      * Gets the value of the 'species' field.
+      * @return The value.
+      */
+    public java.lang.String getSpecies() {
+      return species;
+    }
+
+
+    /**
+      * Sets the value of the 'species' field.
+      * @param value The value of 'species'.
+      * @return This builder.
+      */
+    public com.vet.appointment.system.kafka.avro.model.CreatePetEventAvroModel.Builder setSpecies(java.lang.String value) {
+      validate(fields()[3], value);
+      this.species = value;
+      fieldSetFlags()[3] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'species' field has been set.
+      * @return True if the 'species' field has been set, false otherwise.
+      */
+    public boolean hasSpecies() {
+      return fieldSetFlags()[3];
+    }
+
+
+    /**
+      * Clears the value of the 'species' field.
+      * @return This builder.
+      */
+    public com.vet.appointment.system.kafka.avro.model.CreatePetEventAvroModel.Builder clearSpecies() {
+      species = null;
+      fieldSetFlags()[3] = false;
+      return this;
+    }
+
+    /**
+      * Gets the value of the 'birthDate' field.
+      * @return The value.
+      */
+    public java.lang.String getBirthDate() {
+      return birthDate;
+    }
+
+
+    /**
+      * Sets the value of the 'birthDate' field.
+      * @param value The value of 'birthDate'.
+      * @return This builder.
+      */
+    public com.vet.appointment.system.kafka.avro.model.CreatePetEventAvroModel.Builder setBirthDate(java.lang.String value) {
+      validate(fields()[4], value);
+      this.birthDate = value;
+      fieldSetFlags()[4] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'birthDate' field has been set.
+      * @return True if the 'birthDate' field has been set, false otherwise.
+      */
+    public boolean hasBirthDate() {
+      return fieldSetFlags()[4];
+    }
+
+
+    /**
+      * Clears the value of the 'birthDate' field.
+      * @return This builder.
+      */
+    public com.vet.appointment.system.kafka.avro.model.CreatePetEventAvroModel.Builder clearBirthDate() {
+      birthDate = null;
+      fieldSetFlags()[4] = false;
+      return this;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public CreatePetEventAvroModel build() {
@@ -401,6 +545,8 @@ public class CreatePetEventAvroModel extends org.apache.avro.specific.SpecificRe
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.String) defaultValue(fields()[0]);
         record.ownerId = fieldSetFlags()[1] ? this.ownerId : (java.lang.String) defaultValue(fields()[1]);
         record.name = fieldSetFlags()[2] ? this.name : (java.lang.String) defaultValue(fields()[2]);
+        record.species = fieldSetFlags()[3] ? this.species : (java.lang.String) defaultValue(fields()[3]);
+        record.birthDate = fieldSetFlags()[4] ? this.birthDate : (java.lang.String) defaultValue(fields()[4]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;

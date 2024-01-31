@@ -4,7 +4,7 @@ import com.vet.appointment.system.pet.service.dataaccess.pet.entity.PetEntity;
 import com.vet.appointment.system.pet.service.dataaccess.pet.mapper.PetDataAccessMapper;
 import com.vet.appointment.system.pet.service.dataaccess.pet.repository.PetJpaRepository;
 import com.vet.appointment.system.pet.service.domain.entity.Pet;
-import com.vet.appointment.system.pet.service.domain.ports.output.PetRepository;
+import com.vet.appointment.system.pet.service.domain.ports.output.repository.PetRepository;
 import org.springframework.stereotype.Component;
 
 @Component

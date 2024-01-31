@@ -20,6 +20,14 @@
     {
       "name": "name",
       "type": "string"
+    },
+    {
+      "name": "species",
+      "type": "string"
+    },
+    {
+      "name": "birthDate",
+      "type": "string"
     }
   ]
 }

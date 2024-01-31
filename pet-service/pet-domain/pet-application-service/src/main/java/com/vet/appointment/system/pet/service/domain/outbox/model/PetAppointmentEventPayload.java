@@ -21,6 +21,8 @@ public class PetAppointmentEventPayload {
     @JsonProperty
     private ZonedDateTime createdAt;
 
+    public PetAppointmentEventPayload() {}
+
     private PetAppointmentEventPayload(Builder builder) {
         id = builder.id;
         ownerId = builder.ownerId;

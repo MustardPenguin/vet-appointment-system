@@ -55,7 +55,7 @@ public class AccountCreatedEventKafkaPublisher implements AccountCreatedMessageP
                             outboxCallback);
             kafkaProducer.send(
                     AccountCreatedEventTopicName,
-                    "1234",
+                    "",
                     createAccountEventAvroModel,
                     callback);
         } catch (Exception e) {
