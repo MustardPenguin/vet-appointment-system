@@ -38,4 +38,9 @@ public class AppointmentOutboxRepositoryImpl implements AppointmentOutboxReposit
                 .stream().map(appointmentDataAccessMapper::outboxEntityToPetAppointmentOutboxMessage)
                 .collect(Collectors.toList()));
     }
+
+    @Override
+    public void deleteAppointmentOutboxEntitiesByOutboxStatus(OutboxStatus outboxStatus) {
+        appointmentOutboxJpaRepository.deleteAppointmentOutboxEntitiesByOutboxStatus(outboxStatus);
+    }
 }

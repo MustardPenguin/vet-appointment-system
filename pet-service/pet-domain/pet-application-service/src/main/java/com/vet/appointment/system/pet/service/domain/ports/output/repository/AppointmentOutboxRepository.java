@@ -11,4 +11,7 @@ public interface AppointmentOutboxRepository {
     PetAppointmentOutboxMessage save(PetAppointmentOutboxMessage petAppointmentOutboxMessage);
 
     Optional<List<PetAppointmentOutboxMessage>> findByOutboxStatus(OutboxStatus outboxStatus);
+
+    void deleteAppointmentOutboxEntitiesByOutboxStatus(OutboxStatus outboxStatus);
+
 }

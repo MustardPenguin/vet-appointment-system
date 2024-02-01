@@ -13,4 +13,6 @@ import java.util.UUID;
 public interface AppointmentOutboxJpaRepository extends JpaRepository<AppointmentOutboxEntity, UUID> {
 
     Optional<List<AppointmentOutboxEntity>> findByOutboxStatus(OutboxStatus outboxStatus);
+
+    void deleteAppointmentOutboxEntitiesByOutboxStatus(OutboxStatus outboxStatus);
 }
