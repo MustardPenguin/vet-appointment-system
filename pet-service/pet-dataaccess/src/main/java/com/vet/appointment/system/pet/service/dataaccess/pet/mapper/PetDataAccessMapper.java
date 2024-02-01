@@ -19,6 +19,7 @@ public class PetDataAccessMapper {
 
     public Pet petEntityToPet(PetEntity petEntity) {
         return Pet.builder()
+                .id(petEntity.getId())
                 .ownerId(petEntity.getOwnerId())
                 .birthDate(petEntity.getBirthDate())
                 .name(petEntity.getName())

@@ -4,6 +4,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.UUID;
+
 public class CreateAccountCommand {
 
     @NotBlank(message = "Email must not be blank!")
@@ -35,6 +37,8 @@ public class CreateAccountCommand {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
     public CreateAccountCommand() {}
 
     public CreateAccountCommand(String email, String password, String firstName, String lastName) {

@@ -36,7 +36,8 @@ public class CreateAccountCommandHandler {
             log.error("Could not save account!");
             throw new AccountDomainException("Could not save account!");
         }
-        log.info("Successfully saved account with email: {}", savedAccount.getEmail());
+        log.info("Successfully saved account with email: {} and id: {}",
+                savedAccount.getEmail(), savedAccount.getId().getValue().toString());
         return accountCreatedEvent;
     }
 }

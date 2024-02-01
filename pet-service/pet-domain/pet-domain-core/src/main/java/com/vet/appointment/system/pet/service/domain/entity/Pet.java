@@ -32,7 +32,7 @@ public class Pet extends AggregateRoot<PetId> {
     }
 
     private Pet(Builder builder) {
-        super.setId(new PetId(UUID.randomUUID()));
+        super.setId(new PetId(builder.id));
         ownerId = builder.ownerId;
         name = builder.name;
         species = builder.species;
@@ -45,12 +45,18 @@ public class Pet extends AggregateRoot<PetId> {
 
 
     public static final class Builder {
+        private UUID id;
         private UUID ownerId;
         private String name;
         private String species;
         private LocalDate birthDate;
 
         private Builder() {
+        }
+
+        public Builder id(UUID val) {
+            id = val;
+            return this;
         }
 
         public Builder ownerId(UUID val) {

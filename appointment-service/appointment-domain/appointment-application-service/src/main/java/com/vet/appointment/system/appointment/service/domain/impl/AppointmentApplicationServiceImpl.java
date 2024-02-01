@@ -7,6 +7,8 @@ import com.vet.appointment.system.appointment.service.domain.ports.input.Appoint
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Slf4j
 @Service
 public class AppointmentApplicationServiceImpl implements AppointmentApplicationService {

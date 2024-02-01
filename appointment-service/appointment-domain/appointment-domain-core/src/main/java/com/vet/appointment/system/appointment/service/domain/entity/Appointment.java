@@ -36,8 +36,7 @@ public class Appointment extends AggregateRoot<AppointmentId> {
     }
 
     private Appointment(Builder builder) {
-        UUID id = builder.id != null ? builder.id : UUID.randomUUID();
-        super.setId(new AppointmentId(id));
+        super.setId(new AppointmentId(builder.id));
         appointmentStartDateTime = builder.appointmentStartDateTime;
         appointmentEndDateTime = builder.appointmentEndDateTime;
         ownerId = builder.ownerId;

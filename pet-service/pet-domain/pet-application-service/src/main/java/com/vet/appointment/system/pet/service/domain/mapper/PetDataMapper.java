@@ -6,11 +6,14 @@ import com.vet.appointment.system.pet.service.domain.event.PetCreatedEvent;
 import com.vet.appointment.system.pet.service.domain.outbox.model.PetAppointmentEventPayload;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class PetDataMapper {
 
     public Pet createPetCommandToPet(CreatePetCommand createPetCommand) {
         return Pet.builder()
+                .id(UUID.randomUUID())
                 .ownerId(createPetCommand.getOwnerId())
                 .name(createPetCommand.getName())
                 .species(createPetCommand.getSpecies())

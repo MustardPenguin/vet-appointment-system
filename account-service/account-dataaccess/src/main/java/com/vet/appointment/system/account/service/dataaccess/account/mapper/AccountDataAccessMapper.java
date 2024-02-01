@@ -18,6 +18,7 @@ public class AccountDataAccessMapper {
 
     public Account accountEntityToAccount(AccountEntity account) {
         return Account.builder()
+                .id(account.getId())
                 .email(account.getEmail())
                 .password(account.getPassword())
                 .firstName(account.getFirstName())

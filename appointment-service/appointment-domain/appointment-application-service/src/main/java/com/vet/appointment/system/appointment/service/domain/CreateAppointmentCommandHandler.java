@@ -38,7 +38,8 @@ public class CreateAppointmentCommandHandler {
             log.error("Failed to save appointment for owner id: {}", appointment.getOwnerId());
             throw new AppointmentDomainException("Failed to save appointment for owner id: " + appointment.getOwnerId());
         }
-        log.info("Successfully saved appointment with id: {} for owner id: {}", response.getId().getValue(), response.getOwnerId());
+        log.info("Successfully saved appointment with id: {} for owner id: {}",
+                response.getId().getValue(), response.getOwnerId());
 
         return appointmentCreatedEvent;
     }

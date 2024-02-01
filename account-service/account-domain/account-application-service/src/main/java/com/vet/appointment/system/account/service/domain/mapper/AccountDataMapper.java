@@ -6,11 +6,14 @@ import com.vet.appointment.system.account.service.domain.dto.create.CreateAccoun
 import com.vet.appointment.system.account.service.domain.outbox.model.AccountAppointmentEventPayload;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class AccountDataMapper {
 
     public Account createAccountCommandToAccount(CreateAccountCommand createAccountCommand) {
         return Account.builder()
+                .id(UUID.randomUUID())
                 .email(createAccountCommand.getEmail())
                 .password(createAccountCommand.getPassword())
                 .firstName(createAccountCommand.getFirstName())

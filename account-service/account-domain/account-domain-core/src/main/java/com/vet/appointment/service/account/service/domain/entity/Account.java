@@ -13,7 +13,7 @@ public class Account extends AggregateRoot<AccountId> {
     private final String lastName;
 
     private Account(Builder builder) {
-        super.setId(new AccountId(UUID.randomUUID()));
+        super.setId(new AccountId(builder.id));
         email = builder.email;
         password = builder.password;
         firstName = builder.firstName;
@@ -41,12 +41,18 @@ public class Account extends AggregateRoot<AccountId> {
     }
 
     public static final class Builder {
+        private UUID id;
         private String email;
         private String password;
         private String firstName;
         private String lastName;
 
         private Builder() {
+        }
+
+        public Builder id(UUID val) {
+            id = val;
+            return this;
         }
 
         public Builder email(String val) {
