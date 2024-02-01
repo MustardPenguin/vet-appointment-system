@@ -14,7 +14,6 @@ public class AppointmentDomainServiceImpl implements AppointmentDomainService {
     @Override
     public AppointmentCreatedEvent validateAndInitiateAppointment(Appointment appointment) {
 
-
         return new AppointmentCreatedEvent(appointment, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 }

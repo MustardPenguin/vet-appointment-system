@@ -2,10 +2,10 @@ package com.vet.appointment.system.appointment.service.application.rest;
 
 import com.vet.appointment.system.appointment.service.domain.dto.create.CreateAppointmentCommand;
 import com.vet.appointment.system.appointment.service.domain.ports.input.AppointmentApplicationService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 public class AppointmentController {
@@ -23,8 +23,10 @@ public class AppointmentController {
     }
 
     @PostMapping("/api/appointment")
-    public String createAppointmentRequest(@RequestBody CreateAppointmentCommand createAppointmentCommand) {
-
+    public String createAppointmentRequest(
+            @RequestBody @Valid CreateAppointmentCommand createAppointmentCommand,
+            @RequestHeader("accountId") UUID accountId) {
+        createAppointmentCommand.setOwnerId(accountId);
         appointmentApplicationService.createAppointment(createAppointmentCommand);
 
         return "response";

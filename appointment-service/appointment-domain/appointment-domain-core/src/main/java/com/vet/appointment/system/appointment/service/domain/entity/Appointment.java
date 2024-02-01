@@ -15,8 +15,29 @@ public class Appointment extends AggregateRoot<AppointmentId> {
     private final UUID petId;
     private final String description;
 
+    public LocalDateTime getAppointmentStartDateTime() {
+        return appointmentStartDateTime;
+    }
+
+    public LocalDateTime getAppointmentEndDateTime() {
+        return appointmentEndDateTime;
+    }
+
+    public UUID getOwnerId() {
+        return ownerId;
+    }
+
+    public UUID getPetId() {
+        return petId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     private Appointment(Builder builder) {
-        super.setId(new AppointmentId(UUID.randomUUID()));
+        UUID id = builder.id != null ? builder.id : UUID.randomUUID();
+        super.setId(new AppointmentId(id));
         appointmentStartDateTime = builder.appointmentStartDateTime;
         appointmentEndDateTime = builder.appointmentEndDateTime;
         ownerId = builder.ownerId;
@@ -32,6 +53,7 @@ public class Appointment extends AggregateRoot<AppointmentId> {
     public static final class Builder {
         private LocalDateTime appointmentStartDateTime;
         private LocalDateTime appointmentEndDateTime;
+        private UUID id;
         private UUID ownerId;
         private UUID petId;
         private String description;
@@ -46,6 +68,11 @@ public class Appointment extends AggregateRoot<AppointmentId> {
 
         public Builder appointmentEndDateTime(LocalDateTime val) {
             appointmentEndDateTime = val;
+            return this;
+        }
+
+        public Builder id(UUID val) {
+            id = val;
             return this;
         }
 

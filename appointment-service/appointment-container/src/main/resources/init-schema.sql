@@ -7,11 +7,11 @@ DROP TABLE IF EXISTS "appointment".appointments CASCADE;
 
 CREATE TABLE "appointment".appointments(
     id uuid NOT NULL,
-    ownerId uuid NOT NULL,
-    pet uuid NOT NULL,
+    owner_id uuid NOT NULL,
+    pet_id uuid NOT NULL,
     description varchar NOT NULL,
-    appointment_start_date_time date NOT NULL,
-    appointment_end_date_time date NOT NULL,
+    appointment_start_date_time timestamp WITHOUT TIME ZONE NOT NULL,
+    appointment_end_date_time timestamp WITHOUT TIME ZONE NOT NULL,
     CONSTRAINT appointment_pkey PRIMARY KEY (id)
 );
 
