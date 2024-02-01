@@ -1,7 +1,7 @@
 package com.vet.appointment.system.appointment.service.messaging.listener.kafka;
 
 import com.vet.appointment.system.appointment.service.domain.dto.message.AccountModel;
-import com.vet.appointment.system.appointment.service.domain.ports.input.AccountCreatedMessageListener;
+import com.vet.appointment.system.appointment.service.domain.ports.input.message.listener.AccountCreatedMessageListener;
 import com.vet.appointment.system.kafka.avro.model.CreateAccountEventAvroModel;
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import lombok.extern.slf4j.Slf4j;

@@ -24,3 +24,14 @@ CREATE TABLE "appointment".accounts(
     last_name varchar NOT NULL,
     CONSTRAINT account_pkey PRIMARY KEY (id)
 );
+
+DROP TABLE IF EXISTS "appointment".pets CASCADE;
+
+CREATE TABLE "appointment".pets (
+    id uuid NOT NULL,
+    owner_id uuid NOT NULL,
+    name varchar NOT NULL,
+    species varchar NOT NULL,
+    birth_date date NOT NULL,
+    CONSTRAINT pet_pkey PRIMARY KEY (id)
+);

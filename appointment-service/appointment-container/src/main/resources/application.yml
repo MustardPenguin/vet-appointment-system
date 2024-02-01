@@ -16,7 +16,7 @@ spring:
   jpa:
     show-sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified
+    url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=appointment
     username: user
     password: admin
     driver-class-name: org.postgresql.Driver
