@@ -13,7 +13,7 @@ import static com.vet.appointment.system.domain.DomainConstants.UTC;
 public class PetDomainServiceImpl implements PetDomainService {
     @Override
     public PetCreatedEvent validateAndInitiatePet(Pet pet) {
-        
+
         return new PetCreatedEvent(pet, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 }
