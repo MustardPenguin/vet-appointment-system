@@ -31,11 +31,7 @@ public class PetApplicationServiceImpl implements PetApplicationService {
     public CreatePetResponse createPet(CreatePetCommand createPetCommand) {
         log.info("Creating pet for user id {} at service layer", createPetCommand.getOwnerId());
 
-        PetCreatedEvent petCreatedEvent = createPetCommandHandler.createPetFromCommand(createPetCommand);
-        appointmentOutboxHelper.saveAppointmentOutboxMessage(
-                petDataMapper.petCreatedEventToPetAppointmentEventPayload(petCreatedEvent),
-                OutboxStatus.STARTED);
-
-        return new CreatePetResponse("Successfully created pet!", 201);
+        CreatePetResponse createPetResponse = createPetCommandHandler.createPetFromCommand(createPetCommand);
+        return createPetResponse;
     }
 }

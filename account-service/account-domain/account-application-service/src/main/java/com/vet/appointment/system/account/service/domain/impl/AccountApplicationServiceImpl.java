@@ -38,11 +38,8 @@ public class AccountApplicationServiceImpl implements AccountApplicationService 
             return new CreateAccountResponse("Email " + createAccountCommand.getEmail() + " is already taken!", 400);
         }
 
-        AccountCreatedEvent accountCreatedEvent = createAccountCommandHandler.createAccountFromCommand(createAccountCommand);
-        appointmentOutboxHelper.saveAppointmentOutboxMessage(
-                accountDataMapper.accountCreatedEventToAccountAppointmentEventPayload(accountCreatedEvent),
-                OutboxStatus.STARTED);
+        CreateAccountResponse createAccountResponse = createAccountCommandHandler.createAccountFromCommand(createAccountCommand);
 
-        return new CreateAccountResponse("Successfully created account!", 201);
+        return createAccountResponse;
     }
 }
