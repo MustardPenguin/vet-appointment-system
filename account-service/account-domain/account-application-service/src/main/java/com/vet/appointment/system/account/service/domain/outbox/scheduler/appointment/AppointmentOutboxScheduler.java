@@ -10,9 +10,13 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
+
+import static com.vet.appointment.system.domain.DomainConstants.UTC;
 
 @Slf4j
 @Component
@@ -51,6 +55,7 @@ public class AppointmentOutboxScheduler implements OutboxScheduler {
     public void updateOutboxStatus(AccountAppointmentOutboxMessage accountAppointmentOutboxMessage,
                                    OutboxStatus outboxStatus) {
         accountAppointmentOutboxMessage.setOutboxStatus(outboxStatus);
+        accountAppointmentOutboxMessage.setProcessedAt(ZonedDateTime.now(ZoneId.of(UTC)));
         appointmentOutboxHelper.save(accountAppointmentOutboxMessage);
         log.info("Updated outbox message status of id: {} to {}",
                 accountAppointmentOutboxMessage.getId(), outboxStatus);

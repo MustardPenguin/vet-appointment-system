@@ -16,12 +16,6 @@ public class AppointmentController {
         this.appointmentApplicationService = appointmentApplicationService;
     }
 
-
-    @GetMapping("/api/test")
-    public String test() {
-        return "test";
-    }
-
     @PostMapping("/api/appointment")
     public String createAppointmentRequest(
             @RequestBody @Valid CreateAppointmentCommand createAppointmentCommand,
