@@ -36,6 +36,7 @@ spring:
       schema-locations: classpath:init-schema.sql
       mode: always
       platform: postgres
+      data-locations: classpath:init-data.sql
 
 # Kafka
 kafka-config-data:

@@ -7,6 +7,9 @@ import com.vet.appointment.system.appointment.service.domain.dto.message.PetMode
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.PetRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Component
 public class PetRepositoryImpl implements PetRepository {
 
@@ -23,5 +26,11 @@ public class PetRepositoryImpl implements PetRepository {
         PetEntity petEntity = petJpaRepository
                 .save(petDataAccessMapper.petModelToPetEntity(petModel));
         return petDataAccessMapper.petEntityToPetModel(petEntity);
+    }
+
+    @Override
+    public Optional<PetModel> findById(UUID id) {
+        return petJpaRepository.findById(id)
+                .map(petDataAccessMapper::petEntityToPetModel);
     }
 }

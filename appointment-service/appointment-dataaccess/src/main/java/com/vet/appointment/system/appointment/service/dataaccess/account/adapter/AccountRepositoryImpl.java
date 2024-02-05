@@ -6,6 +6,7 @@ import com.vet.appointment.system.appointment.service.domain.dto.message.Account
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AccountRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -30,5 +31,15 @@ public class AccountRepositoryImpl implements AccountRepository {
                 accountEntity.getEmail(),
                 accountEntity.getFirstName(),
                 accountEntity.getLastName());
+    }
+
+    @Override
+    public Optional<AccountModel> findById(UUID id) {
+        return accountJpaRepository.findById(id)
+                .map(accountEntity -> new AccountModel(
+                        accountEntity.getId().toString(),
+                        accountEntity.getEmail(),
+                        accountEntity.getFirstName(),
+                        accountEntity.getLastName()));
     }
 }

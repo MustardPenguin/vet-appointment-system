@@ -15,6 +15,8 @@
         <module>pet-service</module>
         <module>appointment-service</module>
         <module>infrastructure/outbox</module>
+        <module>availability-service</module>
+        <module>payment-service</module>
     </modules>
 
     <parent>
@@ -201,7 +203,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.28</version>
+            <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
