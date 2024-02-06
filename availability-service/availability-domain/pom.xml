@@ -5,16 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.vet.appointment.system</groupId>
-        <artifactId>vet-appointment-system</artifactId>
+        <artifactId>availability-service</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>payment-service</artifactId>
+    <artifactId>availability-domain</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>payment-dataaccess</module>
-        <module>payment-messaging</module>
-        <module>payment-domain</module>
+        <module>availability-application-service</module>
+        <module>availability-domain-core</module>
     </modules>
 
 </project>

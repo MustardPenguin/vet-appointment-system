@@ -10,5 +10,11 @@
     </parent>
 
     <artifactId>availability-service</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>availability-domain</module>
+        <module>availability-messaging</module>
+        <module>availability-dataaccess</module>
+    </modules>
 
 </project>
