@@ -7,8 +7,10 @@ import com.vet.appointment.system.appointment.service.domain.entity.Pet;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
 import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;
 import com.vet.appointment.system.appointment.service.domain.mapper.AppointmentDataMapper;
+import com.vet.appointment.system.appointment.service.domain.outbox.scheduler.availability.AvailabilityOutboxHelper;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AppointmentRepository;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.PetRepository;
+import com.vet.appointment.system.outbox.OutboxStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,16 +25,16 @@ public class CreateAppointmentCommandHandler {
     private final AppointmentDataMapper appointmentDataMapper;
     private final AppointmentDomainService appointmentDomainService;
     private final AppointmentRepository appointmentRepository;
-    private final PetRepository petRepository;
+    private final AvailabilityOutboxHelper availabilityOutboxHelper;
 
     public CreateAppointmentCommandHandler(AppointmentDataMapper appointmentDataMapper,
                                            AppointmentDomainService appointmentDomainService,
                                            AppointmentRepository appointmentRepository,
-                                           PetRepository petRepository) {
+                                           AvailabilityOutboxHelper availabilityOutboxHelper) {
         this.appointmentDataMapper = appointmentDataMapper;
         this.appointmentDomainService = appointmentDomainService;
         this.appointmentRepository = appointmentRepository;
-        this.petRepository = petRepository;
+        this.availabilityOutboxHelper = availabilityOutboxHelper;
     }
 
     @Transactional
@@ -51,6 +53,9 @@ public class CreateAppointmentCommandHandler {
             log.error("Failed to save appointment for owner id: {}", appointment.getOwnerId());
             throw new AppointmentDomainException("Failed to save appointment for owner id: " + appointment.getOwnerId());
         }
+        availabilityOutboxHelper.saveAvailabilityOutboxMessage(
+                appointmentDataMapper.appointmentEventToEventPayload(appointmentCreatedEvent),
+                OutboxStatus.STARTED);
         log.info("Successfully saved appointment with id: {} for owner id: {}",
                 response.getId().getValue(), response.getOwnerId());
 

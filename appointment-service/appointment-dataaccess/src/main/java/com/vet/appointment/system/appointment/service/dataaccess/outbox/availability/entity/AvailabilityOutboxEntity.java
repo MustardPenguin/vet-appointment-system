@@ -1,17 +1,39 @@
-package com.vet.appointment.system.appointment.service.domain.outbox.model;
+package com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.entity;
 
 import com.vet.appointment.system.outbox.OutboxStatus;
+import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-public class AppointmentAvailabilityOutboxMessage {
+@Entity
+@Table(name = "availability_outbox")
+public class AvailabilityOutboxEntity {
+
+    @Id
     private UUID id;
     private ZonedDateTime createdAt;
     private ZonedDateTime processedAt;
     private String payload;
+    @Enumerated(EnumType.STRING)
     private OutboxStatus outboxStatus;
+    @Version
     private int version;
+
+    public AvailabilityOutboxEntity() {}
+
+    private AvailabilityOutboxEntity(Builder builder) {
+        id = builder.id;
+        createdAt = builder.createdAt;
+        processedAt = builder.processedAt;
+        payload = builder.payload;
+        outboxStatus = builder.outboxStatus;
+        version = builder.version;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public UUID getId() {
         return id;
@@ -35,27 +57,6 @@ public class AppointmentAvailabilityOutboxMessage {
 
     public int getVersion() {
         return version;
-    }
-
-    private AppointmentAvailabilityOutboxMessage(Builder builder) {
-        id = builder.id;
-        createdAt = builder.createdAt;
-        setProcessedAt(builder.processedAt);
-        payload = builder.payload;
-        setOutboxStatus(builder.outboxStatus);
-        version = builder.version;
-    }
-
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public void setProcessedAt(ZonedDateTime processedAt) {
-        this.processedAt = processedAt;
-    }
-
-    public void setOutboxStatus(OutboxStatus outboxStatus) {
-        this.outboxStatus = outboxStatus;
     }
 
 
@@ -100,8 +101,8 @@ public class AppointmentAvailabilityOutboxMessage {
             return this;
         }
 
-        public AppointmentAvailabilityOutboxMessage build() {
-            return new AppointmentAvailabilityOutboxMessage(this);
+        public AvailabilityOutboxEntity build() {
+            return new AvailabilityOutboxEntity(this);
         }
     }
 }

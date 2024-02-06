@@ -1,8 +1,8 @@
 package com.vet.appointment.system.appointment.service.dataaccess.appointment.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
+import com.vet.appointment.system.domain.valueobject.PaymentStatus;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -18,6 +18,10 @@ public class AppointmentEntity {
     private String description;
     private LocalDateTime appointmentStartDateTime;
     private LocalDateTime appointmentEndDateTime;
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatus appointmentStatus;
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
 
     public AppointmentEntity() {}
 
@@ -28,6 +32,8 @@ public class AppointmentEntity {
         description = builder.description;
         appointmentStartDateTime = builder.appointmentStartDateTime;
         appointmentEndDateTime = builder.appointmentEndDateTime;
+        appointmentStatus = builder.appointmentStatus;
+        paymentStatus = builder.paymentStatus;
     }
 
     public static Builder builder() {
@@ -58,6 +64,13 @@ public class AppointmentEntity {
         return appointmentEndDateTime;
     }
 
+    public AppointmentStatus getAppointmentStatus() {
+        return appointmentStatus;
+    }
+
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
+    }
 
     public static final class Builder {
         private UUID id;
@@ -66,6 +79,8 @@ public class AppointmentEntity {
         private String description;
         private LocalDateTime appointmentStartDateTime;
         private LocalDateTime appointmentEndDateTime;
+        private AppointmentStatus appointmentStatus;
+        private PaymentStatus paymentStatus;
 
         private Builder() {
         }
@@ -97,6 +112,16 @@ public class AppointmentEntity {
 
         public Builder appointmentEndDateTime(LocalDateTime val) {
             appointmentEndDateTime = val;
+            return this;
+        }
+
+        public Builder appointmentStatus(AppointmentStatus val) {
+            appointmentStatus = val;
+            return this;
+        }
+
+        public Builder paymentStatus(PaymentStatus val) {
+            paymentStatus = val;
             return this;
         }
 
