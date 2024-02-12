@@ -35,3 +35,49 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: localhost
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
       SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    hostname: kafka-ui
+    ports:
+      - "9000:8080"
+    depends_on:
+      - zookeeper
+      - kafka-broker
+      - schema-registry
+    environment:
+      ZK_HOST: zookeeper:2181
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka-broker:9092
+      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
+  kafka-debezium:
+    image: debezium/connect:latest
+    hostname: kafka-debezium
+    ports:
+      - "8083:8083"
+    depends_on:
+      - kafka-broker
+      - schema-registry
+    volumes:
+      - "./debezium-dependencies/jar:/kafka/connect/debezium-connector-schemaregistry"
+    environment:
+      # General config
+      GROUP_ID: 1
+      CONFIG_STORAGE_TOPIC: "connect-config"
+      OFFSET_STORAGE_TOPIC: "connect-offsets"
+      STATUS_STORAGE_TOPIC: "connect-status"
+      BOOTSTRAP_SERVERS: "kafka-broker:9092"
+      LOGGING_LEVEL: "DEBUG"
+      # Database connection config
+      DEBEZIUM_CONFIG_DATABASE_HOSTNAME: ${POSTGRES_HOSTNAME}
+      DEBEZIUM_CONFIG_DATABASE_PORT: ${POSTGRES_PORT}
+      DEBEZIUM_CONFIG_DATABASE_USER: ${POSTGRES_USER}
+      DEBEZIUM_CONFIG_DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      DEBEZIUM_CONFIG_DATABASE_DBNAME: "postgres"
+      DEBEZIUM_CONFIG_DATABASE_SERVER_NAME: "postgres"
+      # Schema registry config
+      CONNECT_SCHEMA_NAME_ADJUSTMENT_MODE: avro
+      KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
+      VALUE_CONVERTER: io.confluent.connect.avro.AvroConverter
+      CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+
