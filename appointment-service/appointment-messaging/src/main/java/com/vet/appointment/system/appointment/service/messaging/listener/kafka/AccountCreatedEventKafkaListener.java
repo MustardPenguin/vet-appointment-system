@@ -27,10 +27,10 @@ public class AccountCreatedEventKafkaListener implements KafkaConsumer<CreateAcc
 
     // TODO Add headers for arguments keys and partitions
     @Override
-    @KafkaListener(topics = CreateAccountEventTopicName, groupId = "1")
+    @KafkaListener(topics = CreateAccountEventTopicName, groupId = "${kafka-consumer-group-id.account-group-id}")
     public void receive(@Payload List<CreateAccountEventAvroModel> messages,
-                        List<String> keys,
-                        List<Integer> partitions,
+                        @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,
+                        @Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,
                         @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
         log.info("Received kafka event message!");
         log.info("Messages: {}", messages);

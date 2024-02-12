@@ -28,10 +28,10 @@ public class PetCreatedEventKafkaListener implements KafkaConsumer<CreatePetEven
     }
 
     @Override
-    @KafkaListener(topics = CreatePetEventTopicName, groupId = "1")
+    @KafkaListener(topics = CreatePetEventTopicName, groupId = "${kafka-consumer-group-id.pet-group-id}")
     public void receive(@Payload List<CreatePetEventAvroModel> messages,
-                        List<String> keys,
-                        List<Integer> partitions,
+                        @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,
+                        @Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,
                         @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
         log.info("Received kafka event message!");
         log.info("Messages: {}", messages);

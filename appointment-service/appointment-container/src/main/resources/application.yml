@@ -42,3 +42,7 @@ kafka-consumer-data:
   value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
   specific-avro-reader-key: specific.avro.reader
   specific-avro-reader: true
+
+kafka-consumer-group-id:
+  account-group-id: account-topic-consumer
+  pet-group-id: pet-topic-consumer
