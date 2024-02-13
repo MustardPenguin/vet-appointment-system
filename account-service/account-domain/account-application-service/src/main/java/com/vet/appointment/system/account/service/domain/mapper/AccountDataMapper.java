@@ -3,7 +3,7 @@ package com.vet.appointment.system.account.service.domain.mapper;
 import com.vet.appointment.service.account.service.domain.entity.Account;
 import com.vet.appointment.service.account.service.domain.event.AccountCreatedEvent;
 import com.vet.appointment.system.account.service.domain.dto.create.CreateAccountCommand;
-import com.vet.appointment.system.account.service.domain.outbox.model.AccountAppointmentEventPayload;
+import com.vet.appointment.system.messaging.event.AccountAppointmentEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

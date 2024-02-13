@@ -32,5 +32,9 @@
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>account-domain-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>common-messaging</artifactId>
+        </dependency>
     </dependencies>
 </project>

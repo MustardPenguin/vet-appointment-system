@@ -25,7 +25,11 @@ The services should run on the following ports:
 <u><h3>Kafka deployment</h3></u>
 
 <h4>Debezium dependencies</h4>
-Before running the kafka deployment, ensure the jar file in debezium-connect found under docker-compose is populated with JAR files.
+As Debezium containers does not have Confluent Schema Registry support, jar files are required in the Connect plugin directory.
+
+https://debezium.io/documentation/reference/stable/configuration/avro.html#confluent-schema-registry
+
+Therefore, before running the kafka deployment, ensure the jar file in debezium-connect found under docker-compose is populated with JAR files, as this will be copied over to the plugin directory in the Debezium connect container.
 
 If not, run mvn clean install in debezium-dependencies found in docker-compose.
 ```angular2html

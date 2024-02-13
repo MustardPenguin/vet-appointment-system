@@ -60,6 +60,11 @@
                 <artifactId>common-dataaccess</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.vet.appointment.system</groupId>
+                <artifactId>common-messaging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>com.vet.appointment.system</groupId>
