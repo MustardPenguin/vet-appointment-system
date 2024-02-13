@@ -3,7 +3,7 @@ package com.vet.appointment.system.account.service.domain.outbox.scheduler.appoi
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vet.appointment.service.account.service.domain.exception.AccountDomainException;
-import com.vet.appointment.system.account.service.domain.outbox.model.AccountAppointmentEventPayload;
+import com.vet.appointment.system.messaging.event.AccountAppointmentEventPayload;
 import com.vet.appointment.system.account.service.domain.outbox.model.AccountAppointmentOutboxMessage;
 import com.vet.appointment.system.account.service.domain.ports.output.repository.AppointmentOutboxRepository;
 import com.vet.appointment.system.outbox.OutboxStatus;
@@ -11,11 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.UUID;
-
-import static com.vet.appointment.system.domain.DomainConstants.UTC;
 
 @Slf4j
 @Component

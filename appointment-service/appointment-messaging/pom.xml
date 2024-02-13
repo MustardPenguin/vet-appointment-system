@@ -18,16 +18,24 @@
         </dependency>
         <dependency>
             <groupId>com.vet.appointment.system</groupId>
+            <artifactId>kafka-producer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
             <artifactId>kafka-consumer</artifactId>
         </dependency>
         <dependency>
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>kafka-model</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>appointment-application-service</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>common-messaging</artifactId>
         </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,6 @@
 package com.vet.appointment.system.account.service.messaging.mapper;
 
-import com.vet.appointment.system.account.service.domain.outbox.model.AccountAppointmentEventPayload;
+import com.vet.appointment.system.messaging.event.AccountAppointmentEventPayload;
 import com.vet.appointment.system.kafka.avro.model.CreateAccountEventAvroModel;
 import org.springframework.stereotype.Component;
 
