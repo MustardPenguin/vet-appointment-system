@@ -58,13 +58,5 @@ public class AccountCreatedEventKafkaListener implements KafkaConsumer<Envelope>
                                 accountAppointmentEventPayload.getLastName()));
             }
         });
-//        messages.forEach(accountEventAvroModel ->
-//                accountCreatedMessageListener.accountCreated(
-//                        new AccountModel(
-//                                accountEventAvroModel.getId(),
-//                                accountEventAvroModel.getEmail(),
-//                                accountEventAvroModel.getFirstName(),
-//                                accountEventAvroModel.getLastName())));
-
     }
 }

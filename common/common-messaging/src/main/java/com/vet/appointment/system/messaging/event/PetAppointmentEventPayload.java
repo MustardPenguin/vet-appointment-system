@@ -1,9 +1,8 @@
-package com.vet.appointment.system.pet.service.domain.outbox.model;
+package com.vet.appointment.system.messaging.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class PetAppointmentEventPayload {

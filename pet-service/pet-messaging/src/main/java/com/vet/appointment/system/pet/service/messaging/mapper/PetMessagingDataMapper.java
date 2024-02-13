@@ -1,8 +1,7 @@
 package com.vet.appointment.system.pet.service.messaging.mapper;
 
 import com.vet.appointment.system.kafka.avro.model.CreatePetEventAvroModel;
-import com.vet.appointment.system.pet.service.domain.outbox.model.PetAppointmentEventPayload;
-import com.vet.appointment.system.pet.service.domain.outbox.model.PetAppointmentOutboxMessage;
+import com.vet.appointment.system.messaging.event.PetAppointmentEventPayload;
 import org.springframework.stereotype.Component;
 
 @Component
