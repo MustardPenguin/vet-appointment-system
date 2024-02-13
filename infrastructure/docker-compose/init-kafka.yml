@@ -14,10 +14,14 @@ services:
       kafka-topics --delete --topic availability-confirmation-request-topic --bootstrap-server localhost:29092 --if-exists
       kafka-topics --delete --topic availability-confirmation-response-topic --bootstrap-server localhost:29092 --if-exists
 
+      kafka-topics --delete --topic debezium.account.appointment_outbox --bootstrap-server localhost:29092 --if-exists
+
       kafka-topics --create --topic account-created-event --bootstrap-server localhost:29092 --if-not-exists
       kafka-topics --create --topic pet-created-event --bootstrap-server localhost:29092 --if-not-exists
       kafka-topics --create --topic availability-confirmation-request-topic --bootstrap-server localhost:29092 --if-not-exists
       kafka-topics --create --topic availability-confirmation-response-topic --bootstrap-server localhost:29092 --if-not-exists
+      
+      kafka-topics --create --topic debezium.account.appointment_outbox --bootstrap-server localhost:29092 --if-not-exists
       
       echo -e 'Created kafka topics of'
       kafka-topics --bootstrap-server localhost:29092 --list
