@@ -1,9 +1,9 @@
 package com.vet.appointment.system.pet.service.domain.mapper;
 
+import com.vet.appointment.system.messaging.event.PetAppointmentEventPayload;
 import com.vet.appointment.system.pet.service.domain.dto.create.CreatePetCommand;
 import com.vet.appointment.system.pet.service.domain.entity.Pet;
 import com.vet.appointment.system.pet.service.domain.event.PetCreatedEvent;
-import com.vet.appointment.system.pet.service.domain.outbox.model.PetAppointmentEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

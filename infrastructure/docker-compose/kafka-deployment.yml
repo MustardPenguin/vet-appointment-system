@@ -57,6 +57,7 @@ services:
     depends_on:
       - kafka-broker
       - schema-registry
+      - postgres_cdc
     volumes:
       - "./debezium-dependencies/jar:/kafka/connect/debezium-connector-schemaregistry"
     environment:

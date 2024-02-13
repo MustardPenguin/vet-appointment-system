@@ -65,7 +65,12 @@ docker-compose -f kafka-deployment.yml down
 
 <h4>Initialize Kafka</h4>
 After starting the containers, create the topics for kafka:
+
 ```bash
 docker-compose -f init-kafka.yml up
 ```
 
+And start bash script for Debezium connectors
+```bash
+./init-connectors.sh
+```

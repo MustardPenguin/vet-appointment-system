@@ -3,6 +3,8 @@
 # Gets IP address of Debezium Postgres container
 DATABASE_HOSTNAME=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' postgres_cdc)
 
+echo "Preparing to connect to Postgres with hostname of $DATABASE_HOSTNAME"
+
 # Json config
 account_appointment_json=$(jq -n \
   --arg dbh "$DATABASE_HOSTNAME" \
@@ -43,5 +45,9 @@ pet_appointment_json=$(jq -n \
   }')
 
 # Curl POST request to Debezium connector
+echo "Sending post requests..."
 curl -X POST -H "Content-Type: application/json" --data "$account_appointment_json" http://localhost:8083/connectors
 curl -X POST -H "Content-Type: application/json" --data "$pet_appointment_json" http://localhost:8083/connectors
+
+echo "Current connectors: "
+curl http://localhost:8083/connectors

@@ -2,9 +2,9 @@ package com.vet.appointment.system.pet.service.domain.outbox.scheduler.appointme
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vet.appointment.system.messaging.event.PetAppointmentEventPayload;
 import com.vet.appointment.system.outbox.OutboxStatus;
 import com.vet.appointment.system.pet.service.domain.exception.PetDomainException;
-import com.vet.appointment.system.pet.service.domain.outbox.model.PetAppointmentEventPayload;
 import com.vet.appointment.system.pet.service.domain.outbox.model.PetAppointmentOutboxMessage;
 import com.vet.appointment.system.pet.service.domain.ports.output.repository.AppointmentOutboxRepository;
 import lombok.extern.slf4j.Slf4j;

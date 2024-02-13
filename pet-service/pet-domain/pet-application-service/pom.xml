@@ -32,5 +32,9 @@
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>outbox</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>common-messaging</artifactId>
+        </dependency>
     </dependencies>
 </project>
