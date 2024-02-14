@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface AppointmentDomainService {
 
-    AppointmentCreatedEvent validateAndInitiateAppointment(Appointment appointment, Pet pet, List<String> errorMessages);
+    AppointmentCreatedEvent validateAndInitiateAppointment(Appointment appointment, Pet pet);
 }

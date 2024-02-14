@@ -16,12 +16,15 @@ import static com.vet.appointment.system.domain.DomainConstants.UTC;
 public class AppointmentDomainServiceImpl implements AppointmentDomainService {
 
     @Override
-    public AppointmentCreatedEvent validateAndInitiateAppointment(Appointment appointment, Pet pet, List<String> errorMessages) {
+    public AppointmentCreatedEvent validateAndInitiateAppointment(Appointment appointment, Pet pet) {
         if(appointment.getOwnerId() != pet.getOwnerId()) {
             throw new AppointmentDomainException("Owner id of pet and appointment does not match!");
         }
         if(appointment.getAppointmentStartDateTime().isAfter(appointment.getAppointmentEndDateTime())) {
             throw new AppointmentDomainException("Appointment start date time is after appointment end date time!");
+        }
+        if(appointment.getAppointmentStartDateTime().getDayOfMonth() != appointment.getAppointmentEndDateTime().getDayOfMonth()) {
+            throw new AppointmentDomainException("Appointment start date time and appointment end date time are not on the same day!");
         }
 
         return new AppointmentCreatedEvent(appointment, ZonedDateTime.now(ZoneId.of(UTC)));

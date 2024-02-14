@@ -1,7 +1,9 @@
 
-# Application config
-server:
-  port: 8183
+# General config
+availability-service:
+  opening-time: 06:00
+  closing-time: 20:00
+
 
 # Service registry
 eureka:
@@ -43,10 +45,8 @@ kafka-consumer-data:
   specific-avro-reader-key: specific.avro.reader
   specific-avro-reader: true
 
-kafka-consumer-topic-name:
-  account-created-event: debezium.account.appointment_outbox
-  pet-created-event: debezium.pet.appointment_outbox
+kafka-consumer-topic:
+  availability-request-topic-name: debezium.appointment.availability_outbox
 
 kafka-consumer-group-id:
-  account-group-id: account-topic-consumer
-  pet-group-id: pet-topic-consumer
+  availability-group-id: availability-topic-consumer

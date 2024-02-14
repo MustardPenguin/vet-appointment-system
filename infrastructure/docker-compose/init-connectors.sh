@@ -44,10 +44,30 @@ pet_appointment_json=$(jq -n \
     }
   }')
 
+appointment_availability_json=$(jq -n \
+  --arg dbh "$DATABASE_HOSTNAME" \
+  '{
+    "name": "appointment-availability-connector",
+    "config": {
+      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "tasks.max": "1",
+      "database.hostname": $dbh,
+      "database.user": "user",
+      "database.password": "admin",
+      "database.dbname": "postgres",
+      "table.include.list": "appointment.availability_outbox",
+      "topic.prefix": "debezium",
+      "tombstones.on.delete" : "false",
+      "slot.name": "appointment_availability_outbox_slot",
+      "plugin.name": "pgoutput"
+    }
+  }')
+
 # Curl POST request to Debezium connector
 echo "Sending post requests..."
 curl -X POST -H "Content-Type: application/json" --data "$account_appointment_json" http://localhost:8083/connectors
 curl -X POST -H "Content-Type: application/json" --data "$pet_appointment_json" http://localhost:8083/connectors
+curl -X POST -H "Content-Type: application/json" --data "$appointment_availability_json" http://localhost:8083/connectors
 
 echo "Current connectors: "
 curl http://localhost:8083/connectors

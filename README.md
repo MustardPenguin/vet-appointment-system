@@ -74,3 +74,8 @@ And start bash script for Debezium connectors
 ```bash
 ./init-connectors.sh
 ```
+
+Run the shutdown script to delete Debezium connectors
+```bash
+./shutdown.sh
+```

@@ -2,7 +2,6 @@ package com.vet.appointment.system.appointment.service.messaging.listener.kafka;
 
 import com.vet.appointment.system.appointment.service.domain.dto.message.PetModel;
 import com.vet.appointment.system.appointment.service.domain.ports.input.message.listener.PetCreatedMessageListener;
-import com.vet.appointment.system.kafka.avro.model.CreatePetEventAvroModel;
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import com.vet.appointment.system.kafka.producer.KafkaMessageHelper;
 import com.vet.appointment.system.messaging.DebeziumOp;
@@ -16,11 +15,9 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-import static com.vet.appointment.system.appointment.service.domain.config.AppointmentServiceDataConfig.CreatePetEventTopicName;
 
 @Slf4j
 @Component
@@ -36,7 +33,7 @@ public class PetCreatedEventKafkaListener implements KafkaConsumer<Envelope> {
     }
 
     @Override
-    @KafkaListener(topics = CreatePetEventTopicName, groupId = "${kafka-consumer-group-id.pet-group-id}")
+    @KafkaListener(topics = "${kafka-consumer-topic-name.pet-created-event}", groupId = "${kafka-consumer-group-id.pet-group-id}")
     public void receive(@Payload List<Envelope> messages,
                         @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,
                         @Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,

@@ -41,12 +41,10 @@ public class CreateAppointmentCommandHandler {
     public AppointmentCreatedEvent createAppointmentFromCommand(CreateAppointmentCommand createAppointmentCommand, PetModel petModel) {
         Appointment appointment = appointmentDataMapper.createAppointmentCommandToAppointment(createAppointmentCommand);
 
-        List<String> errorMessages = new ArrayList<>();
         AppointmentCreatedEvent appointmentCreatedEvent =
                 appointmentDomainService.validateAndInitiateAppointment(
                         appointment,
-                        new Pet(createAppointmentCommand.getPetId(), createAppointmentCommand.getOwnerId()),
-                        errorMessages);
+                        new Pet(createAppointmentCommand.getPetId(), createAppointmentCommand.getOwnerId()));
 
         Appointment response = appointmentRepository.save(appointment);
         if(response == null) {

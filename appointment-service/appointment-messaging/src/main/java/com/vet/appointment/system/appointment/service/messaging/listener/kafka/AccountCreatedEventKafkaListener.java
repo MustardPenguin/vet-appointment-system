@@ -18,8 +18,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.vet.appointment.system.appointment.service.domain.config.AppointmentServiceDataConfig.CreateAccountEventTopicName;
-
 @Slf4j
 @Component
 public class AccountCreatedEventKafkaListener implements KafkaConsumer<Envelope> {
@@ -34,7 +32,7 @@ public class AccountCreatedEventKafkaListener implements KafkaConsumer<Envelope>
     }
 
     @Override
-    @KafkaListener(topics = CreateAccountEventTopicName, groupId = "${kafka-consumer-group-id.account-group-id}")
+    @KafkaListener(topics = "${kafka-consumer-topic-name.account-created-event}", groupId = "${kafka-consumer-group-id.account-group-id}")
     public void receive(@Payload List<Envelope> messages,
                         @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,
                         @Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,
