@@ -14,7 +14,7 @@ public class Availability extends AggregateRoot<AvailabilityId> {
     private final String reason;
 
     private Availability(Builder builder) {
-        super.setId(new AvailabilityId(UUID.randomUUID()));
+        super.setId(new AvailabilityId(builder.id));
         appointmentId = builder.appointmentId;
         appointmentStartDateTime = builder.appointmentStartDateTime;
         appointmentEndDateTime = builder.appointmentEndDateTime;
@@ -42,12 +42,18 @@ public class Availability extends AggregateRoot<AvailabilityId> {
     }
 
     public static final class Builder {
+        private UUID id;
         private UUID appointmentId;
         private LocalDateTime appointmentStartDateTime;
         private LocalDateTime appointmentEndDateTime;
         private String reason;
 
         private Builder() {
+        }
+
+        public Builder id(UUID val) {
+            id = val;
+            return this;
         }
 
         public Builder appointmentId(UUID val) {

@@ -164,6 +164,11 @@
                 <artifactId>availability-messaging</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.vet.appointment.system</groupId>
+                <artifactId>availability-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>

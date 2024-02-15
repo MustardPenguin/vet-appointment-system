@@ -16,6 +16,7 @@
         <module>availability-messaging</module>
         <module>availability-dataaccess</module>
         <module>availability-container</module>
+        <module>availability-application</module>
     </modules>
 
 </project>

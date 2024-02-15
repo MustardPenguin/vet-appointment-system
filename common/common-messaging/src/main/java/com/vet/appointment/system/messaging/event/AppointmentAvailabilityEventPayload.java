@@ -1,4 +1,4 @@
-package com.vet.appointment.system.appointment.service.domain.outbox.model;
+package com.vet.appointment.system.messaging.event;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -4,6 +4,8 @@ availability-service:
   opening-time: 06:00
   closing-time: 20:00
 
+server:
+  port: 8184
 
 # Service registry
 eureka:
@@ -14,11 +16,11 @@ eureka:
 # Database
 spring:
   application:
-    name: "appointment-service"
+    name: "availability-service"
   jpa:
     show-sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=appointment
+    url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=availability
     username: user
     password: admin
     driver-class-name: org.postgresql.Driver

@@ -30,6 +30,7 @@
     <file url="file://$PROJECT_DIR$/appointment-service/appointment-messaging/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/appointment-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/appointment-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/availability-service/availability-application/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/availability-service/availability-container/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/availability-service/availability-dataaccess/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/availability-service/availability-domain/availability-application-service/src/main/java" charset="UTF-8" />

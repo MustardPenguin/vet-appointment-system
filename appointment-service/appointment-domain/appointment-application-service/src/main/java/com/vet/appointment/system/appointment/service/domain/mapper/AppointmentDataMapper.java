@@ -3,9 +3,9 @@ package com.vet.appointment.system.appointment.service.domain.mapper;
 import com.vet.appointment.system.appointment.service.domain.dto.create.CreateAppointmentCommand;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
-import com.vet.appointment.system.appointment.service.domain.outbox.model.AppointmentAvailabilityEventPayload;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
+import com.vet.appointment.system.messaging.event.AppointmentAvailabilityEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

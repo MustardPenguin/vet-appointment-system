@@ -3,9 +3,9 @@ package com.vet.appointment.system.appointment.service.domain.outbox.scheduler.a
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;
-import com.vet.appointment.system.appointment.service.domain.outbox.model.AppointmentAvailabilityEventPayload;
 import com.vet.appointment.system.appointment.service.domain.outbox.model.AppointmentAvailabilityOutboxMessage;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AvailabilityOutboxRepository;
+import com.vet.appointment.system.messaging.event.AppointmentAvailabilityEventPayload;
 import com.vet.appointment.system.outbox.OutboxStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -39,7 +39,7 @@ public class AvailabilityOutboxHelper {
 
     @Transactional
     public void saveAvailabilityOutboxMessage(AppointmentAvailabilityEventPayload appointmentAvailabilityEventPayload,
-                                             OutboxStatus outboxStatus) {
+                                              OutboxStatus outboxStatus) {
         save(AppointmentAvailabilityOutboxMessage.builder()
                 .id(UUID.randomUUID())
                 .createdAt(appointmentAvailabilityEventPayload.getCreatedAt())
