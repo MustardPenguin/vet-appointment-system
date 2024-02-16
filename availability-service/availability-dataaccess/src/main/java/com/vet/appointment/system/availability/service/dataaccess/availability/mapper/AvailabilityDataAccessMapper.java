@@ -10,9 +10,9 @@ public class AvailabilityDataAccessMapper {
     public Availability availabilityEntityToAvailability(AvailabilityEntity availabilityEntity) {
         return Availability.builder()
                 .id(availabilityEntity.getId())
-                .appointmentId(availabilityEntity.getAppointmentId())
-                .appointmentStartDateTime(availabilityEntity.getStartDateTime())
-                .appointmentEndDateTime(availabilityEntity.getEndDateTime())
+                .eventId(availabilityEntity.getEventId())
+                .startDateTime(availabilityEntity.getStartDateTime())
+                .endDateTime(availabilityEntity.getEndDateTime())
                 .reason(availabilityEntity.getReason())
                 .build();
     }

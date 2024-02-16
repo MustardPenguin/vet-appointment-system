@@ -13,16 +13,16 @@ public class AvailabilityEntity {
 
     @Id
     private UUID id;
-    private UUID appointmentId;
+    private UUID eventId;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String reason;
 
     public AvailabilityEntity() {}
 
-    public AvailabilityEntity(UUID id, UUID appointmentId, LocalDateTime startDateTime, LocalDateTime endDateTime, String reason) {
+    public AvailabilityEntity(UUID id, UUID eventId, LocalDateTime startDateTime, LocalDateTime endDateTime, String reason) {
         this.id = id;
-        this.appointmentId = appointmentId;
+        this.eventId = eventId;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.reason = reason;
@@ -32,8 +32,8 @@ public class AvailabilityEntity {
         return id;
     }
 
-    public UUID getAppointmentId() {
-        return appointmentId;
+    public UUID getEventId() {
+        return eventId;
     }
 
     public LocalDateTime getStartDateTime() {

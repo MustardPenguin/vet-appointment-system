@@ -8,16 +8,16 @@ import java.util.UUID;
 
 public class Availability extends AggregateRoot<AvailabilityId> {
 
-    private final UUID appointmentId;
-    private final LocalDateTime appointmentStartDateTime;
-    private final LocalDateTime appointmentEndDateTime;
+    private final UUID eventId;
+    private final LocalDateTime startDateTime;
+    private final LocalDateTime endDateTime;
     private final String reason;
 
     private Availability(Builder builder) {
         super.setId(new AvailabilityId(builder.id));
-        appointmentId = builder.appointmentId;
-        appointmentStartDateTime = builder.appointmentStartDateTime;
-        appointmentEndDateTime = builder.appointmentEndDateTime;
+        eventId = builder.appointmentId;
+        startDateTime = builder.startDateTime;
+        endDateTime = builder.endDateTime;
         reason = builder.reason;
     }
 
@@ -25,16 +25,16 @@ public class Availability extends AggregateRoot<AvailabilityId> {
         return new Builder();
     }
 
-    public UUID getAppointmentId() {
-        return appointmentId;
+    public UUID getEventId() {
+        return eventId;
     }
 
-    public LocalDateTime getAppointmentStartDateTime() {
-        return appointmentStartDateTime;
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
     }
 
-    public LocalDateTime getAppointmentEndDateTime() {
-        return appointmentEndDateTime;
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
     }
 
     public String getReason() {
@@ -43,9 +43,9 @@ public class Availability extends AggregateRoot<AvailabilityId> {
 
     public static final class Builder {
         private UUID id;
-        private UUID appointmentId;
-        private LocalDateTime appointmentStartDateTime;
-        private LocalDateTime appointmentEndDateTime;
+        private UUID eventId;
+        private LocalDateTime startDateTime;
+        private LocalDateTime endDateTime;
         private String reason;
 
         private Builder() {
@@ -56,18 +56,18 @@ public class Availability extends AggregateRoot<AvailabilityId> {
             return this;
         }
 
-        public Builder appointmentId(UUID val) {
-            appointmentId = val;
+        public Builder eventId(UUID val) {
+            eventId = val;
             return this;
         }
 
-        public Builder appointmentStartDateTime(LocalDateTime val) {
-            appointmentStartDateTime = val;
+        public Builder startDateTime(LocalDateTime val) {
+            startDateTime = val;
             return this;
         }
 
-        public Builder appointmentEndDateTime(LocalDateTime val) {
-            appointmentEndDateTime = val;
+        public Builder endDateTime(LocalDateTime val) {
+            endDateTime = val;
             return this;
         }
 

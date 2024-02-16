@@ -19,7 +19,6 @@ public interface AvailabilityJpaRepository extends JpaRepository<AvailabilityEnt
                     "WHERE (start_date_time <= :start AND end_date_time >= :end) " +
                     "OR (start_date_time > :start AND start_date_time < :end) " +
                     "OR (end_date_time < :end AND end_date_time > :start) ", nativeQuery = true)
-    List<AvailabilityEntity>
-        getAvailabilityEntitiesByAppointmentStartDateTimeAfterAndAppointmentEndDateTimeBefore(
-            @Param("start") LocalDateTime appointmentStartDateTime, @Param("end") LocalDateTime appointmentEndDateTime);
+    Optional<AvailabilityEntity>
+        getAvailabilityEntityBetween(@Param("start") LocalDateTime appointmentStartDateTime, @Param("end") LocalDateTime appointmentEndDateTime);
 }

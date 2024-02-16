@@ -5,9 +5,10 @@ import com.vet.appointment.system.availability.service.domain.entity.Availabilit
 import com.vet.appointment.system.availability.service.domain.event.AvailabilityConfirmedEvent;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AvailabilityDomainService {
     AvailabilityConfirmedEvent validateAppointmentAvailability(Appointment appointment,
-                                                               List<Availability> availabilities,
+                                                               Optional<Availability> availabilities,
                                                                List<String> errorMessages);
 }

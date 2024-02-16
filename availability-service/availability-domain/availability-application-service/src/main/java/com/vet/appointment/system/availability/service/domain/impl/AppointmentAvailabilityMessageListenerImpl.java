@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -28,15 +29,11 @@ public class AppointmentAvailabilityMessageListenerImpl implements AppointmentAv
     @Override
     public void checkAvailability(Appointment appointment) {
         log.info("Checking availability for appointment: {}", appointment.getId().getValue());
-        List<Availability> availabilities = availabilityRepository.getAvailabilitiesOnDate(appointment.getAppointmentStartDateTime(), appointment.getAppointmentEndDateTime());
-        if(availabilities.isEmpty()) {
-            log.info("Availability is found");
-        } else {
-            log.info("Availability is not found");
-        }
+        Optional<Availability> optionalAvailability = availabilityRepository.getAvailabilitiesOnDate(appointment.getAppointmentStartDateTime(), appointment.getAppointmentEndDateTime());
 
         List<String> errorMessages = new ArrayList<>();
-//        AvailabilityConfirmedEvent availabilityConfirmedEvent = availabilityDomainService
-//                .validateAppointmentAvailability(appointment, availabilities, errorMessages);
+        AvailabilityConfirmedEvent availabilityConfirmedEvent = availabilityDomainService
+                .validateAppointmentAvailability(appointment, optionalAvailability, errorMessages);
+
     }
 }

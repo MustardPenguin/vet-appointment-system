@@ -4,8 +4,9 @@ import com.vet.appointment.system.availability.service.domain.entity.Availabilit
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface AvailabilityRepository {
 
-    List<Availability> getAvailabilitiesOnDate(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    Optional<Availability> getAvailabilitiesOnDate(LocalDateTime startDateTime, LocalDateTime endDateTime);
 }
