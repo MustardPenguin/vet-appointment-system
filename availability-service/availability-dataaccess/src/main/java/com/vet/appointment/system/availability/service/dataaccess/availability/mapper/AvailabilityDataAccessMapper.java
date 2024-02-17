@@ -11,6 +11,7 @@ public class AvailabilityDataAccessMapper {
         return Availability.builder()
                 .id(availabilityEntity.getId())
                 .eventId(availabilityEntity.getEventId())
+                .eventType(availabilityEntity.getEventType())
                 .startDateTime(availabilityEntity.getStartDateTime())
                 .endDateTime(availabilityEntity.getEndDateTime())
                 .reason(availabilityEntity.getReason())

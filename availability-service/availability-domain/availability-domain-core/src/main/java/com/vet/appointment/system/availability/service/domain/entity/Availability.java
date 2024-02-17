@@ -1,6 +1,7 @@
 package com.vet.appointment.system.availability.service.domain.entity;
 
 import com.vet.appointment.system.availability.service.domain.valueobject.AvailabilityId;
+import com.vet.appointment.system.availability.service.domain.valueobject.EventType;
 import com.vet.appointment.system.domain.entity.AggregateRoot;
 
 import java.time.LocalDateTime;
@@ -9,13 +10,15 @@ import java.util.UUID;
 public class Availability extends AggregateRoot<AvailabilityId> {
 
     private final UUID eventId;
+    private final EventType eventType;
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
     private final String reason;
 
     private Availability(Builder builder) {
         super.setId(new AvailabilityId(builder.id));
-        eventId = builder.appointmentId;
+        eventId = builder.eventId;
+        eventType = builder.eventType;
         startDateTime = builder.startDateTime;
         endDateTime = builder.endDateTime;
         reason = builder.reason;
@@ -41,9 +44,14 @@ public class Availability extends AggregateRoot<AvailabilityId> {
         return reason;
     }
 
+    public EventType getEventType() {
+        return eventType;
+    }
+
     public static final class Builder {
         private UUID id;
         private UUID eventId;
+        private EventType eventType;
         private LocalDateTime startDateTime;
         private LocalDateTime endDateTime;
         private String reason;
@@ -58,6 +66,11 @@ public class Availability extends AggregateRoot<AvailabilityId> {
 
         public Builder eventId(UUID val) {
             eventId = val;
+            return this;
+        }
+
+        public Builder eventType(EventType val) {
+            eventType = val;
             return this;
         }
 

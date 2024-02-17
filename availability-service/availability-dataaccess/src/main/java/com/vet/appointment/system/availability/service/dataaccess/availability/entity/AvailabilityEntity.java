@@ -1,8 +1,7 @@
 package com.vet.appointment.system.availability.service.dataaccess.availability.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.vet.appointment.system.availability.service.domain.valueobject.EventType;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,18 +13,25 @@ public class AvailabilityEntity {
     @Id
     private UUID id;
     private UUID eventId;
+    @Enumerated(EnumType.STRING)
+    private EventType eventType;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String reason;
 
     public AvailabilityEntity() {}
 
-    public AvailabilityEntity(UUID id, UUID eventId, LocalDateTime startDateTime, LocalDateTime endDateTime, String reason) {
-        this.id = id;
-        this.eventId = eventId;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-        this.reason = reason;
+    private AvailabilityEntity(Builder builder) {
+        id = builder.id;
+        eventId = builder.eventId;
+        eventType = builder.eventType;
+        startDateTime = builder.startDateTime;
+        endDateTime = builder.endDateTime;
+        reason = builder.reason;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public UUID getId() {
@@ -46,5 +52,56 @@ public class AvailabilityEntity {
 
     public String getReason() {
         return reason;
+    }
+
+    public EventType getEventType() {
+        return eventType;
+    }
+
+
+    public static final class Builder {
+        private UUID id;
+        private UUID eventId;
+        private EventType eventType;
+        private LocalDateTime startDateTime;
+        private LocalDateTime endDateTime;
+        private String reason;
+
+        private Builder() {
+        }
+
+        public Builder id(UUID val) {
+            id = val;
+            return this;
+        }
+
+        public Builder eventId(UUID val) {
+            eventId = val;
+            return this;
+        }
+
+        public Builder eventType(EventType val) {
+            eventType = val;
+            return this;
+        }
+
+        public Builder startDateTime(LocalDateTime val) {
+            startDateTime = val;
+            return this;
+        }
+
+        public Builder endDateTime(LocalDateTime val) {
+            endDateTime = val;
+            return this;
+        }
+
+        public Builder reason(String val) {
+            reason = val;
+            return this;
+        }
+
+        public AvailabilityEntity build() {
+            return new AvailabilityEntity(this);
+        }
     }
 }

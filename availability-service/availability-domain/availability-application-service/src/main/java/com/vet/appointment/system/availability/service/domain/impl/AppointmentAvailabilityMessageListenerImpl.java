@@ -35,5 +35,8 @@ public class AppointmentAvailabilityMessageListenerImpl implements AppointmentAv
         AvailabilityConfirmedEvent availabilityConfirmedEvent = availabilityDomainService
                 .validateAppointmentAvailability(appointment, optionalAvailability, errorMessages);
 
+        if(errorMessages.isEmpty()) {
+            log.info("Appointment is available!");
+        }
     }
 }

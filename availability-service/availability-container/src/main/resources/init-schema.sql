@@ -6,11 +6,15 @@ CREATE SCHEMA "availability";
 DROP TYPE IF EXISTS outbox_status;
 CREATE TYPE outbox_status AS ENUM('STARTED', 'COMPLETED', 'FAILED');
 
+DROP TYPE IF EXISTS event_type;
+CREATE TYPE event_type AS ENUM('APPOINTMENT', 'HOLIDAY', 'OTHER');
+
 DROP TABLE IF EXISTS "availability"."availabilities" CASCADE;
 
 CREATE TABLE "availability".availabilities (
     id UUID PRIMARY KEY,
-    appointment_id UUID NOT NULL,
+    event_id UUID NOT NULL,
+    event_type event_type NOT NULL,
     start_date_time timestamp WITHOUT TIME ZONE NOT NULL,
     end_date_time timestamp WITHOUT TIME ZONE NOT NULL,
     reason varchar(255)
