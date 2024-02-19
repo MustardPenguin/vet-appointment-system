@@ -7,16 +7,12 @@ import com.vet.appointment.system.appointment.service.domain.entity.Pet;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
 import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;
 import com.vet.appointment.system.appointment.service.domain.mapper.AppointmentDataMapper;
-import com.vet.appointment.system.appointment.service.domain.outbox.scheduler.availability.AvailabilityOutboxHelper;
+import com.vet.appointment.system.appointment.service.domain.helper.AvailabilityOutboxHelper;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AppointmentRepository;
-import com.vet.appointment.system.appointment.service.domain.ports.output.repository.PetRepository;
 import com.vet.appointment.system.outbox.OutboxStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Slf4j
 @Component

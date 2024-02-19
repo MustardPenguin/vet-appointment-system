@@ -29,6 +29,7 @@
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>appointment-domain-core</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>outbox</artifactId>

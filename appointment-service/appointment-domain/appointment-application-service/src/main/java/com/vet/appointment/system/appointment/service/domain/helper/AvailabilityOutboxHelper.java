@@ -1,4 +1,4 @@
-package com.vet.appointment.system.appointment.service.domain.outbox.scheduler.availability;
+package com.vet.appointment.system.appointment.service.domain.helper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

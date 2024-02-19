@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableDiscoveryClient
 @EnableJpaRepositories(basePackages = "com.vet.appointment.system.availability.service.dataaccess")
-@EntityScan(basePackages = "com.vet.appointment.system.availability.service.dataaccess")
+@EntityScan(basePackages = {"com.vet.appointment.system.availability.service.dataaccess", "com.vet.appointment.system.dataaccess"})
 @SpringBootApplication(scanBasePackages = "com.vet.appointment.system")
 public class AvailabilityServiceApplication {
     public static void main(String[] args) {
