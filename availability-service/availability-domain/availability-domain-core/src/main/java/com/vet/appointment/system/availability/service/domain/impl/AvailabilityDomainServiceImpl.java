@@ -18,12 +18,13 @@ import static com.vet.appointment.system.domain.DomainConstants.UTC;
 public class AvailabilityDomainServiceImpl implements AvailabilityDomainService {
 
     @Override
-    public AvailabilityConfirmedEvent validateAppointmentAvailability(Appointment appointment, Optional<Availability> optionalAvailability, List<String> errorMessages) {
-        if(optionalAvailability.isPresent()) {
-            errorMessages.add("Availability is already taken! Reason: " + optionalAvailability.get().getReason());
+    public AvailabilityConfirmedEvent validateAppointmentAvailability(Appointment appointment, Optional<List<Availability>> availabilities, List<String> errorMessages) {
+        if(!availabilities.get().isEmpty()) {
+            errorMessages.add("Availability is already taken!");
         }
         Availability availability = Availability.builder()
                 .id(UUID.randomUUID())
+                .eventId(appointment.getId().getValue())
                 .eventType(EventType.APPOINTMENT)
                 .startDateTime(appointment.getAppointmentStartDateTime())
                 .endDateTime(appointment.getAppointmentEndDateTime())

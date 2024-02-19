@@ -17,4 +17,15 @@ public class AvailabilityDataAccessMapper {
                 .reason(availabilityEntity.getReason())
                 .build();
     }
+
+    public AvailabilityEntity availabilityToAvailabilityEntity(Availability availability) {
+        return AvailabilityEntity.builder()
+                .id(availability.getId().getValue())
+                .eventId(availability.getEventId())
+                .eventType(availability.getEventType())
+                .startDateTime(availability.getStartDateTime())
+                .endDateTime(availability.getEndDateTime())
+                .reason(availability.getReason())
+                .build();
+    }
 }

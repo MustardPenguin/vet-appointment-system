@@ -4,14 +4,16 @@ import com.vet.appointment.system.availability.service.domain.AvailabilityDomain
 import com.vet.appointment.system.availability.service.domain.entity.Appointment;
 import com.vet.appointment.system.availability.service.domain.entity.Availability;
 import com.vet.appointment.system.availability.service.domain.event.AvailabilityConfirmedEvent;
+import com.vet.appointment.system.availability.service.domain.exception.AvailabilityDomainException;
 import com.vet.appointment.system.availability.service.domain.helper.AppointmentOutboxHelper;
 import com.vet.appointment.system.availability.service.domain.ports.input.message.listener.AppointmentAvailabilityMessageListener;
-import com.vet.appointment.system.availability.service.domain.ports.output.repository.AppointmentOutboxRepository;
 import com.vet.appointment.system.availability.service.domain.ports.output.repository.AvailabilityRepository;
+import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.messaging.event.AvailabilityAppointmentEventPayload;
 import com.vet.appointment.system.outbox.OutboxStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,24 +36,36 @@ public class AppointmentAvailabilityMessageListenerImpl implements AppointmentAv
     }
 
     @Override
+    @Transactional
     public void checkAvailability(Appointment appointment) {
         log.info("Checking availability for appointment: {}", appointment.getId().getValue());
-        Optional<Availability> optionalAvailability = availabilityRepository.getAvailabilitiesOnDate(appointment.getAppointmentStartDateTime(), appointment.getAppointmentEndDateTime());
+        Optional<List<Availability>> optionalAvailabilities = availabilityRepository.getAvailabilitiesOnDate(appointment.getAppointmentStartDateTime(), appointment.getAppointmentEndDateTime());
 
         List<String> errorMessages = new ArrayList<>();
         AvailabilityConfirmedEvent availabilityConfirmedEvent = availabilityDomainService
-                .validateAppointmentAvailability(appointment, optionalAvailability, errorMessages);
+                .validateAppointmentAvailability(appointment, optionalAvailabilities, errorMessages);
 
-        if(errorMessages.isEmpty()) {
-            log.info("Appointment is available!");
-        } else {
-            log.info("Appointment is not available!");
-        }
+        AppointmentStatus appointmentStatus = optionalAvailabilities.get().isEmpty() ? AppointmentStatus.AVAILABLE : AppointmentStatus.UNAVAILABLE;
         appointmentOutboxHelper.saveAppointmentOutboxMessage(new
-                AvailabilityAppointmentEventPayload(
+                        AvailabilityAppointmentEventPayload(
                         availabilityConfirmedEvent.getEntity().getEventId(),
                         String.join(", ", errorMessages),
-                        availabilityConfirmedEvent.getCreatedAt()),
+                        availabilityConfirmedEvent.getCreatedAt(),
+                        appointmentStatus),
                 OutboxStatus.STARTED);
+
+        log.info("Appointment status: {}", appointmentStatus);
+        if(appointmentStatus.equals(AppointmentStatus.UNAVAILABLE)) {
+            log.info("Appointment is not available for appointment id: {}", appointment.getId().getValue());
+            return;
+        }
+        log.info("Availability for appointment id {} is confirmed, saving to database as id {}",
+                appointment.getId().getValue(), availabilityConfirmedEvent.getEntity().getEventId());
+        Availability response = availabilityRepository.save(availabilityConfirmedEvent.getEntity());
+        if(response == null) {
+            log.error("Failed to save availability entity for appointment id: {}", availabilityConfirmedEvent.getEntity().getEventId());
+            throw new AvailabilityDomainException("Failed to save availability entity for appointment id: " +
+                    availabilityConfirmedEvent.getEntity().getEventId());
+        }
     }
 }

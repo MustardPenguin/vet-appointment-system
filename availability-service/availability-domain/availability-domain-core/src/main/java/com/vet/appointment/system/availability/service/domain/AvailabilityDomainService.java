@@ -9,6 +9,6 @@ import java.util.Optional;
 
 public interface AvailabilityDomainService {
     AvailabilityConfirmedEvent validateAppointmentAvailability(Appointment appointment,
-                                                               Optional<Availability> availabilities,
+                                                               Optional<List<Availability>> availabilities,
                                                                List<String> errorMessages);
 }

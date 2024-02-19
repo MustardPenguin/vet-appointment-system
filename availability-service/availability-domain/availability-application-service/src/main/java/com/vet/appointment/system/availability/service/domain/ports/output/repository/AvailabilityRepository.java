@@ -8,5 +8,7 @@ import java.util.Optional;
 
 public interface AvailabilityRepository {
 
-    Optional<Availability> getAvailabilitiesOnDate(LocalDateTime startDateTime, LocalDateTime endDateTime);
+    Optional<List<Availability>> getAvailabilitiesOnDate(LocalDateTime startDateTime, LocalDateTime endDateTime);
+
+    Availability save(Availability availability);
 }

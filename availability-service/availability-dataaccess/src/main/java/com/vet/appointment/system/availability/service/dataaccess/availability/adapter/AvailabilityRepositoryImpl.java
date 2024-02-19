@@ -24,8 +24,16 @@ public class AvailabilityRepositoryImpl implements AvailabilityRepository {
         this.availabilityDataAccessMapper = availabilityDataAccessMapper;
     }
 
-    public Optional<Availability> getAvailabilitiesOnDate(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        return availabilityJpaRepository.getAvailabilityEntityBetween(startDateTime, endDateTime)
-                .map(availabilityDataAccessMapper::availabilityEntityToAvailability);
+    public Optional<List<Availability>> getAvailabilitiesOnDate(LocalDateTime startDateTime, LocalDateTime endDateTime) {
+        return Optional.of(availabilityJpaRepository.getAvailabilityEntityBetween(startDateTime, endDateTime)
+                .get().stream().map(availabilityDataAccessMapper::availabilityEntityToAvailability)
+                .collect(Collectors.toList()));
+    }
+
+    @Override
+    public Availability save(Availability availability) {
+        AvailabilityEntity availabilityEntity = availabilityJpaRepository
+                .save(availabilityDataAccessMapper.availabilityToAvailabilityEntity(availability));
+        return availabilityDataAccessMapper.availabilityEntityToAvailability(availabilityEntity);
     }
 }

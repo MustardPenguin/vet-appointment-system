@@ -37,5 +37,9 @@
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>common-messaging</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>common-domain</artifactId>
+        </dependency>
     </dependencies>
 </project>
