@@ -46,7 +46,9 @@ kafka-consumer-data:
 kafka-consumer-topic-name:
   account-created-event: debezium.account.appointment_outbox
   pet-created-event: debezium.pet.appointment_outbox
+  availability-response-event: debezium.availability.appointment_outbox
 
 kafka-consumer-group-id:
   account-group-id: account-topic-consumer
   pet-group-id: pet-topic-consumer
+  availability-group-id: availability-topic-consumer

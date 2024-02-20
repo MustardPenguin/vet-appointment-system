@@ -25,6 +25,8 @@ account_appointment_json=$(jq -n \
     }
   }')
 
+echo "";
+
 pet_appointment_json=$(jq -n \
   --arg dbh "$DATABASE_HOSTNAME" \
   '{
@@ -43,6 +45,8 @@ pet_appointment_json=$(jq -n \
       "plugin.name": "pgoutput"
     }
   }')
+
+echo "";
 
 appointment_availability_json=$(jq -n \
   --arg dbh "$DATABASE_HOSTNAME" \
@@ -63,11 +67,36 @@ appointment_availability_json=$(jq -n \
     }
   }')
 
+echo "";
+
+availability_appointment_json=$(jq -n \
+  --arg dbh "$DATABASE_HOSTNAME" \
+  '{
+    "name": "availability-appointment-connector",
+    "config": {
+      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "tasks.max": "1",
+      "database.hostname": $dbh,
+      "database.user": "user",
+      "database.password": "admin",
+      "database.dbname": "postgres",
+      "table.include.list": "availability.appointment_outbox",
+      "topic.prefix": "debezium",
+      "tombstones.on.delete" : "false",
+      "slot.name": "availability_appointment_outbox_slot",
+      "plugin.name": "pgoutput"
+    }
+  }')
+
+echo "";
+
 # Curl POST request to Debezium connector
 echo "Sending post requests..."
 curl -X POST -H "Content-Type: application/json" --data "$account_appointment_json" http://localhost:8083/connectors
 curl -X POST -H "Content-Type: application/json" --data "$pet_appointment_json" http://localhost:8083/connectors
 curl -X POST -H "Content-Type: application/json" --data "$appointment_availability_json" http://localhost:8083/connectors
+curl -X POST -H "Content-Type: application/json" --data "$availability_appointment_json" http://localhost:8083/connectors
 
+echo "";
 echo "Current connectors: "
 curl http://localhost:8083/connectors
