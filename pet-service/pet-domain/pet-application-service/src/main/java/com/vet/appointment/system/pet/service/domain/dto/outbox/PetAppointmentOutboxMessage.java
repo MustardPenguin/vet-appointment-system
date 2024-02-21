@@ -1,9 +1,7 @@
-package com.vet.appointment.system.pet.service.domain.outbox.model;
+package com.vet.appointment.system.pet.service.domain.dto.outbox;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vet.appointment.system.outbox.OutboxStatus;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 

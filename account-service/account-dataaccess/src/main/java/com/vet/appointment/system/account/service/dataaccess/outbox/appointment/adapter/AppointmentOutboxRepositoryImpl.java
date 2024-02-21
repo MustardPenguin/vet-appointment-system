@@ -1,7 +1,7 @@
 package com.vet.appointment.system.account.service.dataaccess.outbox.appointment.adapter;
 
 import com.vet.appointment.system.account.service.dataaccess.outbox.appointment.mapper.AppointmentDataAccessMapper;
-import com.vet.appointment.system.account.service.domain.outbox.model.AccountAppointmentOutboxMessage;
+import com.vet.appointment.system.account.service.domain.dto.outbox.AccountAppointmentOutboxMessage;
 import com.vet.appointment.system.account.service.domain.ports.output.repository.AppointmentOutboxRepository;
 import com.vet.appointment.system.dataaccess.outbox.appointment.entity.AppointmentOutboxEntity;
 import com.vet.appointment.system.dataaccess.outbox.appointment.repository.AppointmentOutboxJpaRepository;

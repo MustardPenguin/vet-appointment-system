@@ -4,7 +4,7 @@ import com.vet.appointment.system.dataaccess.outbox.appointment.entity.Appointme
 import com.vet.appointment.system.dataaccess.outbox.appointment.repository.AppointmentOutboxJpaRepository;
 import com.vet.appointment.system.outbox.OutboxStatus;
 import com.vet.appointment.system.pet.service.dataaccess.outbox.appointment.mapper.AppointmentDataAccessMapper;
-import com.vet.appointment.system.pet.service.domain.outbox.model.PetAppointmentOutboxMessage;
+import com.vet.appointment.system.pet.service.domain.dto.outbox.PetAppointmentOutboxMessage;
 import com.vet.appointment.system.pet.service.domain.ports.output.repository.AppointmentOutboxRepository;
 import org.springframework.stereotype.Component;
 

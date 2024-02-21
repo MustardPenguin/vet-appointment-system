@@ -1,4 +1,4 @@
-package com.vet.appointment.system.appointment.service.domain.outbox.model;
+package com.vet.appointment.system.appointment.service.domain.dto.outbox;
 
 import com.vet.appointment.system.outbox.OutboxStatus;
 

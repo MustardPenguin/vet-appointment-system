@@ -1,7 +1,7 @@
 package com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.mapper;
 
 import com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.entity.AvailabilityOutboxEntity;
-import com.vet.appointment.system.appointment.service.domain.outbox.model.AppointmentAvailabilityOutboxMessage;
+import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentAvailabilityOutboxMessage;
 import org.springframework.stereotype.Component;
 
 @Component

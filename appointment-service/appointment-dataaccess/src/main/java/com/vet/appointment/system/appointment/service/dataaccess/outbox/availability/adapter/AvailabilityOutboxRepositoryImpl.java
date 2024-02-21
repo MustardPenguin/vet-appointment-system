@@ -3,7 +3,7 @@ package com.vet.appointment.system.appointment.service.dataaccess.outbox.availab
 import com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.entity.AvailabilityOutboxEntity;
 import com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.mapper.AvailabilityDataAccessMapper;
 import com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.repository.AvailabilityOutboxJpaRepository;
-import com.vet.appointment.system.appointment.service.domain.outbox.model.AppointmentAvailabilityOutboxMessage;
+import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentAvailabilityOutboxMessage;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AvailabilityOutboxRepository;
 import org.springframework.stereotype.Component;
 

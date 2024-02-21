@@ -2,7 +2,7 @@ package com.vet.appointment.system.pet.service.domain.outbox.scheduler.appointme
 
 import com.vet.appointment.system.outbox.OutboxScheduler;
 import com.vet.appointment.system.outbox.OutboxStatus;
-import com.vet.appointment.system.pet.service.domain.outbox.model.PetAppointmentOutboxMessage;
+import com.vet.appointment.system.pet.service.domain.dto.outbox.PetAppointmentOutboxMessage;
 import com.vet.appointment.system.pet.service.domain.ports.output.repository.AppointmentOutboxRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;

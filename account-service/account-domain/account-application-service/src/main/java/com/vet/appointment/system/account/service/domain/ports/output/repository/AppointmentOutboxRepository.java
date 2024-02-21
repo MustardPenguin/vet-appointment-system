@@ -1,6 +1,6 @@
 package com.vet.appointment.system.account.service.domain.ports.output.repository;
 
-import com.vet.appointment.system.account.service.domain.outbox.model.AccountAppointmentOutboxMessage;
+import com.vet.appointment.system.account.service.domain.dto.outbox.AccountAppointmentOutboxMessage;
 import com.vet.appointment.system.outbox.OutboxStatus;
 
 import java.util.List;

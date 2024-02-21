@@ -1,7 +1,7 @@
 package com.vet.appointment.system.pet.service.dataaccess.outbox.appointment.mapper;
 
 import com.vet.appointment.system.dataaccess.outbox.appointment.entity.AppointmentOutboxEntity;
-import com.vet.appointment.system.pet.service.domain.outbox.model.PetAppointmentOutboxMessage;
+import com.vet.appointment.system.pet.service.domain.dto.outbox.PetAppointmentOutboxMessage;
 import org.springframework.stereotype.Component;
 
 @Component
