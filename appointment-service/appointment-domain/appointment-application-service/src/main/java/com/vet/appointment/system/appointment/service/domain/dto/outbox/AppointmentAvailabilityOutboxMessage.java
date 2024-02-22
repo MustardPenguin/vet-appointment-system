@@ -1,6 +1,7 @@
 package com.vet.appointment.system.appointment.service.domain.dto.outbox;
 
 import com.vet.appointment.system.outbox.OutboxStatus;
+import com.vet.appointment.system.saga.SagaStatus;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
@@ -8,10 +9,11 @@ import java.util.UUID;
 public class AppointmentAvailabilityOutboxMessage {
     private UUID id;
     private ZonedDateTime createdAt;
-    private ZonedDateTime processedAt;
     private String payload;
     private OutboxStatus outboxStatus;
     private int version;
+    private SagaStatus sagaStatus;
+    private UUID sagaId;
 
     public UUID getId() {
         return id;
@@ -21,9 +23,6 @@ public class AppointmentAvailabilityOutboxMessage {
         return createdAt;
     }
 
-    public ZonedDateTime getProcessedAt() {
-        return processedAt;
-    }
 
     public String getPayload() {
         return payload;
@@ -37,11 +36,20 @@ public class AppointmentAvailabilityOutboxMessage {
         return version;
     }
 
+    public SagaStatus getSagaStatus() {
+        return sagaStatus;
+    }
+
+    public UUID getSagaId() {
+        return sagaId;
+    }
+
     private AppointmentAvailabilityOutboxMessage(Builder builder) {
         id = builder.id;
         createdAt = builder.createdAt;
-        setProcessedAt(builder.processedAt);
         payload = builder.payload;
+        sagaId = builder.sagaId;
+        setSagaStatus(builder.sagaStatus);
         setOutboxStatus(builder.outboxStatus);
         version = builder.version;
     }
@@ -50,24 +58,34 @@ public class AppointmentAvailabilityOutboxMessage {
         return new Builder();
     }
 
-    public void setProcessedAt(ZonedDateTime processedAt) {
-        this.processedAt = processedAt;
-    }
-
     public void setOutboxStatus(OutboxStatus outboxStatus) {
         this.outboxStatus = outboxStatus;
     }
 
+    public void setSagaStatus(SagaStatus sagaStatus) {
+        this.sagaStatus = sagaStatus;
+    }
 
     public static final class Builder {
         private UUID id;
         private ZonedDateTime createdAt;
-        private ZonedDateTime processedAt;
         private String payload;
         private OutboxStatus outboxStatus;
         private int version;
+        private UUID sagaId;
+        private SagaStatus sagaStatus;
 
         private Builder() {
+        }
+
+        public Builder sagaId(UUID val) {
+            sagaId = val;
+            return this;
+        }
+
+        public Builder sagaStatus(SagaStatus val) {
+            sagaStatus = val;
+            return this;
         }
 
         public Builder id(UUID val) {
@@ -77,11 +95,6 @@ public class AppointmentAvailabilityOutboxMessage {
 
         public Builder createdAt(ZonedDateTime val) {
             createdAt = val;
-            return this;
-        }
-
-        public Builder processedAt(ZonedDateTime val) {
-            processedAt = val;
             return this;
         }
 

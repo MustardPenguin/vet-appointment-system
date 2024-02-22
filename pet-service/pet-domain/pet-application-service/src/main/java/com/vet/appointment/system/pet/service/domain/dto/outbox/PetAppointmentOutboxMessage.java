@@ -9,7 +9,6 @@ public class PetAppointmentOutboxMessage {
 
     private UUID id;
     private ZonedDateTime createdAt;
-    private ZonedDateTime processedAt;
     private String payload;
     private OutboxStatus outboxStatus;
     private int version;
@@ -22,9 +21,6 @@ public class PetAppointmentOutboxMessage {
         return createdAt;
     }
 
-    public ZonedDateTime getProcessedAt() {
-        return processedAt;
-    }
 
     public String getPayload() {
         return payload;
@@ -41,7 +37,6 @@ public class PetAppointmentOutboxMessage {
     private PetAppointmentOutboxMessage(Builder builder) {
         id = builder.id;
         createdAt = builder.createdAt;
-        setProcessedAt(builder.processedAt);
         payload = builder.payload;
         setOutboxStatus(builder.outboxStatus);
         version = builder.version;
@@ -49,10 +44,6 @@ public class PetAppointmentOutboxMessage {
 
     public static Builder builder() {
         return new Builder();
-    }
-
-    public void setProcessedAt(ZonedDateTime processedAt) {
-        this.processedAt = processedAt;
     }
 
     public void setOutboxStatus(OutboxStatus outboxStatus) {
@@ -63,7 +54,6 @@ public class PetAppointmentOutboxMessage {
     public static final class Builder {
         private UUID id;
         private ZonedDateTime createdAt;
-        private ZonedDateTime processedAt;
         private String payload;
         private OutboxStatus outboxStatus;
         private int version;
@@ -78,11 +68,6 @@ public class PetAppointmentOutboxMessage {
 
         public Builder createdAt(ZonedDateTime val) {
             createdAt = val;
-            return this;
-        }
-
-        public Builder processedAt(ZonedDateTime val) {
-            processedAt = val;
             return this;
         }
 

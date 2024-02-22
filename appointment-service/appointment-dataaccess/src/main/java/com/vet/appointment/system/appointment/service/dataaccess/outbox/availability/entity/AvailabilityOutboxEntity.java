@@ -1,6 +1,7 @@
 package com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.entity;
 
 import com.vet.appointment.system.outbox.OutboxStatus;
+import com.vet.appointment.system.saga.SagaStatus;
 import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
@@ -12,22 +13,26 @@ public class AvailabilityOutboxEntity {
 
     @Id
     private UUID id;
+    private UUID sagaId;
     private ZonedDateTime createdAt;
-    private ZonedDateTime processedAt;
     private String payload;
     @Enumerated(EnumType.STRING)
     private OutboxStatus outboxStatus;
+    @Enumerated(EnumType.STRING)
+    private SagaStatus sagaStatus;
     @Version
     private int version;
+
 
     public AvailabilityOutboxEntity() {}
 
     private AvailabilityOutboxEntity(Builder builder) {
         id = builder.id;
+        sagaId = builder.sagaId;
         createdAt = builder.createdAt;
-        processedAt = builder.processedAt;
         payload = builder.payload;
         outboxStatus = builder.outboxStatus;
+        sagaStatus = builder.sagaStatus;
         version = builder.version;
     }
 
@@ -43,10 +48,6 @@ public class AvailabilityOutboxEntity {
         return createdAt;
     }
 
-    public ZonedDateTime getProcessedAt() {
-        return processedAt;
-    }
-
     public String getPayload() {
         return payload;
     }
@@ -59,13 +60,21 @@ public class AvailabilityOutboxEntity {
         return version;
     }
 
+    public UUID getSagaId() {
+        return sagaId;
+    }
+
+    public SagaStatus getSagaStatus() {
+        return sagaStatus;
+    }
 
     public static final class Builder {
         private UUID id;
+        private UUID sagaId;
         private ZonedDateTime createdAt;
-        private ZonedDateTime processedAt;
         private String payload;
         private OutboxStatus outboxStatus;
+        private SagaStatus sagaStatus;
         private int version;
 
         private Builder() {
@@ -76,13 +85,13 @@ public class AvailabilityOutboxEntity {
             return this;
         }
 
-        public Builder createdAt(ZonedDateTime val) {
-            createdAt = val;
+        public Builder sagaId(UUID val) {
+            sagaId = val;
             return this;
         }
 
-        public Builder processedAt(ZonedDateTime val) {
-            processedAt = val;
+        public Builder createdAt(ZonedDateTime val) {
+            createdAt = val;
             return this;
         }
 
@@ -93,6 +102,11 @@ public class AvailabilityOutboxEntity {
 
         public Builder outboxStatus(OutboxStatus val) {
             outboxStatus = val;
+            return this;
+        }
+
+        public Builder sagaStatus(SagaStatus val) {
+            sagaStatus = val;
             return this;
         }
 

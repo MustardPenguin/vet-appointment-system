@@ -9,20 +9,11 @@ services:
     command: |
       "
       echo -e 'Deleting kafka topics...'
-      kafka-topics --delete --topic account-created-event --bootstrap-server localhost:29092 --if-exists
-      kafka-topics --delete --topic pet-created-event --bootstrap-server localhost:29092 --if-exists
-      kafka-topics --delete --topic availability-confirmation-request-topic --bootstrap-server localhost:29092 --if-exists
-      kafka-topics --delete --topic availability-confirmation-response-topic --bootstrap-server localhost:29092 --if-exists
 
       kafka-topics --delete --topic debezium.account.appointment_outbox --bootstrap-server localhost:29092 --if-exists
       kafka-topics --delete --topic debezium.appointment.availability_outbox --bootstrap-server localhost:29092 --if-exists
       kafka-topics --delete --topic debezium.pet.appointment_outbox --bootstrap-server localhost:29092 --if-exists
 
-      kafka-topics --create --topic account-created-event --bootstrap-server localhost:29092 --if-not-exists
-      kafka-topics --create --topic pet-created-event --bootstrap-server localhost:29092 --if-not-exists
-      kafka-topics --create --topic availability-confirmation-request-topic --bootstrap-server localhost:29092 --if-not-exists
-      kafka-topics --create --topic availability-confirmation-response-topic --bootstrap-server localhost:29092 --if-not-exists
-      
       kafka-topics --create --topic debezium.account.appointment_outbox --bootstrap-server localhost:29092 --if-not-exists
       kafka-topics --create --topic debezium.appointment.availability_outbox --bootstrap-server localhost:29092 --if-not-exists
       kafka-topics --create --topic debezium.pet.appointment_outbox --bootstrap-server localhost:29092 --if-not-exists

@@ -8,7 +8,6 @@ import java.util.UUID;
 public class AvailabilityAppointmentOutboxMessage {
     private UUID id;
     private ZonedDateTime createdAt;
-    private ZonedDateTime processedAt;
     private String payload;
     private OutboxStatus outboxStatus;
     private int version;
@@ -16,7 +15,6 @@ public class AvailabilityAppointmentOutboxMessage {
     private AvailabilityAppointmentOutboxMessage(Builder builder) {
         id = builder.id;
         createdAt = builder.createdAt;
-        setProcessedAt(builder.processedAt);
         payload = builder.payload;
         setOutboxStatus(builder.outboxStatus);
         version = builder.version;
@@ -34,9 +32,6 @@ public class AvailabilityAppointmentOutboxMessage {
         return createdAt;
     }
 
-    public ZonedDateTime getProcessedAt() {
-        return processedAt;
-    }
 
     public String getPayload() {
         return payload;
@@ -50,19 +45,13 @@ public class AvailabilityAppointmentOutboxMessage {
         return version;
     }
 
-    public void setProcessedAt(ZonedDateTime processedAt) {
-        this.processedAt = processedAt;
-    }
-
     public void setOutboxStatus(OutboxStatus outboxStatus) {
         this.outboxStatus = outboxStatus;
     }
 
-
     public static final class Builder {
         private UUID id;
         private ZonedDateTime createdAt;
-        private ZonedDateTime processedAt;
         private String payload;
         private OutboxStatus outboxStatus;
         private int version;
@@ -77,11 +66,6 @@ public class AvailabilityAppointmentOutboxMessage {
 
         public Builder createdAt(ZonedDateTime val) {
             createdAt = val;
-            return this;
-        }
-
-        public Builder processedAt(ZonedDateTime val) {
-            processedAt = val;
             return this;
         }
 

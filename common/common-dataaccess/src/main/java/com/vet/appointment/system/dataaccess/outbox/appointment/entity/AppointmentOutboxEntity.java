@@ -13,7 +13,6 @@ public class AppointmentOutboxEntity {
     @Id
     private UUID id;
     private ZonedDateTime createdAt;
-    private ZonedDateTime processedAt;
     private String payload;
     @Enumerated(EnumType.STRING)
     private OutboxStatus outboxStatus;
@@ -28,10 +27,6 @@ public class AppointmentOutboxEntity {
 
     public ZonedDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public ZonedDateTime getProcessedAt() {
-        return processedAt;
     }
 
     public String getPayload() {
@@ -53,7 +48,6 @@ public class AppointmentOutboxEntity {
     private AppointmentOutboxEntity(Builder builder) {
         id = builder.id;
         createdAt = builder.createdAt;
-        processedAt = builder.processedAt;
         payload = builder.payload;
         outboxStatus = builder.outboxStatus;
         version = builder.version;
@@ -67,7 +61,6 @@ public class AppointmentOutboxEntity {
     public static final class Builder {
         private UUID id;
         private ZonedDateTime createdAt;
-        private ZonedDateTime processedAt;
         private String payload;
         @Enumerated(EnumType.STRING)
         private OutboxStatus outboxStatus;
@@ -82,11 +75,6 @@ public class AppointmentOutboxEntity {
 
         public Builder createdAt(ZonedDateTime val) {
             createdAt = val;
-            return this;
-        }
-
-        public Builder processedAt(ZonedDateTime val) {
-            processedAt = val;
             return this;
         }
 

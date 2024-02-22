@@ -25,7 +25,6 @@ DROP TABLE IF EXISTS "availability".appointment_outbox CASCADE;
 CREATE TABLE "availability".appointment_outbox (
     id uuid NOT NULL,
     created_at TIMESTAMP NOT NULL,
-    processed_at TIMESTAMP,
     payload jsonb NOT NULL,
     outbox_status outbox_status NOT NULL,
     version integer NOT NULL,

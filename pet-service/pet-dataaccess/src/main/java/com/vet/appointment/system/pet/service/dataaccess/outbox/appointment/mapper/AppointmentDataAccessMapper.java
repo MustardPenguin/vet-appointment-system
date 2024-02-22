@@ -13,7 +13,6 @@ public class AppointmentDataAccessMapper {
                 .payload(petAppointmentOutboxMessage.getPayload())
                 .createdAt(petAppointmentOutboxMessage.getCreatedAt())
                 .outboxStatus(petAppointmentOutboxMessage.getOutboxStatus())
-                .processedAt(petAppointmentOutboxMessage.getProcessedAt())
                 .build();
     }
 

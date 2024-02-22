@@ -12,6 +12,9 @@ CREATE TYPE appointment_status AS ENUM('REQUESTING', 'CONFIRMED', 'CANCELLED', '
 DROP TYPE IF EXISTS payment_status;
 CREATE TYPE payment_status AS ENUM('PENDING', 'COMPLETED', 'FAILED');
 
+DROP TYPE IF EXISTS saga_status;
+CREATE TYPE saga_status AS ENUM('PROCESSING', 'SUCCEEDED', 'COMPENSATING', 'COMPENSATED');
+
 DROP TABLE IF EXISTS "appointment".appointments CASCADE;
 
 CREATE TABLE "appointment".appointments(
@@ -51,10 +54,11 @@ DROP TABLE IF EXISTS "appointment".availability_outbox CASCADE;
 
 CREATE TABLE "appointment".availability_outbox (
     id uuid NOT NULL,
+    saga_id uuid NOT NULL,
     created_at TIMESTAMP NOT NULL,
-    processed_at TIMESTAMP,
     payload jsonb NOT NULL,
     outbox_status outbox_status NOT NULL,
+    saga_status saga_status NOT NULL,
     version integer NOT NULL,
     CONSTRAINT availability_outbox_pkey PRIMARY KEY (id)
 );
