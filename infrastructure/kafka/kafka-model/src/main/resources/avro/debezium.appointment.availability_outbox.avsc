@@ -20,24 +20,20 @@
               }
             },
             {
+              "name": "saga_id",
+              "type": {
+                "type": "string",
+                "connect.version": 1,
+                "connect.name": "io.debezium.data.Uuid"
+              }
+            },
+            {
               "name": "created_at",
               "type": {
                 "type": "long",
                 "connect.version": 1,
                 "connect.name": "io.debezium.time.MicroTimestamp"
               }
-            },
-            {
-              "name": "processed_at",
-              "type": [
-                "null",
-                {
-                  "type": "long",
-                  "connect.version": 1,
-                  "connect.name": "io.debezium.time.MicroTimestamp"
-                }
-              ],
-              "default": null
             },
             {
               "name": "payload",
@@ -54,6 +50,17 @@
                 "connect.version": 1,
                 "connect.parameters": {
                   "allowed": "STARTED,COMPLETED,FAILED"
+                },
+                "connect.name": "io.debezium.data.Enum"
+              }
+            },
+            {
+              "name": "saga_status",
+              "type": {
+                "type": "string",
+                "connect.version": 1,
+                "connect.parameters": {
+                  "allowed": "PROCESSING,SUCCEEDED,COMPENSATING,COMPENSATED"
                 },
                 "connect.name": "io.debezium.data.Enum"
               }

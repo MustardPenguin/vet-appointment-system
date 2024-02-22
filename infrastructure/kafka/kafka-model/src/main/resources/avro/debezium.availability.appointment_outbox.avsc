@@ -20,6 +20,14 @@
               }
             },
             {
+              "name": "saga_id",
+              "type": {
+                "type": "string",
+                "connect.version": 1,
+                "connect.name": "io.debezium.data.Uuid"
+              }
+            },
+            {
               "name": "created_at",
               "type": {
                 "type": "long",
@@ -28,34 +36,11 @@
               }
             },
             {
-              "name": "processed_at",
-              "type": [
-                "null",
-                {
-                  "type": "long",
-                  "connect.version": 1,
-                  "connect.name": "io.debezium.time.MicroTimestamp"
-                }
-              ],
-              "default": null
-            },
-            {
               "name": "payload",
               "type": {
                 "type": "string",
                 "connect.version": 1,
                 "connect.name": "io.debezium.data.Json"
-              }
-            },
-            {
-              "name": "outbox_status",
-              "type": {
-                "type": "string",
-                "connect.version": 1,
-                "connect.parameters": {
-                  "allowed": "STARTED,COMPLETED,FAILED"
-                },
-                "connect.name": "io.debezium.data.Enum"
               }
             },
             {

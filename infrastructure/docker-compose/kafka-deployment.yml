@@ -14,6 +14,8 @@ services:
       ZOOKEEPER_SERVER_ID: 1
   kafka-broker:
     image: confluentinc/cp-kafka:latest
+    # For mac
+    platform: linux/amd64
     hostname: kafka-broker
     ports:
       - "9092:9092"
@@ -51,6 +53,8 @@ services:
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
   kafka-debezium:
     image: debezium/connect:latest
+    # For mac
+    platform: linux/amd64
     hostname: kafka-debezium
     ports:
       - "8083:8083"
@@ -73,8 +77,8 @@ services:
       DEBEZIUM_CONFIG_DATABASE_PORT: ${POSTGRES_PORT}
       DEBEZIUM_CONFIG_DATABASE_USER: ${POSTGRES_USER}
       DEBEZIUM_CONFIG_DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
-      DEBEZIUM_CONFIG_DATABASE_DBNAME: "postgres"
-      DEBEZIUM_CONFIG_DATABASE_SERVER_NAME: "postgres"
+#      DEBEZIUM_CONFIG_DATABASE_DBNAME: "postgres"
+#      DEBEZIUM_CONFIG_DATABASE_SERVER_NAME: "postgres"
       # Schema registry config
       CONNECT_SCHEMA_NAME_ADJUSTMENT_MODE: avro
       KEY_CONVERTER: io.confluent.connect.avro.AvroConverter

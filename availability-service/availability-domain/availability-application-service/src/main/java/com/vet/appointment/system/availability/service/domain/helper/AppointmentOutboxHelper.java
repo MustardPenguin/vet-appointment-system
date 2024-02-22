@@ -39,9 +39,10 @@ public class AppointmentOutboxHelper {
 
     @Transactional
     public void saveAppointmentOutboxMessage(AvailabilityAppointmentEventPayload availabilityAppointmentEventPayload,
-                                            OutboxStatus outboxStatus) {
+                                            OutboxStatus outboxStatus, UUID sagaId) {
         save(AvailabilityAppointmentOutboxMessage.builder()
                 .id(UUID.randomUUID())
+                .sagaId(sagaId)
                 .createdAt(availabilityAppointmentEventPayload.getCreatedAt())
                 .payload(createPayload(availabilityAppointmentEventPayload))
                 .outboxStatus(outboxStatus)

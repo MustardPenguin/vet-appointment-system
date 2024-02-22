@@ -1,6 +1,7 @@
 package com.vet.appointment.system.availability.service.domain.impl;
 
 import com.vet.appointment.system.availability.service.domain.AvailabilityDomainService;
+import com.vet.appointment.system.availability.service.domain.dto.message.AvailabilityRequest;
 import com.vet.appointment.system.availability.service.domain.entity.Appointment;
 import com.vet.appointment.system.availability.service.domain.entity.Availability;
 import com.vet.appointment.system.availability.service.domain.event.AvailabilityConfirmedEvent;
@@ -8,6 +9,7 @@ import com.vet.appointment.system.availability.service.domain.exception.Availabi
 import com.vet.appointment.system.availability.service.domain.helper.AppointmentOutboxHelper;
 import com.vet.appointment.system.availability.service.domain.ports.input.message.listener.AppointmentAvailabilityMessageListener;
 import com.vet.appointment.system.availability.service.domain.ports.output.repository.AvailabilityRepository;
+import com.vet.appointment.system.domain.valueobject.AppointmentId;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.messaging.event.AvailabilityAppointmentEventPayload;
 import com.vet.appointment.system.outbox.OutboxStatus;
@@ -37,7 +39,12 @@ public class AppointmentAvailabilityMessageListenerImpl implements AppointmentAv
 
     @Override
     @Transactional
-    public void checkAvailability(Appointment appointment) {
+    public void checkAvailability(AvailabilityRequest availabilityRequest) {
+        Appointment appointment = new Appointment(
+                new AppointmentId(availabilityRequest.getEventId()),
+                availabilityRequest.getStartDateTime(),
+                availabilityRequest.getEndDateTime());
+
         log.info("Checking availability for appointment: {}", appointment.getId().getValue());
         Optional<List<Availability>> optionalAvailabilities = availabilityRepository.getAvailabilitiesOnDate(appointment.getAppointmentStartDateTime(), appointment.getAppointmentEndDateTime());
 
@@ -46,13 +53,13 @@ public class AppointmentAvailabilityMessageListenerImpl implements AppointmentAv
                 .validateAppointmentAvailability(appointment, optionalAvailabilities, errorMessages);
 
         AppointmentStatus appointmentStatus = optionalAvailabilities.get().isEmpty() ? AppointmentStatus.AVAILABLE : AppointmentStatus.UNAVAILABLE;
-        appointmentOutboxHelper.saveAppointmentOutboxMessage(new
-                        AvailabilityAppointmentEventPayload(
+        appointmentOutboxHelper.saveAppointmentOutboxMessage(new AvailabilityAppointmentEventPayload(
                         availabilityConfirmedEvent.getEntity().getEventId(),
                         String.join(", ", errorMessages),
                         availabilityConfirmedEvent.getCreatedAt(),
                         appointmentStatus),
-                OutboxStatus.STARTED);
+                OutboxStatus.STARTED,
+                availabilityRequest.getSagaId());
 
         log.info("Appointment status: {}", appointmentStatus);
         if(appointmentStatus.equals(AppointmentStatus.UNAVAILABLE)) {

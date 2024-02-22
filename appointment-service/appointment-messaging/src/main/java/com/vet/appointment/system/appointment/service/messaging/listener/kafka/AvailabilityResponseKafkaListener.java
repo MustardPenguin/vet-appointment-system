@@ -43,7 +43,8 @@ public class AvailabilityResponseKafkaListener implements KafkaConsumer<Envelope
                 Value availabilityResponseAvroModel = avroModel.getAfter();
                 AvailabilityAppointmentEventPayload availabilityAppointmentEventPayload = kafkaMessageHelper
                         .getEventPayload(availabilityResponseAvroModel.getPayload(), AvailabilityAppointmentEventPayload.class);
-                log.info("Received availability response event for appointment id: {}", availabilityAppointmentEventPayload.getAppointmentId());
+                log.info("Received availability response event for appointment id: {} and saga id: {}",
+                        availabilityAppointmentEventPayload.getAppointmentId(), availabilityResponseAvroModel.getSagaId());
 
                 if(availabilityAppointmentEventPayload.getAppointmentStatus() == AppointmentStatus.AVAILABLE) {
                     availabilityResponseMessageListener.appointmentAvailable(availabilityAppointmentEventPayload);

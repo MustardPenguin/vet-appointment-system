@@ -1,24 +1,29 @@
-package com.vet.appointment.system.availability.service.domain.dto.outbox;
+package com.vet.appointment.system.availability.service.dataaccess.outbox.appointment.entity;
 
-import com.vet.appointment.system.outbox.OutboxStatus;
+import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-public class AvailabilityAppointmentOutboxMessage {
+@Table(name = "appointment_outbox")
+@Entity
+public class AppointmentOutboxEntity {
+
+    @Id
     private UUID id;
     private UUID sagaId;
     private ZonedDateTime createdAt;
     private String payload;
-    private OutboxStatus outboxStatus;
+    @Version
     private int version;
 
-    private AvailabilityAppointmentOutboxMessage(Builder builder) {
+    public AppointmentOutboxEntity() {}
+
+    private AppointmentOutboxEntity(Builder builder) {
         id = builder.id;
         sagaId = builder.sagaId;
         createdAt = builder.createdAt;
         payload = builder.payload;
-        setOutboxStatus(builder.outboxStatus);
         version = builder.version;
     }
 
@@ -30,36 +35,28 @@ public class AvailabilityAppointmentOutboxMessage {
         return id;
     }
 
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
     public UUID getSagaId() {
         return sagaId;
+    }
+
+    public ZonedDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public String getPayload() {
         return payload;
     }
 
-    public OutboxStatus getOutboxStatus() {
-        return outboxStatus;
-    }
-
     public int getVersion() {
         return version;
     }
 
-    public void setOutboxStatus(OutboxStatus outboxStatus) {
-        this.outboxStatus = outboxStatus;
-    }
 
     public static final class Builder {
         private UUID id;
         private UUID sagaId;
         private ZonedDateTime createdAt;
         private String payload;
-        private OutboxStatus outboxStatus;
         private int version;
 
         private Builder() {
@@ -85,18 +82,13 @@ public class AvailabilityAppointmentOutboxMessage {
             return this;
         }
 
-        public Builder outboxStatus(OutboxStatus val) {
-            outboxStatus = val;
-            return this;
-        }
-
         public Builder version(int val) {
             version = val;
             return this;
         }
 
-        public AvailabilityAppointmentOutboxMessage build() {
-            return new AvailabilityAppointmentOutboxMessage(this);
+        public AppointmentOutboxEntity build() {
+            return new AppointmentOutboxEntity(this);
         }
     }
 }

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+
 @Table(name = "appointment_outbox")
 @Entity
 public class AppointmentOutboxEntity {

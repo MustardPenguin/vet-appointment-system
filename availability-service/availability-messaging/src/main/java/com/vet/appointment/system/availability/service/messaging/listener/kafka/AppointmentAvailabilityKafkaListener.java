@@ -1,5 +1,6 @@
 package com.vet.appointment.system.availability.service.messaging.listener.kafka;
 
+import com.vet.appointment.system.availability.service.domain.dto.message.AvailabilityRequest;
 import com.vet.appointment.system.availability.service.domain.entity.Appointment;
 import com.vet.appointment.system.availability.service.domain.ports.input.message.listener.AppointmentAvailabilityMessageListener;
 import com.vet.appointment.system.domain.valueobject.AppointmentId;
@@ -17,6 +18,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Component
@@ -43,10 +45,13 @@ public class AppointmentAvailabilityKafkaListener implements KafkaConsumer<Envel
                 Value appointmentAvailabilityAvroModel = avroModel.getAfter();
                 AppointmentAvailabilityEventPayload appointmentAvailabilityEventPayload =
                         kafkaMessageHelper.getEventPayload(appointmentAvailabilityAvroModel.getPayload(), AppointmentAvailabilityEventPayload.class);
-                appointmentAvailabilityMessageListener.checkAvailability(new Appointment(
-                                new AppointmentId(appointmentAvailabilityEventPayload.getId()),
-                                appointmentAvailabilityEventPayload.getAppointmentStartDateTime(),
-                                appointmentAvailabilityEventPayload.getAppointmentEndDateTime()));
+
+                appointmentAvailabilityMessageListener.checkAvailability(new AvailabilityRequest(
+                        appointmentAvailabilityEventPayload.getId(),
+                        UUID.fromString(appointmentAvailabilityAvroModel.getSagaId()),
+                        appointmentAvailabilityEventPayload.getAppointmentStartDateTime(),
+                        appointmentAvailabilityEventPayload.getAppointmentEndDateTime()
+                ));
 
             }
         });
