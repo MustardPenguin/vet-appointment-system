@@ -10,6 +10,7 @@ import com.vet.appointment.system.domain.valueobject.AccountId;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class AppointmentRepositoryImpl implements AppointmentRepository {
@@ -28,5 +29,10 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
         AppointmentEntity appointmentEntity = appointmentJpaRepository
                 .save(appointmentDataAccessMapper.appointmentToAppointmentEntity(appointment));
         return appointmentDataAccessMapper.appointmentEntityToAppointment(appointmentEntity);
+    }
+
+    @Override
+    public Optional<Appointment> findById(UUID accountId) {
+        return appointmentJpaRepository.findById(accountId).map(appointmentDataAccessMapper::appointmentEntityToAppointment);
     }
 }

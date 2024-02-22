@@ -1,6 +1,7 @@
 package com.vet.appointment.system.appointment.service.domain.mapper;
 
 import com.vet.appointment.system.appointment.service.domain.dto.create.CreateAppointmentCommand;
+import com.vet.appointment.system.appointment.service.domain.dto.get.GetAppointmentResponse;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
@@ -32,5 +33,20 @@ public class AppointmentDataMapper {
                 appointmentCreatedEvent.getEntity().getAppointmentStartDateTime(),
                 appointmentCreatedEvent.getEntity().getAppointmentEndDateTime(),
                 appointmentCreatedEvent.getCreatedAt());
+    }
+
+    public GetAppointmentResponse appointmentToGetAppointmentResponse(Appointment appointment) {
+        return GetAppointmentResponse.builder()
+                .id(appointment.getId().getValue())
+                .appointmentStatus(appointment.getAppointmentStatus())
+                .paymentStatus(appointment.getPaymentStatus())
+                .appointmentStartDateTime(appointment.getAppointmentStartDateTime())
+                .appointmentEndDateTime(appointment.getAppointmentEndDateTime())
+                .description(appointment.getDescription())
+                .ownerId(appointment.getOwnerId())
+                .petId(appointment.getPetId())
+                .message("Successfully fetched appointment")
+                .statusCode(200)
+                .build();
     }
 }

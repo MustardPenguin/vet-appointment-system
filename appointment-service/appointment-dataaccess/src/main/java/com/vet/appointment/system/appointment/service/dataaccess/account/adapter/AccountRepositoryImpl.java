@@ -22,12 +22,12 @@ public class AccountRepositoryImpl implements AccountRepository {
     public AccountModel save(AccountModel accountModel) {
         AccountEntity accountEntity = accountJpaRepository.save(
                 new AccountEntity(
-                        UUID.fromString(accountModel.getId()),
+                        accountModel.getId(),
                         accountModel.getEmail(),
                         accountModel.getFirstName(),
                         accountModel.getLastName()));
         return new AccountModel(
-                accountEntity.getId().toString(),
+                accountEntity.getId(),
                 accountEntity.getEmail(),
                 accountEntity.getFirstName(),
                 accountEntity.getLastName());
@@ -37,7 +37,7 @@ public class AccountRepositoryImpl implements AccountRepository {
     public Optional<AccountModel> findById(UUID id) {
         return accountJpaRepository.findById(id)
                 .map(accountEntity -> new AccountModel(
-                        accountEntity.getId().toString(),
+                        accountEntity.getId(),
                         accountEntity.getEmail(),
                         accountEntity.getFirstName(),
                         accountEntity.getLastName()));

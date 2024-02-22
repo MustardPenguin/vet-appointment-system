@@ -1,20 +1,22 @@
 package com.vet.appointment.system.appointment.service.domain.dto.message;
 
+import java.util.UUID;
+
 public class AccountModel {
 
-    private String id;
+    private UUID id;
     private String email;
     private String firstName;
     private String lastName;
 
-    public AccountModel(String id, String email, String firstName, String lastName) {
+    public AccountModel(UUID id, String email, String firstName, String lastName) {
         this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 

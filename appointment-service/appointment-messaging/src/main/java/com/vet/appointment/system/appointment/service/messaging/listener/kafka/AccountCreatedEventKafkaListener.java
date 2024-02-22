@@ -50,7 +50,7 @@ public class AccountCreatedEventKafkaListener implements KafkaConsumer<Envelope>
                         kafkaMessageHelper.getEventPayload(accountEventAvroModel.getPayload(), AccountAppointmentEventPayload.class);
                 accountCreatedMessageListener.accountCreated(
                         new AccountModel(
-                                accountAppointmentEventPayload.getId().toString(),
+                                accountAppointmentEventPayload.getId(),
                                 accountAppointmentEventPayload.getEmail(),
                                 accountAppointmentEventPayload.getFirstName(),
                                 accountAppointmentEventPayload.getLastName()));
