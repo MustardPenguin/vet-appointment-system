@@ -1,6 +1,5 @@
 package com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.entity;
 
-import com.vet.appointment.system.outbox.OutboxStatus;
 import com.vet.appointment.system.saga.SagaStatus;
 import jakarta.persistence.*;
 
@@ -14,10 +13,9 @@ public class AvailabilityOutboxEntity {
     @Id
     private UUID id;
     private UUID sagaId;
+    private String sagaType;
     private ZonedDateTime createdAt;
     private String payload;
-    @Enumerated(EnumType.STRING)
-    private OutboxStatus outboxStatus;
     @Enumerated(EnumType.STRING)
     private SagaStatus sagaStatus;
     @Version
@@ -29,9 +27,9 @@ public class AvailabilityOutboxEntity {
     private AvailabilityOutboxEntity(Builder builder) {
         id = builder.id;
         sagaId = builder.sagaId;
+        sagaType = builder.sagaType;
         createdAt = builder.createdAt;
         payload = builder.payload;
-        outboxStatus = builder.outboxStatus;
         sagaStatus = builder.sagaStatus;
         version = builder.version;
     }
@@ -52,10 +50,6 @@ public class AvailabilityOutboxEntity {
         return payload;
     }
 
-    public OutboxStatus getOutboxStatus() {
-        return outboxStatus;
-    }
-
     public int getVersion() {
         return version;
     }
@@ -68,12 +62,16 @@ public class AvailabilityOutboxEntity {
         return sagaStatus;
     }
 
+    public String getSagaType() {
+        return sagaType;
+    }
+
     public static final class Builder {
         private UUID id;
         private UUID sagaId;
+        private String sagaType;
         private ZonedDateTime createdAt;
         private String payload;
-        private OutboxStatus outboxStatus;
         private SagaStatus sagaStatus;
         private int version;
 
@@ -90,6 +88,11 @@ public class AvailabilityOutboxEntity {
             return this;
         }
 
+        public Builder sagaType(String val) {
+            sagaType = val;
+            return this;
+        }
+
         public Builder createdAt(ZonedDateTime val) {
             createdAt = val;
             return this;
@@ -97,11 +100,6 @@ public class AvailabilityOutboxEntity {
 
         public Builder payload(String val) {
             payload = val;
-            return this;
-        }
-
-        public Builder outboxStatus(OutboxStatus val) {
-            outboxStatus = val;
             return this;
         }
 

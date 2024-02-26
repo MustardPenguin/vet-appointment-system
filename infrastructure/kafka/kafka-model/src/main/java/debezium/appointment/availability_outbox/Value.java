@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class Value extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -4723135547020130482L;
+  private static final long serialVersionUID = 2619479362373563068L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Value\",\"namespace\":\"debezium.appointment.availability_outbox\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Uuid\"}},{\"name\":\"saga_id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Uuid\"}},{\"name\":\"created_at\",\"type\":{\"type\":\"long\",\"connect.version\":1,\"connect.name\":\"io.debezium.time.MicroTimestamp\"}},{\"name\":\"payload\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Json\"}},{\"name\":\"outbox_status\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.parameters\":{\"allowed\":\"STARTED,COMPLETED,FAILED\"},\"connect.name\":\"io.debezium.data.Enum\"}},{\"name\":\"saga_status\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.parameters\":{\"allowed\":\"PROCESSING,SUCCEEDED,COMPENSATING,COMPENSATED\"},\"connect.name\":\"io.debezium.data.Enum\"}},{\"name\":\"version\",\"type\":\"int\"}],\"connect.name\":\"debezium.appointment.availability_outbox.Value\"}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Value\",\"namespace\":\"debezium.appointment.availability_outbox\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Uuid\"}},{\"name\":\"saga_id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Uuid\"}},{\"name\":\"saga_type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1}},{\"name\":\"created_at\",\"type\":{\"type\":\"long\",\"connect.version\":1,\"connect.name\":\"io.debezium.time.MicroTimestamp\"}},{\"name\":\"payload\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Json\"}},{\"name\":\"saga_status\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.parameters\":{\"allowed\":\"PROCESSING,SUCCEEDED,COMPENSATING,COMPENSATED\"},\"connect.name\":\"io.debezium.data.Enum\"}},{\"name\":\"version\",\"type\":\"int\"}],\"connect.name\":\"debezium.appointment.availability_outbox.Value\"}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -75,9 +75,9 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
 
   private java.lang.String id;
   private java.lang.String saga_id;
+  private java.lang.String saga_type;
   private long created_at;
   private java.lang.String payload;
-  private java.lang.String outbox_status;
   private java.lang.String saga_status;
   private int version;
 
@@ -92,18 +92,18 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
    * All-args constructor.
    * @param id The new value for id
    * @param saga_id The new value for saga_id
+   * @param saga_type The new value for saga_type
    * @param created_at The new value for created_at
    * @param payload The new value for payload
-   * @param outbox_status The new value for outbox_status
    * @param saga_status The new value for saga_status
    * @param version The new value for version
    */
-  public Value(java.lang.String id, java.lang.String saga_id, java.lang.Long created_at, java.lang.String payload, java.lang.String outbox_status, java.lang.String saga_status, java.lang.Integer version) {
+  public Value(java.lang.String id, java.lang.String saga_id, java.lang.String saga_type, java.lang.Long created_at, java.lang.String payload, java.lang.String saga_status, java.lang.Integer version) {
     this.id = id;
     this.saga_id = saga_id;
+    this.saga_type = saga_type;
     this.created_at = created_at;
     this.payload = payload;
-    this.outbox_status = outbox_status;
     this.saga_status = saga_status;
     this.version = version;
   }
@@ -115,9 +115,9 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
     switch (field$) {
     case 0: return id;
     case 1: return saga_id;
-    case 2: return created_at;
-    case 3: return payload;
-    case 4: return outbox_status;
+    case 2: return saga_type;
+    case 3: return created_at;
+    case 4: return payload;
     case 5: return saga_status;
     case 6: return version;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
@@ -130,9 +130,9 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
     switch (field$) {
     case 0: id = value$ != null ? value$.toString() : null; break;
     case 1: saga_id = value$ != null ? value$.toString() : null; break;
-    case 2: created_at = (java.lang.Long)value$; break;
-    case 3: payload = value$ != null ? value$.toString() : null; break;
-    case 4: outbox_status = value$ != null ? value$.toString() : null; break;
+    case 2: saga_type = value$ != null ? value$.toString() : null; break;
+    case 3: created_at = (java.lang.Long)value$; break;
+    case 4: payload = value$ != null ? value$.toString() : null; break;
     case 5: saga_status = value$ != null ? value$.toString() : null; break;
     case 6: version = (java.lang.Integer)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
@@ -174,6 +174,23 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
   }
 
   /**
+   * Gets the value of the 'saga_type' field.
+   * @return The value of the 'saga_type' field.
+   */
+  public java.lang.String getSagaType() {
+    return saga_type;
+  }
+
+
+  /**
+   * Sets the value of the 'saga_type' field.
+   * @param value the value to set.
+   */
+  public void setSagaType(java.lang.String value) {
+    this.saga_type = value;
+  }
+
+  /**
    * Gets the value of the 'created_at' field.
    * @return The value of the 'created_at' field.
    */
@@ -205,23 +222,6 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
    */
   public void setPayload(java.lang.String value) {
     this.payload = value;
-  }
-
-  /**
-   * Gets the value of the 'outbox_status' field.
-   * @return The value of the 'outbox_status' field.
-   */
-  public java.lang.String getOutboxStatus() {
-    return outbox_status;
-  }
-
-
-  /**
-   * Sets the value of the 'outbox_status' field.
-   * @param value the value to set.
-   */
-  public void setOutboxStatus(java.lang.String value) {
-    this.outbox_status = value;
   }
 
   /**
@@ -301,9 +301,9 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
 
     private java.lang.String id;
     private java.lang.String saga_id;
+    private java.lang.String saga_type;
     private long created_at;
     private java.lang.String payload;
-    private java.lang.String outbox_status;
     private java.lang.String saga_status;
     private int version;
 
@@ -326,16 +326,16 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
         this.saga_id = data().deepCopy(fields()[1].schema(), other.saga_id);
         fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
-      if (isValidValue(fields()[2], other.created_at)) {
-        this.created_at = data().deepCopy(fields()[2].schema(), other.created_at);
+      if (isValidValue(fields()[2], other.saga_type)) {
+        this.saga_type = data().deepCopy(fields()[2].schema(), other.saga_type);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
-      if (isValidValue(fields()[3], other.payload)) {
-        this.payload = data().deepCopy(fields()[3].schema(), other.payload);
+      if (isValidValue(fields()[3], other.created_at)) {
+        this.created_at = data().deepCopy(fields()[3].schema(), other.created_at);
         fieldSetFlags()[3] = other.fieldSetFlags()[3];
       }
-      if (isValidValue(fields()[4], other.outbox_status)) {
-        this.outbox_status = data().deepCopy(fields()[4].schema(), other.outbox_status);
+      if (isValidValue(fields()[4], other.payload)) {
+        this.payload = data().deepCopy(fields()[4].schema(), other.payload);
         fieldSetFlags()[4] = other.fieldSetFlags()[4];
       }
       if (isValidValue(fields()[5], other.saga_status)) {
@@ -362,16 +362,16 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
         this.saga_id = data().deepCopy(fields()[1].schema(), other.saga_id);
         fieldSetFlags()[1] = true;
       }
-      if (isValidValue(fields()[2], other.created_at)) {
-        this.created_at = data().deepCopy(fields()[2].schema(), other.created_at);
+      if (isValidValue(fields()[2], other.saga_type)) {
+        this.saga_type = data().deepCopy(fields()[2].schema(), other.saga_type);
         fieldSetFlags()[2] = true;
       }
-      if (isValidValue(fields()[3], other.payload)) {
-        this.payload = data().deepCopy(fields()[3].schema(), other.payload);
+      if (isValidValue(fields()[3], other.created_at)) {
+        this.created_at = data().deepCopy(fields()[3].schema(), other.created_at);
         fieldSetFlags()[3] = true;
       }
-      if (isValidValue(fields()[4], other.outbox_status)) {
-        this.outbox_status = data().deepCopy(fields()[4].schema(), other.outbox_status);
+      if (isValidValue(fields()[4], other.payload)) {
+        this.payload = data().deepCopy(fields()[4].schema(), other.payload);
         fieldSetFlags()[4] = true;
       }
       if (isValidValue(fields()[5], other.saga_status)) {
@@ -465,6 +465,46 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
     }
 
     /**
+      * Gets the value of the 'saga_type' field.
+      * @return The value.
+      */
+    public java.lang.String getSagaType() {
+      return saga_type;
+    }
+
+
+    /**
+      * Sets the value of the 'saga_type' field.
+      * @param value The value of 'saga_type'.
+      * @return This builder.
+      */
+    public debezium.appointment.availability_outbox.Value.Builder setSagaType(java.lang.String value) {
+      validate(fields()[2], value);
+      this.saga_type = value;
+      fieldSetFlags()[2] = true;
+      return this;
+    }
+
+    /**
+      * Checks whether the 'saga_type' field has been set.
+      * @return True if the 'saga_type' field has been set, false otherwise.
+      */
+    public boolean hasSagaType() {
+      return fieldSetFlags()[2];
+    }
+
+
+    /**
+      * Clears the value of the 'saga_type' field.
+      * @return This builder.
+      */
+    public debezium.appointment.availability_outbox.Value.Builder clearSagaType() {
+      saga_type = null;
+      fieldSetFlags()[2] = false;
+      return this;
+    }
+
+    /**
       * Gets the value of the 'created_at' field.
       * @return The value.
       */
@@ -479,9 +519,9 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @return This builder.
       */
     public debezium.appointment.availability_outbox.Value.Builder setCreatedAt(long value) {
-      validate(fields()[2], value);
+      validate(fields()[3], value);
       this.created_at = value;
-      fieldSetFlags()[2] = true;
+      fieldSetFlags()[3] = true;
       return this;
     }
 
@@ -490,7 +530,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @return True if the 'created_at' field has been set, false otherwise.
       */
     public boolean hasCreatedAt() {
-      return fieldSetFlags()[2];
+      return fieldSetFlags()[3];
     }
 
 
@@ -499,7 +539,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @return This builder.
       */
     public debezium.appointment.availability_outbox.Value.Builder clearCreatedAt() {
-      fieldSetFlags()[2] = false;
+      fieldSetFlags()[3] = false;
       return this;
     }
 
@@ -518,9 +558,9 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @return This builder.
       */
     public debezium.appointment.availability_outbox.Value.Builder setPayload(java.lang.String value) {
-      validate(fields()[3], value);
+      validate(fields()[4], value);
       this.payload = value;
-      fieldSetFlags()[3] = true;
+      fieldSetFlags()[4] = true;
       return this;
     }
 
@@ -529,7 +569,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @return True if the 'payload' field has been set, false otherwise.
       */
     public boolean hasPayload() {
-      return fieldSetFlags()[3];
+      return fieldSetFlags()[4];
     }
 
 
@@ -539,46 +579,6 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       */
     public debezium.appointment.availability_outbox.Value.Builder clearPayload() {
       payload = null;
-      fieldSetFlags()[3] = false;
-      return this;
-    }
-
-    /**
-      * Gets the value of the 'outbox_status' field.
-      * @return The value.
-      */
-    public java.lang.String getOutboxStatus() {
-      return outbox_status;
-    }
-
-
-    /**
-      * Sets the value of the 'outbox_status' field.
-      * @param value The value of 'outbox_status'.
-      * @return This builder.
-      */
-    public debezium.appointment.availability_outbox.Value.Builder setOutboxStatus(java.lang.String value) {
-      validate(fields()[4], value);
-      this.outbox_status = value;
-      fieldSetFlags()[4] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'outbox_status' field has been set.
-      * @return True if the 'outbox_status' field has been set, false otherwise.
-      */
-    public boolean hasOutboxStatus() {
-      return fieldSetFlags()[4];
-    }
-
-
-    /**
-      * Clears the value of the 'outbox_status' field.
-      * @return This builder.
-      */
-    public debezium.appointment.availability_outbox.Value.Builder clearOutboxStatus() {
-      outbox_status = null;
       fieldSetFlags()[4] = false;
       return this;
     }
@@ -669,9 +669,9 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
         Value record = new Value();
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.String) defaultValue(fields()[0]);
         record.saga_id = fieldSetFlags()[1] ? this.saga_id : (java.lang.String) defaultValue(fields()[1]);
-        record.created_at = fieldSetFlags()[2] ? this.created_at : (java.lang.Long) defaultValue(fields()[2]);
-        record.payload = fieldSetFlags()[3] ? this.payload : (java.lang.String) defaultValue(fields()[3]);
-        record.outbox_status = fieldSetFlags()[4] ? this.outbox_status : (java.lang.String) defaultValue(fields()[4]);
+        record.saga_type = fieldSetFlags()[2] ? this.saga_type : (java.lang.String) defaultValue(fields()[2]);
+        record.created_at = fieldSetFlags()[3] ? this.created_at : (java.lang.Long) defaultValue(fields()[3]);
+        record.payload = fieldSetFlags()[4] ? this.payload : (java.lang.String) defaultValue(fields()[4]);
         record.saga_status = fieldSetFlags()[5] ? this.saga_status : (java.lang.String) defaultValue(fields()[5]);
         record.version = fieldSetFlags()[6] ? this.version : (java.lang.Integer) defaultValue(fields()[6]);
         return record;
@@ -710,11 +710,11 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
 
     out.writeString(this.saga_id);
 
+    out.writeString(this.saga_type);
+
     out.writeLong(this.created_at);
 
     out.writeString(this.payload);
-
-    out.writeString(this.outbox_status);
 
     out.writeString(this.saga_status);
 
@@ -731,11 +731,11 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
 
       this.saga_id = in.readString();
 
+      this.saga_type = in.readString();
+
       this.created_at = in.readLong();
 
       this.payload = in.readString();
-
-      this.outbox_status = in.readString();
 
       this.saga_status = in.readString();
 
@@ -753,15 +753,15 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
           break;
 
         case 2:
-          this.created_at = in.readLong();
+          this.saga_type = in.readString();
           break;
 
         case 3:
-          this.payload = in.readString();
+          this.created_at = in.readLong();
           break;
 
         case 4:
-          this.outbox_status = in.readString();
+          this.payload = in.readString();
           break;
 
         case 5:

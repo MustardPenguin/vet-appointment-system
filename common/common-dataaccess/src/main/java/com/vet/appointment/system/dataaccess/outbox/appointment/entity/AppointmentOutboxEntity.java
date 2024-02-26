@@ -1,6 +1,5 @@
 package com.vet.appointment.system.dataaccess.outbox.appointment.entity;
 
-import com.vet.appointment.system.outbox.OutboxStatus;
 import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
@@ -15,8 +14,6 @@ public class AppointmentOutboxEntity {
     private UUID id;
     private ZonedDateTime createdAt;
     private String payload;
-    @Enumerated(EnumType.STRING)
-    private OutboxStatus outboxStatus;
     @Version
     private int version;
 
@@ -34,23 +31,14 @@ public class AppointmentOutboxEntity {
         return payload;
     }
 
-    public OutboxStatus getOutboxStatus() {
-        return outboxStatus;
-    }
-
     public int getVersion() {
         return version;
-    }
-
-    public void setOutboxStatus(OutboxStatus outboxStatus) {
-        this.outboxStatus = outboxStatus;
     }
 
     private AppointmentOutboxEntity(Builder builder) {
         id = builder.id;
         createdAt = builder.createdAt;
         payload = builder.payload;
-        outboxStatus = builder.outboxStatus;
         version = builder.version;
     }
 
@@ -63,8 +51,6 @@ public class AppointmentOutboxEntity {
         private UUID id;
         private ZonedDateTime createdAt;
         private String payload;
-        @Enumerated(EnumType.STRING)
-        private OutboxStatus outboxStatus;
         private int version;
 
         private Builder() {}
@@ -81,11 +67,6 @@ public class AppointmentOutboxEntity {
 
         public Builder payload(String val) {
             payload = val;
-            return this;
-        }
-
-        public Builder outboxStatus(OutboxStatus val) {
-            outboxStatus = val;
             return this;
         }
 

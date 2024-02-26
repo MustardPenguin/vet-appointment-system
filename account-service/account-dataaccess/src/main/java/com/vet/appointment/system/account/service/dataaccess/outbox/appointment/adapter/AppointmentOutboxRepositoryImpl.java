@@ -5,12 +5,7 @@ import com.vet.appointment.system.account.service.domain.dto.outbox.AccountAppoi
 import com.vet.appointment.system.account.service.domain.ports.output.repository.AppointmentOutboxRepository;
 import com.vet.appointment.system.dataaccess.outbox.appointment.entity.AppointmentOutboxEntity;
 import com.vet.appointment.system.dataaccess.outbox.appointment.repository.AppointmentOutboxJpaRepository;
-import com.vet.appointment.system.outbox.OutboxStatus;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Component
 public class AppointmentOutboxRepositoryImpl implements AppointmentOutboxRepository {
@@ -32,14 +27,8 @@ public class AppointmentOutboxRepositoryImpl implements AppointmentOutboxReposit
     }
 
     @Override
-    public Optional<List<AccountAppointmentOutboxMessage>> findByOutboxStatus(OutboxStatus outboxStatus) {
-        return Optional.of(appointmentOutboxJpaRepository.findByOutboxStatus(OutboxStatus.STARTED).orElseGet(null)
-                .stream().map(appointmentDataAccessMapper::outboxEntityToAccountAppointmentOutboxMessage)
-                .collect(Collectors.toList()));
+    public void deleteAccountAppointmentOutboxMessage() {
+        appointmentOutboxJpaRepository.deleteAll();
     }
 
-    @Override
-    public void deleteAppointmentOutboxEntitiesByOutboxStatus(OutboxStatus outboxStatus) {
-        appointmentOutboxJpaRepository.deleteAppointmentOutboxEntitiesByOutboxStatus(outboxStatus);
-    }
 }

@@ -12,6 +12,7 @@ public class AppointmentOutboxEntity {
     @Id
     private UUID id;
     private UUID sagaId;
+    private String sagaType;
     private ZonedDateTime createdAt;
     private String payload;
     @Version
@@ -22,6 +23,7 @@ public class AppointmentOutboxEntity {
     private AppointmentOutboxEntity(Builder builder) {
         id = builder.id;
         sagaId = builder.sagaId;
+        sagaType = builder.sagaType;
         createdAt = builder.createdAt;
         payload = builder.payload;
         version = builder.version;
@@ -33,6 +35,10 @@ public class AppointmentOutboxEntity {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getSagaType() {
+        return sagaType;
     }
 
     public UUID getSagaId() {
@@ -55,6 +61,7 @@ public class AppointmentOutboxEntity {
     public static final class Builder {
         private UUID id;
         private UUID sagaId;
+        private String sagaType;
         private ZonedDateTime createdAt;
         private String payload;
         private int version;
@@ -69,6 +76,11 @@ public class AppointmentOutboxEntity {
 
         public Builder sagaId(UUID val) {
             sagaId = val;
+            return this;
+        }
+
+        public Builder sagaType(String val) {
+            sagaType = val;
             return this;
         }
 

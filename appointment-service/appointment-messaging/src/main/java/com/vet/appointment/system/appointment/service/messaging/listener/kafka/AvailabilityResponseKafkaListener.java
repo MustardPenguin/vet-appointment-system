@@ -1,6 +1,8 @@
 package com.vet.appointment.system.appointment.service.messaging.listener.kafka;
 
+import com.vet.appointment.system.appointment.service.domain.dto.message.AvailabilityResponse;
 import com.vet.appointment.system.appointment.service.domain.ports.input.message.listener.AvailabilityResponseMessageListener;
+import com.vet.appointment.system.appointment.service.messaging.mapper.AppointmentMessagingDataMapper;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import com.vet.appointment.system.kafka.producer.KafkaMessageHelper;
@@ -16,6 +18,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Component
@@ -23,11 +26,14 @@ public class AvailabilityResponseKafkaListener implements KafkaConsumer<Envelope
 
     private final AvailabilityResponseMessageListener availabilityResponseMessageListener;
     private final KafkaMessageHelper kafkaMessageHelper;
+    private final AppointmentMessagingDataMapper appointmentMessagingDataMapper;
 
     public AvailabilityResponseKafkaListener(AvailabilityResponseMessageListener availabilityResponseMessageListener,
-                                             KafkaMessageHelper kafkaMessageHelper) {
+                                             KafkaMessageHelper kafkaMessageHelper,
+                                             AppointmentMessagingDataMapper appointmentMessagingDataMapper) {
         this.availabilityResponseMessageListener = availabilityResponseMessageListener;
         this.kafkaMessageHelper = kafkaMessageHelper;
+        this.appointmentMessagingDataMapper = appointmentMessagingDataMapper;
     }
 
     @Override
@@ -46,10 +52,13 @@ public class AvailabilityResponseKafkaListener implements KafkaConsumer<Envelope
                 log.info("Received availability response event for appointment id: {} and saga id: {}",
                         availabilityAppointmentEventPayload.getAppointmentId(), availabilityResponseAvroModel.getSagaId());
 
+                AvailabilityResponse availabilityResponse = appointmentMessagingDataMapper
+                        .availabilityAppointmentEventPayloadToAvailabilityResponse(availabilityAppointmentEventPayload,
+                                UUID.fromString(availabilityResponseAvroModel.getSagaId()));
                 if(availabilityAppointmentEventPayload.getAppointmentStatus() == AppointmentStatus.AVAILABLE) {
-                    availabilityResponseMessageListener.appointmentAvailable(availabilityAppointmentEventPayload);
+                    availabilityResponseMessageListener.appointmentAvailable(availabilityResponse);
                 } else {
-                    availabilityResponseMessageListener.appointmentUnavailable(availabilityAppointmentEventPayload);
+                    availabilityResponseMessageListener.appointmentUnavailable(availabilityResponse);
                 }
             }
         });

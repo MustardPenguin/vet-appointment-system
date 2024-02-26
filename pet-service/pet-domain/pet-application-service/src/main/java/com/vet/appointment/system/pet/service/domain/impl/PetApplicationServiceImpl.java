@@ -1,10 +1,8 @@
 package com.vet.appointment.system.pet.service.domain.impl;
 
-import com.vet.appointment.system.outbox.OutboxStatus;
 import com.vet.appointment.system.pet.service.domain.CreatePetCommandHandler;
 import com.vet.appointment.system.pet.service.domain.dto.create.CreatePetCommand;
 import com.vet.appointment.system.pet.service.domain.dto.create.CreatePetResponse;
-import com.vet.appointment.system.pet.service.domain.event.PetCreatedEvent;
 import com.vet.appointment.system.pet.service.domain.mapper.PetDataMapper;
 import com.vet.appointment.system.pet.service.domain.outbox.scheduler.appointment.AppointmentOutboxHelper;
 import com.vet.appointment.system.pet.service.domain.ports.input.PetApplicationService;

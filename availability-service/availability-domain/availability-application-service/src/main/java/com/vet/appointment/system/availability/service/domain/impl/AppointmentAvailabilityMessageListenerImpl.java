@@ -12,7 +12,6 @@ import com.vet.appointment.system.availability.service.domain.ports.output.repos
 import com.vet.appointment.system.domain.valueobject.AppointmentId;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.messaging.event.AvailabilityAppointmentEventPayload;
-import com.vet.appointment.system.outbox.OutboxStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +36,7 @@ public class AppointmentAvailabilityMessageListenerImpl implements AppointmentAv
         this.appointmentOutboxHelper = appointmentOutboxHelper;
     }
 
+    // TODO This method should be generalized, not specific to appointment
     @Override
     @Transactional
     public void checkAvailability(AvailabilityRequest availabilityRequest) {
@@ -58,7 +58,6 @@ public class AppointmentAvailabilityMessageListenerImpl implements AppointmentAv
                         String.join(", ", errorMessages),
                         availabilityConfirmedEvent.getCreatedAt(),
                         appointmentStatus),
-                OutboxStatus.STARTED,
                 availabilityRequest.getSagaId());
 
         log.info("Appointment status: {}", appointmentStatus);

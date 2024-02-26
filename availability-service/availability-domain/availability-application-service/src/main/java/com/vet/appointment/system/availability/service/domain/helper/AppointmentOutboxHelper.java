@@ -6,13 +6,13 @@ import com.vet.appointment.system.availability.service.domain.dto.outbox.Availab
 import com.vet.appointment.system.availability.service.domain.exception.AvailabilityDomainException;
 import com.vet.appointment.system.availability.service.domain.ports.output.repository.AppointmentOutboxRepository;
 import com.vet.appointment.system.messaging.event.AvailabilityAppointmentEventPayload;
-import com.vet.appointment.system.outbox.OutboxStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
 import java.util.UUID;
+
+import static com.vet.appointment.system.saga.SagaConstants.APPOINTMENT_SAGA_NAME;
 
 @Slf4j
 @Component
@@ -39,13 +39,13 @@ public class AppointmentOutboxHelper {
 
     @Transactional
     public void saveAppointmentOutboxMessage(AvailabilityAppointmentEventPayload availabilityAppointmentEventPayload,
-                                            OutboxStatus outboxStatus, UUID sagaId) {
+                                            UUID sagaId) {
         save(AvailabilityAppointmentOutboxMessage.builder()
                 .id(UUID.randomUUID())
                 .sagaId(sagaId)
+                .sagaType(APPOINTMENT_SAGA_NAME)
                 .createdAt(availabilityAppointmentEventPayload.getCreatedAt())
                 .payload(createPayload(availabilityAppointmentEventPayload))
-                .outboxStatus(outboxStatus)
                 .build());
     }
 

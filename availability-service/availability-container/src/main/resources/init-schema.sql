@@ -22,6 +22,7 @@ DROP TABLE IF EXISTS "availability".appointment_outbox CASCADE;
 CREATE TABLE "availability".appointment_outbox (
     id uuid NOT NULL,
     saga_id uuid NOT NULL,
+    saga_type varchar NOT NULL,
     created_at TIMESTAMP NOT NULL,
     payload jsonb NOT NULL,
     version integer NOT NULL,

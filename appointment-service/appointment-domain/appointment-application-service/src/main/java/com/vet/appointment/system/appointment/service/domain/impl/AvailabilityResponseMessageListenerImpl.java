@@ -1,5 +1,6 @@
 package com.vet.appointment.system.appointment.service.domain.impl;
 
+import com.vet.appointment.system.appointment.service.domain.dto.message.AvailabilityResponse;
 import com.vet.appointment.system.appointment.service.domain.ports.input.message.listener.AvailabilityResponseMessageListener;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AppointmentRepository;
 import com.vet.appointment.system.messaging.event.AvailabilityAppointmentEventPayload;
@@ -15,12 +16,12 @@ public class AvailabilityResponseMessageListenerImpl implements AvailabilityResp
     }
 
     @Override
-    public void appointmentAvailable(AvailabilityAppointmentEventPayload availabilityAppointmentEventPayload) {
+    public void appointmentAvailable(AvailabilityResponse availabilityResponse) {
 
     }
 
     @Override
-    public void appointmentUnavailable(AvailabilityAppointmentEventPayload availabilityAppointmentEventPayload) {
+    public void appointmentUnavailable(AvailabilityResponse availabilityResponse) {
 
     }
 }

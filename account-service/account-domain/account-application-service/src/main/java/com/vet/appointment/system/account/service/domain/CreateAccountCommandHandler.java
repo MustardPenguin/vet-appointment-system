@@ -9,7 +9,6 @@ import com.vet.appointment.system.account.service.domain.dto.create.CreateAccoun
 import com.vet.appointment.system.account.service.domain.mapper.AccountDataMapper;
 import com.vet.appointment.system.account.service.domain.outbox.scheduler.appointment.AppointmentOutboxHelper;
 import com.vet.appointment.system.account.service.domain.ports.output.repository.AccountRepository;
-import com.vet.appointment.system.outbox.OutboxStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,8 +45,7 @@ public class CreateAccountCommandHandler {
             throw new AccountDomainException("Could not save account!");
         }
         appointmentOutboxHelper.saveAppointmentOutboxMessage(
-                accountDataMapper.accountCreatedEventToAccountAppointmentEventPayload(accountCreatedEvent),
-                OutboxStatus.STARTED);
+                accountDataMapper.accountCreatedEventToAccountAppointmentEventPayload(accountCreatedEvent));
 
         log.info("Successfully saved account with email: {} and id: {}",
                 savedAccount.getEmail(), savedAccount.getId().getValue().toString());

@@ -12,7 +12,6 @@ public class AppointmentDataAccessMapper {
                 .id(petAppointmentOutboxMessage.getId())
                 .payload(petAppointmentOutboxMessage.getPayload())
                 .createdAt(petAppointmentOutboxMessage.getCreatedAt())
-                .outboxStatus(petAppointmentOutboxMessage.getOutboxStatus())
                 .build();
     }
 
@@ -21,7 +20,6 @@ public class AppointmentDataAccessMapper {
                 .id(appointmentOutboxEntity.getId())
                 .payload(appointmentOutboxEntity.getPayload())
                 .createdAt(appointmentOutboxEntity.getCreatedAt())
-                .outboxStatus(appointmentOutboxEntity.getOutboxStatus())
                 .version(appointmentOutboxEntity.getVersion())
                 .build();
     }

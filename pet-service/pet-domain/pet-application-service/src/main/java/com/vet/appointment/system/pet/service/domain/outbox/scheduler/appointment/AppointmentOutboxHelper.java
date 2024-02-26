@@ -3,7 +3,6 @@ package com.vet.appointment.system.pet.service.domain.outbox.scheduler.appointme
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vet.appointment.system.messaging.event.PetAppointmentEventPayload;
-import com.vet.appointment.system.outbox.OutboxStatus;
 import com.vet.appointment.system.pet.service.domain.exception.PetDomainException;
 import com.vet.appointment.system.pet.service.domain.dto.outbox.PetAppointmentOutboxMessage;
 import com.vet.appointment.system.pet.service.domain.ports.output.repository.AppointmentOutboxRepository;
@@ -38,13 +37,11 @@ public class AppointmentOutboxHelper {
     }
 
     @Transactional
-    public void saveAppointmentOutboxMessage(PetAppointmentEventPayload petAppointmentEventPayload,
-                                             OutboxStatus outboxStatus) {
+    public void saveAppointmentOutboxMessage(PetAppointmentEventPayload petAppointmentEventPayload) {
         save(PetAppointmentOutboxMessage.builder()
                 .id(UUID.randomUUID())
                 .createdAt(petAppointmentEventPayload.getCreatedAt())
                 .payload(createPayload(petAppointmentEventPayload))
-                .outboxStatus(outboxStatus)
                 .build());
     }
 

@@ -1,6 +1,5 @@
 package com.vet.appointment.system.pet.service.domain;
 
-import com.vet.appointment.system.outbox.OutboxStatus;
 import com.vet.appointment.system.pet.service.domain.dto.create.CreatePetCommand;
 import com.vet.appointment.system.pet.service.domain.dto.create.CreatePetResponse;
 import com.vet.appointment.system.pet.service.domain.entity.Pet;
@@ -42,8 +41,7 @@ public class CreatePetCommandHandler {
             throw new PetDomainException("Could not save pet with owner id: " + pet.getOwnerId());
         }
         appointmentOutboxHelper.saveAppointmentOutboxMessage(
-                petDataMapper.petCreatedEventToPetAppointmentEventPayload(petCreatedEvent),
-                OutboxStatus.STARTED);
+                petDataMapper.petCreatedEventToPetAppointmentEventPayload(petCreatedEvent));
         log.info("Successfully saved pet with id {}", pet.getId().getValue());
 
 

@@ -9,7 +9,6 @@ import com.vet.appointment.system.appointment.service.domain.helper.AppointmentS
 import com.vet.appointment.system.appointment.service.domain.mapper.AppointmentDataMapper;
 import com.vet.appointment.system.appointment.service.domain.helper.AvailabilityOutboxHelper;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AppointmentRepository;
-import com.vet.appointment.system.outbox.OutboxStatus;
 import com.vet.appointment.system.saga.SagaStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -54,7 +53,6 @@ public class CreateAppointmentCommandHandler {
         }
         availabilityOutboxHelper.saveAvailabilityOutboxMessage(
                 appointmentDataMapper.appointmentEventToEventPayload(appointmentCreatedEvent),
-                OutboxStatus.STARTED,
                 SagaStatus.PROCESSING,
                 UUID.randomUUID());
         log.info("Successfully saved appointment with id: {} for owner id: {}",

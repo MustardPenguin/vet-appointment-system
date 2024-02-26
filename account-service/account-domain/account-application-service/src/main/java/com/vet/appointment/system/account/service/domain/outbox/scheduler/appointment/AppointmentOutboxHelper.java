@@ -6,7 +6,6 @@ import com.vet.appointment.service.account.service.domain.exception.AccountDomai
 import com.vet.appointment.system.messaging.event.AccountAppointmentEventPayload;
 import com.vet.appointment.system.account.service.domain.dto.outbox.AccountAppointmentOutboxMessage;
 import com.vet.appointment.system.account.service.domain.ports.output.repository.AppointmentOutboxRepository;
-import com.vet.appointment.system.outbox.OutboxStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,13 +37,11 @@ public class AppointmentOutboxHelper {
     }
 
     @Transactional
-    public void saveAppointmentOutboxMessage(AccountAppointmentEventPayload accountAppointmentEventPayload,
-                                             OutboxStatus outboxStatus) {
+    public void saveAppointmentOutboxMessage(AccountAppointmentEventPayload accountAppointmentEventPayload) {
         save(AccountAppointmentOutboxMessage.builder()
                 .id(UUID.randomUUID())
                 .createdAt(accountAppointmentEventPayload.getCreatedAt())
                 .payload(createPayload(accountAppointmentEventPayload))
-                .outboxStatus(outboxStatus)
                 .build());
     }
 

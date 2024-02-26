@@ -20,7 +20,7 @@ public class AvailabilityDomainServiceImpl implements AvailabilityDomainService 
     @Override
     public AvailabilityConfirmedEvent validateAppointmentAvailability(Appointment appointment, Optional<List<Availability>> availabilities, List<String> errorMessages) {
         if(!availabilities.get().isEmpty()) {
-            errorMessages.add("Availability is already taken!");
+            errorMessages.add("Availability is already taken, please choose another time! Reason: +" + availabilities.get().get(0).getReason());
         }
         Availability availability = Availability.builder()
                 .id(UUID.randomUUID())

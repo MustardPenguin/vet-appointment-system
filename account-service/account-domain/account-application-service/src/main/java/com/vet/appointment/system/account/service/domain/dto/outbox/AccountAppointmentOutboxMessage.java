@@ -1,7 +1,5 @@
 package com.vet.appointment.system.account.service.domain.dto.outbox;
 
-import com.vet.appointment.system.outbox.OutboxStatus;
-
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -10,18 +8,13 @@ public class AccountAppointmentOutboxMessage {
     private UUID id;
     private ZonedDateTime createdAt;
     private String payload;
-    private OutboxStatus outboxStatus;
     private int version;
 
-    public void setOutboxStatus(OutboxStatus outboxStatus) {
-        this.outboxStatus = outboxStatus;
-    }
 
     private AccountAppointmentOutboxMessage(Builder builder) {
         id = builder.id;
         createdAt = builder.createdAt;
         payload = builder.payload;
-        outboxStatus = builder.outboxStatus;
         version = builder.version;
     }
 
@@ -42,10 +35,6 @@ public class AccountAppointmentOutboxMessage {
         return payload;
     }
 
-    public OutboxStatus getOutboxStatus() {
-        return outboxStatus;
-    }
-
     public int getVersion() {
         return version;
     }
@@ -55,7 +44,6 @@ public class AccountAppointmentOutboxMessage {
         private UUID id;
         private ZonedDateTime createdAt;
         private String payload;
-        private OutboxStatus outboxStatus;
         private int version;
 
         private Builder() {
@@ -73,11 +61,6 @@ public class AccountAppointmentOutboxMessage {
 
         public Builder payload(String val) {
             payload = val;
-            return this;
-        }
-
-        public Builder outboxStatus(OutboxStatus val) {
-            outboxStatus = val;
             return this;
         }
 

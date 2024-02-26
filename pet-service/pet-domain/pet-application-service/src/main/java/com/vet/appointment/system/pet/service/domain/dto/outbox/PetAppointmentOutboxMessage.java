@@ -1,7 +1,5 @@
 package com.vet.appointment.system.pet.service.domain.dto.outbox;
 
-import com.vet.appointment.system.outbox.OutboxStatus;
-
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -10,7 +8,6 @@ public class PetAppointmentOutboxMessage {
     private UUID id;
     private ZonedDateTime createdAt;
     private String payload;
-    private OutboxStatus outboxStatus;
     private int version;
 
     public UUID getId() {
@@ -26,10 +23,6 @@ public class PetAppointmentOutboxMessage {
         return payload;
     }
 
-    public OutboxStatus getOutboxStatus() {
-        return outboxStatus;
-    }
-
     public int getVersion() {
         return version;
     }
@@ -38,7 +31,6 @@ public class PetAppointmentOutboxMessage {
         id = builder.id;
         createdAt = builder.createdAt;
         payload = builder.payload;
-        setOutboxStatus(builder.outboxStatus);
         version = builder.version;
     }
 
@@ -46,16 +38,10 @@ public class PetAppointmentOutboxMessage {
         return new Builder();
     }
 
-    public void setOutboxStatus(OutboxStatus outboxStatus) {
-        this.outboxStatus = outboxStatus;
-    }
-
-
     public static final class Builder {
         private UUID id;
         private ZonedDateTime createdAt;
         private String payload;
-        private OutboxStatus outboxStatus;
         private int version;
 
         private Builder() {
@@ -73,11 +59,6 @@ public class PetAppointmentOutboxMessage {
 
         public Builder payload(String val) {
             payload = val;
-            return this;
-        }
-
-        public Builder outboxStatus(OutboxStatus val) {
-            outboxStatus = val;
             return this;
         }
 

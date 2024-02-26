@@ -48,17 +48,6 @@
               }
             },
             {
-              "name": "outbox_status",
-              "type": {
-                "type": "string",
-                "connect.version": 1,
-                "connect.parameters": {
-                  "allowed": "STARTED,COMPLETED,FAILED"
-                },
-                "connect.name": "io.debezium.data.Enum"
-              }
-            },
-            {
               "name": "version",
               "type": "int"
             }

@@ -11,9 +11,9 @@ public class AvailabilityDataAccessMapper {
         return AvailabilityOutboxEntity.builder()
                 .id(appointmentAvailabilityOutboxMessage.getId())
                 .sagaId(appointmentAvailabilityOutboxMessage.getSagaId())
+                .sagaType(appointmentAvailabilityOutboxMessage.getSagaType())
                 .payload(appointmentAvailabilityOutboxMessage.getPayload())
                 .createdAt(appointmentAvailabilityOutboxMessage.getCreatedAt())
-                .outboxStatus(appointmentAvailabilityOutboxMessage.getOutboxStatus())
                 .sagaStatus(appointmentAvailabilityOutboxMessage.getSagaStatus())
                 .version(appointmentAvailabilityOutboxMessage.getVersion())
                 .build();
@@ -23,9 +23,9 @@ public class AvailabilityDataAccessMapper {
         return AppointmentAvailabilityOutboxMessage.builder()
                 .id(availabilityOutboxEntity.getId())
                 .sagaId(availabilityOutboxEntity.getSagaId())
+                .sagaType(availabilityOutboxEntity.getSagaType())
                 .payload(availabilityOutboxEntity.getPayload())
                 .createdAt(availabilityOutboxEntity.getCreatedAt())
-                .outboxStatus(availabilityOutboxEntity.getOutboxStatus())
                 .version(availabilityOutboxEntity.getVersion())
                 .sagaStatus(availabilityOutboxEntity.getSagaStatus())
                 .build();

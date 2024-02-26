@@ -1,6 +1,5 @@
 package com.vet.appointment.system.account.service.domain.impl;
 
-import com.vet.appointment.service.account.service.domain.event.AccountCreatedEvent;
 import com.vet.appointment.system.account.service.domain.outbox.scheduler.appointment.AppointmentOutboxHelper;
 import com.vet.appointment.system.account.service.domain.CreateAccountCommandHandler;
 import com.vet.appointment.system.account.service.domain.dto.create.CreateAccountCommand;
@@ -8,7 +7,6 @@ import com.vet.appointment.system.account.service.domain.dto.create.CreateAccoun
 import com.vet.appointment.system.account.service.domain.mapper.AccountDataMapper;
 import com.vet.appointment.system.account.service.domain.ports.input.AccountApplicationService;
 import com.vet.appointment.system.account.service.domain.ports.output.repository.AccountRepository;
-import com.vet.appointment.system.outbox.OutboxStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

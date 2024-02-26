@@ -28,6 +28,13 @@
               }
             },
             {
+              "name": "saga_type",
+              "type": {
+                "type": "string",
+                "connect.version": 1
+              }
+            },
+            {
               "name": "created_at",
               "type": {
                 "type": "long",
@@ -41,17 +48,6 @@
                 "type": "string",
                 "connect.version": 1,
                 "connect.name": "io.debezium.data.Json"
-              }
-            },
-            {
-              "name": "outbox_status",
-              "type": {
-                "type": "string",
-                "connect.version": 1,
-                "connect.parameters": {
-                  "allowed": "STARTED,COMPLETED,FAILED"
-                },
-                "connect.name": "io.debezium.data.Enum"
               }
             },
             {
