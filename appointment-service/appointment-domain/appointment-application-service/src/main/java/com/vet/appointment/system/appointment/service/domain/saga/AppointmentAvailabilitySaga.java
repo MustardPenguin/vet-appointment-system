@@ -12,6 +12,7 @@ import com.vet.appointment.system.saga.SagaStatus;
 import com.vet.appointment.system.saga.SagaSteps;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -33,6 +34,7 @@ public class AppointmentAvailabilitySaga implements SagaSteps<AvailabilityRespon
     }
 
     @Override
+    @Transactional
     public void process(AvailabilityResponse availabilityResponse) {
         AppointmentAvailabilityOutboxMessage appointmentAvailabilityOutboxMessage = getOutboxMessage(availabilityResponse);
         if(appointmentAvailabilityOutboxMessage == null) {
@@ -44,10 +46,14 @@ public class AppointmentAvailabilitySaga implements SagaSteps<AvailabilityRespon
         Appointment response = appointmentServiceHelper.saveAppointmentEntity(appointmentAvailableEvent.getEntity());
         log.info("Successfully saved appointment with id: {} as status {}", response.getId().getValue(), response.getAppointmentStatus());
 
+        appointmentAvailabilityOutboxMessage.setSagaStatus(SagaStatus.SUCCEEDED);
+        availabilityOutboxHelper.save(appointmentAvailabilityOutboxMessage);
+
 
     }
 
     @Override
+    @Transactional
     public void rollback(AvailabilityResponse availabilityResponse) {
         AppointmentAvailabilityOutboxMessage appointmentAvailabilityOutboxMessage = getOutboxMessage(availabilityResponse);
         if(appointmentAvailabilityOutboxMessage == null) {
@@ -58,6 +64,9 @@ public class AppointmentAvailabilitySaga implements SagaSteps<AvailabilityRespon
         appointmentDomainService.initiateAppointmentUnavailable(appointment, availabilityResponse.getErrorMessages());
         Appointment response = appointmentServiceHelper.saveAppointmentEntity(appointment);
         log.info("Successfully saved appointment with id: {} as status {}", response.getId().getValue(), response.getAppointmentStatus());
+
+        appointmentAvailabilityOutboxMessage.setSagaStatus(SagaStatus.COMPENSATED);
+        availabilityOutboxHelper.save(appointmentAvailabilityOutboxMessage);
     }
 
     private AppointmentAvailabilityOutboxMessage getOutboxMessage(AvailabilityResponse availabilityResponse) {

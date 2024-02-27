@@ -60,3 +60,16 @@ CREATE TABLE "appointment".availability_outbox (
     version integer NOT NULL,
     CONSTRAINT availability_outbox_pkey PRIMARY KEY (id)
 );
+
+DROP TABLE IF EXISTS "appointment".payment_outbox CASCADE;
+
+CREATE TABLE "appointment".payment_outbox (
+    id uuid NOT NULL,
+    saga_id uuid NOT NULL,
+    saga_type varchar NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    payload jsonb NOT NULL,
+    saga_status saga_status NOT NULL,
+    version integer NOT NULL,
+    CONSTRAINT payment_outbox_pkey PRIMARY KEY (id)
+);
