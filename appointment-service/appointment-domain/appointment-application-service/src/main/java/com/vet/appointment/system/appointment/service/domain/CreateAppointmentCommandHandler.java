@@ -46,11 +46,7 @@ public class CreateAppointmentCommandHandler {
         AppointmentCreatedEvent appointmentCreatedEvent =
                 appointmentDomainService.validateAndInitiateAppointment(appointment);
 
-        Appointment response = appointmentRepository.save(appointment);
-        if(response == null) {
-            log.error("Failed to save appointment for owner id: {}", appointment.getOwnerId());
-            throw new AppointmentDomainException("Failed to save appointment for owner id: " + appointment.getOwnerId());
-        }
+        Appointment response = appointmentServiceHelper.saveAppointmentEntity(appointment);
         availabilityOutboxHelper.saveAvailabilityOutboxMessage(
                 appointmentDataMapper.appointmentEventToEventPayload(appointmentCreatedEvent),
                 SagaStatus.PROCESSING,

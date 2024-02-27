@@ -1,11 +1,11 @@
 package com.vet.appointment.system.appointment.service.domain.entity;
 
+import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;
 import com.vet.appointment.system.domain.entity.AggregateRoot;
 import com.vet.appointment.system.domain.valueobject.AppointmentId;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -16,8 +16,9 @@ public class Appointment extends AggregateRoot<AppointmentId> {
     private final UUID ownerId;
     private final UUID petId;
     private final String description;
-    private final AppointmentStatus appointmentStatus;
-    private final PaymentStatus paymentStatus;
+    private AppointmentStatus appointmentStatus;
+    private PaymentStatus paymentStatus;
+    private String errorMessages;
 
     public LocalDateTime getAppointmentStartDateTime() {
         return appointmentStartDateTime;
@@ -47,6 +48,37 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         return paymentStatus;
     }
 
+    public String getErrorMessages() {
+        return errorMessages;
+    }
+
+    public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
+        this.appointmentStatus = appointmentStatus;
+    }
+
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public void initAvailability() {
+        if(appointmentStatus != AppointmentStatus.REQUESTING) {
+            throw new AppointmentDomainException("Appointment is not in correct state for availability operation!");
+        }
+        appointmentStatus = AppointmentStatus.AVAILABLE;
+    }
+
+    public void initUnavailability(String errorMessages) {
+        if(appointmentStatus != AppointmentStatus.REQUESTING && appointmentStatus != AppointmentStatus.CANCELLING) {
+            throw new AppointmentDomainException("Appointment is not in correct state for unavailability operation!");
+        }
+        appointmentStatus = AppointmentStatus.UNAVAILABLE;
+        this.errorMessages = errorMessages;
+    }
+
+    public void initCancelling() {
+        appointmentStatus = AppointmentStatus.CANCELLING;
+    }
+
     private Appointment(Builder builder) {
         super.setId(new AppointmentId(builder.id));
         appointmentStartDateTime = builder.appointmentStartDateTime;
@@ -56,6 +88,7 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         description = builder.description;
         appointmentStatus = builder.appointmentStatus;
         paymentStatus = builder.paymentStatus;
+        errorMessages = builder.errorMessages;
     }
 
     public static Builder builder() {
@@ -72,6 +105,7 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         private String description;
         private AppointmentStatus appointmentStatus;
         private PaymentStatus paymentStatus;
+        private String errorMessages;
 
         private Builder() {
         }
@@ -113,6 +147,11 @@ public class Appointment extends AggregateRoot<AppointmentId> {
 
         public Builder paymentStatus(PaymentStatus val) {
             paymentStatus = val;
+            return this;
+        }
+
+        public Builder errorMessages(String val) {
+            errorMessages = val;
             return this;
         }
 

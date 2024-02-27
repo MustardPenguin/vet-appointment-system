@@ -56,6 +56,15 @@ public class AppointmentServiceHelper {
         return appointment.get();
     }
 
+    public Appointment saveAppointmentEntity(Appointment appointment) {
+        Appointment response = appointmentRepository.save(appointment);
+        if(response == null) {
+            log.error("Failed to save appointment for owner id: {}", appointment.getOwnerId());
+            throw new AppointmentDomainException("Failed to save appointment for owner id: " + appointment.getOwnerId());
+        }
+        return response;
+    }
+
     public void validateAccountAndPet(UUID accountId, UUID petId) {
         AccountModel accountModel = getAccountById(accountId);
         PetModel petModel = getPetById(petId);

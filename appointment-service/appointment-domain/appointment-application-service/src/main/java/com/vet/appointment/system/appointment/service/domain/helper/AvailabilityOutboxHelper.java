@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.vet.appointment.system.saga.SagaConstants.APPOINTMENT_SAGA_NAME;
@@ -51,6 +52,10 @@ public class AvailabilityOutboxHelper {
                 .sagaId(sagaId)
                 .sagaType(APPOINTMENT_SAGA_NAME)
                 .build());
+    }
+
+    public Optional<AppointmentAvailabilityOutboxMessage> findAvailabilityOutboxMessageBySagaIdAndSagaStatus(UUID sagaId, SagaStatus sagaStatus) {
+        return availabilityOutboxRepository.findBySagaIdAndSagaStatus(APPOINTMENT_SAGA_NAME, sagaId, sagaStatus);
     }
 
     private String createPayload(AppointmentAvailabilityEventPayload appointmentAvailabilityEventPayload) {

@@ -5,7 +5,11 @@ import com.vet.appointment.system.appointment.service.dataaccess.outbox.availabi
 import com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.repository.AvailabilityOutboxJpaRepository;
 import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentAvailabilityOutboxMessage;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AvailabilityOutboxRepository;
+import com.vet.appointment.system.saga.SagaStatus;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class AvailabilityOutboxRepositoryImpl implements AvailabilityOutboxRepository {
@@ -24,5 +28,11 @@ public class AvailabilityOutboxRepositoryImpl implements AvailabilityOutboxRepos
         AvailabilityOutboxEntity availabilityOutbox = availabilityOutboxJpaRepository
                 .save(availabilityDataAccessMapper.availabilityOutboxMessageToOutboxEntity(appointmentAvailabilityOutboxMessage));
         return availabilityDataAccessMapper.availabilityOutboxEntityToOutboxMessage(availabilityOutbox);
+    }
+
+    @Override
+    public Optional<AppointmentAvailabilityOutboxMessage> findBySagaIdAndSagaStatus(String sagaType, UUID sagaId, SagaStatus sagaStatus) {
+        return availabilityOutboxJpaRepository.findAvailabilityOutboxEntityBySagaTypeAndSagaIdAndSagaStatus(sagaType, sagaId, sagaStatus)
+                .map(availabilityDataAccessMapper::availabilityOutboxEntityToOutboxMessage);
     }
 }

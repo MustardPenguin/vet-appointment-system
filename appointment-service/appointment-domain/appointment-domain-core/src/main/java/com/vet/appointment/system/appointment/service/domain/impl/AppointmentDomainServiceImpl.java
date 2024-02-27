@@ -2,6 +2,7 @@ package com.vet.appointment.system.appointment.service.domain.impl;
 
 import com.vet.appointment.system.appointment.service.domain.AppointmentDomainService;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
+import com.vet.appointment.system.appointment.service.domain.event.AppointmentAvailableEvent;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
 import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;
 
@@ -22,5 +23,16 @@ public class AppointmentDomainServiceImpl implements AppointmentDomainService {
         }
 
         return new AppointmentCreatedEvent(appointment, ZonedDateTime.now(ZoneId.of(UTC)));
+    }
+
+    @Override
+    public AppointmentAvailableEvent initiateAppointmentAvailability(Appointment appointment) {
+        appointment.initAvailability();
+        return new AppointmentAvailableEvent(appointment, ZonedDateTime.now(ZoneId.of(UTC)));
+    }
+
+    @Override
+    public void initiateAppointmentUnavailable(Appointment appointment, String errorMessages) {
+        appointment.initUnavailability(errorMessages);
     }
 }

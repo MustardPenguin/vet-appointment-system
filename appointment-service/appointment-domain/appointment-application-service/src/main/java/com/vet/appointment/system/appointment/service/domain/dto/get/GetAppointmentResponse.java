@@ -17,6 +17,7 @@ public class GetAppointmentResponse extends ResponseMessage {
     private LocalDateTime appointmentEndDateTime;
     private AppointmentStatus appointmentStatus;
     private PaymentStatus paymentStatus;
+    private String errorMessages;
 
     public UUID getId() {
         return id;
@@ -50,6 +51,10 @@ public class GetAppointmentResponse extends ResponseMessage {
         return paymentStatus;
     }
 
+    public String getErrorMessages() {
+        return errorMessages;
+    }
+
     private GetAppointmentResponse(Builder builder) {
         super(builder.message, builder.statusCode);
         id = builder.id;
@@ -60,6 +65,7 @@ public class GetAppointmentResponse extends ResponseMessage {
         appointmentEndDateTime = builder.appointmentEndDateTime;
         appointmentStatus = builder.appointmentStatus;
         paymentStatus = builder.paymentStatus;
+        errorMessages = builder.errorMessages;
     }
 
     public static Builder builder() {
@@ -76,6 +82,7 @@ public class GetAppointmentResponse extends ResponseMessage {
         private LocalDateTime appointmentEndDateTime;
         private AppointmentStatus appointmentStatus;
         private PaymentStatus paymentStatus;
+        private String errorMessages;
         private String message;
         private int statusCode;
 
@@ -119,6 +126,11 @@ public class GetAppointmentResponse extends ResponseMessage {
 
         public Builder paymentStatus(PaymentStatus val) {
             paymentStatus = val;
+            return this;
+        }
+
+        public Builder errorMessages(String val) {
+            errorMessages = val;
             return this;
         }
 

@@ -24,6 +24,7 @@ public class AppointmentDataMapper {
                 .description(createAppointmentCommand.getDescription())
                 .appointmentStatus(AppointmentStatus.REQUESTING)
                 .paymentStatus(PaymentStatus.PENDING)
+                .errorMessages("")
                 .build();
     }
 
@@ -45,6 +46,7 @@ public class AppointmentDataMapper {
                 .description(appointment.getDescription())
                 .ownerId(appointment.getOwnerId())
                 .petId(appointment.getPetId())
+                .errorMessages(appointment.getErrorMessages())
                 .message("Successfully fetched appointment")
                 .statusCode(200)
                 .build();

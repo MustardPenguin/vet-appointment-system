@@ -4,10 +4,10 @@ DROP SCHEMA IF EXISTS "appointment" CASCADE;
 CREATE SCHEMA "appointment";
 
 DROP TYPE IF EXISTS appointment_status;
-CREATE TYPE appointment_status AS ENUM('REQUESTING', 'CONFIRMED', 'CANCELLED', 'CANCELLING', 'PAID');
+CREATE TYPE appointment_status AS ENUM('REQUESTING', 'AVAILABLE', 'UNAVAILABLE', 'CANCELLING', 'CANCELLED', 'CONFIRMED');
 
 DROP TYPE IF EXISTS payment_status;
-CREATE TYPE payment_status AS ENUM('PENDING', 'COMPLETED', 'FAILED');
+CREATE TYPE payment_status AS ENUM('PENDING', 'PAID', 'FAILED');
 
 DROP TYPE IF EXISTS saga_status;
 CREATE TYPE saga_status AS ENUM('PROCESSING', 'SUCCEEDED', 'COMPENSATING', 'COMPENSATED');
@@ -23,6 +23,7 @@ CREATE TABLE "appointment".appointments(
     appointment_end_date_time timestamp WITHOUT TIME ZONE NOT NULL,
     appointment_status appointment_status NOT NULL,
     payment_status payment_status NOT NULL,
+    error_messages varchar NOT NULL,
     CONSTRAINT appointment_pkey PRIMARY KEY (id)
 );
 

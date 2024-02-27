@@ -62,7 +62,7 @@ public class AppointmentAvailabilityMessageListenerImpl implements AppointmentAv
 
         log.info("Appointment status: {}", appointmentStatus);
         if(appointmentStatus.equals(AppointmentStatus.UNAVAILABLE)) {
-            log.info("Appointment is not available for appointment id: {}", appointment.getId().getValue());
+            log.info("Appointment is not available for appointment id: {}, Reasons: {}", appointment.getId().getValue(), errorMessages);
             return;
         }
         log.info("Availability for appointment id {} is confirmed, saving to database as id {}",

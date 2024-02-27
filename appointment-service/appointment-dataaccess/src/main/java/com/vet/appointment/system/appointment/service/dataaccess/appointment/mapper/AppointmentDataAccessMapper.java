@@ -17,6 +17,7 @@ public class AppointmentDataAccessMapper {
                 .appointmentEndDateTime(appointment.getAppointmentEndDateTime())
                 .appointmentStatus(appointment.getAppointmentStatus())
                 .paymentStatus(appointment.getPaymentStatus())
+                .errorMessages(appointment.getErrorMessages())
                 .build();
     }
 
@@ -30,6 +31,7 @@ public class AppointmentDataAccessMapper {
                 .appointmentEndDateTime(appointmentEntity.getAppointmentEndDateTime())
                 .appointmentStatus(appointmentEntity.getAppointmentStatus())
                 .paymentStatus(appointmentEntity.getPaymentStatus())
+                .errorMessages(appointmentEntity.getErrorMessages())
                 .build();
     }
 }
