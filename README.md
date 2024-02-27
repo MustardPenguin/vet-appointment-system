@@ -8,20 +8,6 @@ The purpose of this project is purely for educational purposes to learn how to d
 
 <h2>To run locally</h2>
 
-<u><h3>Services</h3></u>
-In the infrastructure folder, run the Eureka server first then the API gateway.
-Afterward, to start the services, run the service application found in service container.
-
-<h4>Ports</h4>
-The services should run on the following ports:
-<ul>
-    <li>Account: 8181</li>
-    <li>Pet: 8182</li>
-    <li>Appointment: 8183</li>
-    <li>API Gateway: 8080</li>
-    <li>Eureka: 8761</li>
-</ul>
-
 <u><h3>Kafka deployment</h3></u>
 
 <h4>Debezium dependencies</h4>
@@ -35,7 +21,7 @@ If not, run mvn clean install in debezium-dependencies found in docker-compose.
 ```angular2html
 mvn clean install
 ```
-This should install the necessary JAR files in the jar directory for debezium connect. 
+This should install the necessary JAR files in the jar directory for debezium connect.
 
 To change dependencies version, update the pom.xml file, clear jar file of .jar files, and run mvn clean install again.
 
@@ -70,7 +56,7 @@ After starting the containers, create the topics for kafka:
 docker-compose -f init-kafka.yml up
 ```
 
-And start bash script for Debezium connectors
+And start bash script for Debezium connectors, this may take a couple of minutes for connectors to start working.
 ```bash
 ./init-connectors.sh
 ```
@@ -79,3 +65,85 @@ Run the shutdown script to delete Debezium connectors
 ```bash
 ./shutdown.sh
 ```
+
+<u><h3>Services</h3></u>
+In the infrastructure folder, run the Eureka server first then the API gateway.
+Afterward, to start the services, run the service application found in service container.
+
+<h4>Ports</h4>
+The services should run on the following ports:
+<ul>
+    <li>Account: 8181</li>
+    <li>Pet: 8182</li>
+    <li>Appointment: 8183</li>
+    <li>Availability: 8184</li>
+    <li>Payment: 8185</li>
+    <li>API Gateway: 8080</li>
+    <li>Eureka: 8761</li>
+</ul>
+
+<h2>Documentation</h2>
+
+<u><h3>API</h3></u>
+
+<h4>Account</h4>
+Create account: POST http://localhost:8080/api/account
+```json
+{
+  "email": "test@gmail.com",
+  "password": "password",
+  "firstName": "John",
+  "lastName": "Jim"
+}
+```
+
+Authenticate: POST http://localhost:8080/api/authenticate
+```json
+{
+  "email": "test@gmail.com",
+  "password": "password",
+}
+```
+
+<h4>Pet</h4>
+
+Create pet: POST http://localhost:8080/api/pet
+
+Headers: 
+
+<ul>
+    <li>Authorization: Bearer token</li>
+</ul>
+
+```json
+{
+  "name": "Buddy",
+  "species": "Dog",
+  "birthDate": "2021-01-01"
+}
+```
+
+<h4>Appointment</h4>
+
+Create appointment: POST http://localhost:8080/api/appointment
+
+Headers:
+<ul>
+    <li>Authorization: Bearer token</li>
+</ul>
+
+```json
+{
+  "petId": "3ddf2488-72c4-4fe3-9412-b17732777090",
+  "description": "update vaccinations",
+  "appointmentStartDateTime": "2024-04-24T15:50",
+  "appointmentEndDateTime": "2024-04-24T16:55"
+}
+```
+
+Get appointments: GET http://localhost:8080/api/appointment/{appointmentId}
+
+Headers:
+<ul>
+    <li>Authorization: Bearer token</li>
+</ul>
