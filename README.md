@@ -4,7 +4,7 @@ This project is a basic appointment system for account, pet, and appointment cre
 
 It is built following an event-driven microservice architecture using typical patterns for resilient and scalable microservices, such as DDD, clean and hexagonal architecture, CQRS pattern, Saga pattern, outbox pattern, and CDC.
 
-The purpose of this project is purely for educational purposes to learn how to develop microservices and maintaining consistency between them using popular technologies and design principles.
+The purpose of this project is purely for educational purposes to learn how to develop distributed microservices and maintaining consistency between them using popular technologies and design principles.
 
 <h2>To run locally</h2>
 
@@ -88,6 +88,9 @@ The services should run on the following ports:
 
 <h4>Account</h4>
 Create account: POST http://localhost:8080/api/account
+
+Body:
+
 ```json
 {
   "email": "test@gmail.com",
@@ -98,10 +101,13 @@ Create account: POST http://localhost:8080/api/account
 ```
 
 Authenticate: POST http://localhost:8080/api/authenticate
+
+Body:
+
 ```json
 {
   "email": "test@gmail.com",
-  "password": "password",
+  "password": "password"
 }
 ```
 
@@ -114,6 +120,8 @@ Headers:
 <ul>
     <li>Authorization: Bearer token</li>
 </ul>
+
+Body:
 
 ```json
 {
@@ -131,6 +139,8 @@ Headers:
 <ul>
     <li>Authorization: Bearer token</li>
 </ul>
+
+Body:
 
 ```json
 {
