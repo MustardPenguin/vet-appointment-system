@@ -5,20 +5,16 @@ import java.util.UUID;
 
 public class AvailabilityRequest {
 
-    private UUID eventId;
     private UUID sagaId;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
+    private String reason;
 
-    public AvailabilityRequest(UUID eventId, UUID sagaId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        this.eventId = eventId;
+    public AvailabilityRequest(UUID sagaId, LocalDateTime startDateTime, LocalDateTime endDateTime, String reason) {
         this.sagaId = sagaId;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
-    }
-
-    public UUID getEventId() {
-        return eventId;
+        this.reason = reason;
     }
 
     public UUID getSagaId() {
@@ -31,5 +27,9 @@ public class AvailabilityRequest {
 
     public LocalDateTime getEndDateTime() {
         return endDateTime;
+    }
+
+    public String getReason() {
+        return reason;
     }
 }

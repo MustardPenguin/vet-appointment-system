@@ -15,6 +15,7 @@ spring:
     name: "appointment-service"
   jpa:
     show-sql: true
+    open-in-view: false
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=appointment
     username: user

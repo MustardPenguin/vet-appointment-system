@@ -13,6 +13,7 @@ public class AppointmentMessagingDataMapper {
                                                                                           UUID sagaId) {
         return AvailabilityResponse.builder()
                 .appointmentId(availabilityAppointmentEventPayload.getAppointmentId())
+                .availabilityId(UUID.fromString(availabilityAppointmentEventPayload.getAvailabilityId()))
                 .sagaId(sagaId)
                 .createdAt(availabilityAppointmentEventPayload.getCreatedAt())
                 .appointmentStatus(availabilityAppointmentEventPayload.getAppointmentStatus())

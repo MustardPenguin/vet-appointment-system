@@ -19,6 +19,7 @@ spring:
     name: "availability-service"
   jpa:
     show-sql: true
+    open-in-view: false
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=availability
     username: user

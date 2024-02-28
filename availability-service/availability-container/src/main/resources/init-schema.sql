@@ -10,8 +10,6 @@ DROP TABLE IF EXISTS "availability"."availabilities" CASCADE;
 
 CREATE TABLE "availability".availabilities (
     id UUID PRIMARY KEY,
-    event_id UUID NOT NULL,
-    event_type event_type NOT NULL,
     start_date_time timestamp WITHOUT TIME ZONE NOT NULL,
     end_date_time timestamp WITHOUT TIME ZONE NOT NULL,
     reason varchar(255)

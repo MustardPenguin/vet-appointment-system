@@ -19,6 +19,8 @@ public class Appointment extends AggregateRoot<AppointmentId> {
     private AppointmentStatus appointmentStatus;
     private PaymentStatus paymentStatus;
     private String errorMessages;
+    private UUID availabilityId;
+    private UUID paymentId;
 
     public LocalDateTime getAppointmentStartDateTime() {
         return appointmentStartDateTime;
@@ -52,6 +54,22 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         return errorMessages;
     }
 
+    public UUID getAvailabilityId() {
+        return availabilityId;
+    }
+
+    public UUID getPaymentId() {
+        return paymentId;
+    }
+
+    public void setAvailabilityId(UUID availabilityId) {
+        this.availabilityId = availabilityId;
+    }
+
+    public void setPaymentId(UUID paymentId) {
+        this.paymentId = paymentId;
+    }
+
     public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
         this.appointmentStatus = appointmentStatus;
     }
@@ -63,6 +81,9 @@ public class Appointment extends AggregateRoot<AppointmentId> {
     public void initAvailability() {
         if(appointmentStatus != AppointmentStatus.REQUESTING) {
             throw new AppointmentDomainException("Appointment is not in correct state for availability operation!");
+        }
+        if(availabilityId == null) {
+            throw new AppointmentDomainException("Availability id is not set for appointment!");
         }
         appointmentStatus = AppointmentStatus.AVAILABLE;
     }
@@ -89,6 +110,8 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         appointmentStatus = builder.appointmentStatus;
         paymentStatus = builder.paymentStatus;
         errorMessages = builder.errorMessages;
+        availabilityId = builder.availabilityId;
+        paymentId = builder.paymentId;
     }
 
     public static Builder builder() {
@@ -106,6 +129,8 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         private AppointmentStatus appointmentStatus;
         private PaymentStatus paymentStatus;
         private String errorMessages;
+        private UUID availabilityId;
+        private UUID paymentId;
 
         private Builder() {
         }
@@ -152,6 +177,16 @@ public class Appointment extends AggregateRoot<AppointmentId> {
 
         public Builder errorMessages(String val) {
             errorMessages = val;
+            return this;
+        }
+
+        public Builder availabilityId(UUID val) {
+            availabilityId = val;
+            return this;
+        }
+
+        public Builder paymentId(UUID val) {
+            paymentId = val;
             return this;
         }
 

@@ -47,6 +47,8 @@ public class AppointmentDataMapper {
                 .ownerId(appointment.getOwnerId())
                 .petId(appointment.getPetId())
                 .errorMessages(appointment.getErrorMessages())
+                .availabilityId(appointment.getAvailabilityId())
+                .paymentId(appointment.getPaymentId())
                 .message("Successfully fetched appointment")
                 .statusCode(200)
                 .build();

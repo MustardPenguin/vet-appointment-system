@@ -3,9 +3,10 @@ package com.vet.appointment.system.availability.service.domain.impl;
 import com.vet.appointment.system.availability.service.domain.AvailabilityDomainService;
 import com.vet.appointment.system.availability.service.domain.entity.Appointment;
 import com.vet.appointment.system.availability.service.domain.entity.Availability;
-import com.vet.appointment.system.availability.service.domain.event.AvailabilityConfirmedEvent;
-import com.vet.appointment.system.availability.service.domain.exception.AvailabilityDomainException;
-import com.vet.appointment.system.availability.service.domain.valueobject.EventType;
+import com.vet.appointment.system.availability.service.domain.event.AvailabilityAvailableEvent;
+import com.vet.appointment.system.availability.service.domain.event.AvailabilityEvent;
+import com.vet.appointment.system.availability.service.domain.event.AvailabilityUnavailableEvent;
+import com.vet.appointment.system.availability.service.domain.valueobject.AvailabilityStatus;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -18,19 +19,19 @@ import static com.vet.appointment.system.domain.DomainConstants.UTC;
 public class AvailabilityDomainServiceImpl implements AvailabilityDomainService {
 
     @Override
-    public AvailabilityConfirmedEvent validateAppointmentAvailability(Appointment appointment, Optional<List<Availability>> availabilities, List<String> errorMessages) {
+    public AvailabilityEvent validateAvailability(Availability availability, Optional<List<Availability>> availabilities, List<String> errorMessages) {
         if(!availabilities.get().isEmpty()) {
             errorMessages.add("Availability is already taken, please choose another time! Reason: " + availabilities.get().get(0).getReason());
         }
-        Availability availability = Availability.builder()
-                .id(UUID.randomUUID())
-                .eventId(appointment.getId().getValue())
-                .eventType(EventType.APPOINTMENT)
-                .startDateTime(appointment.getAppointmentStartDateTime())
-                .endDateTime(appointment.getAppointmentEndDateTime())
-                .reason("Vet appointment scheduled")
-                .build();
+        if(availability.getStartDateTime().isAfter(availability.getEndDateTime())) {
+            errorMessages.add("Start date time cannot be after end date time for request!");
+        }
 
-        return new AvailabilityConfirmedEvent(availability, ZonedDateTime.now(ZoneId.of(UTC)), errorMessages);
+        if(errorMessages.isEmpty()) {
+            availability.setAvailabilityStatus(AvailabilityStatus.AVAILABLE);
+            return new AvailabilityAvailableEvent(availability, ZonedDateTime.now(ZoneId.of(UTC)), errorMessages);
+        }
+        availability.setAvailabilityStatus(AvailabilityStatus.UNAVAILABLE);
+        return new AvailabilityUnavailableEvent(availability, ZonedDateTime.now(ZoneId.of(UTC)), errorMessages);
     }
 }

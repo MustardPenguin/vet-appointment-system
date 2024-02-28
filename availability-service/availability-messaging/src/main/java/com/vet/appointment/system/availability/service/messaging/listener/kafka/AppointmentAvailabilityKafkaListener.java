@@ -47,11 +47,11 @@ public class AppointmentAvailabilityKafkaListener implements KafkaConsumer<Envel
                         kafkaMessageHelper.getEventPayload(appointmentAvailabilityAvroModel.getPayload(), AppointmentAvailabilityEventPayload.class);
 
                 appointmentAvailabilityMessageListener.checkAvailability(new AvailabilityRequest(
-                        appointmentAvailabilityEventPayload.getId(),
                         UUID.fromString(appointmentAvailabilityAvroModel.getSagaId()),
                         appointmentAvailabilityEventPayload.getAppointmentStartDateTime(),
-                        appointmentAvailabilityEventPayload.getAppointmentEndDateTime()
-                ));
+                        appointmentAvailabilityEventPayload.getAppointmentEndDateTime(),
+                        "Appointment for id: " + appointmentAvailabilityEventPayload.getId()
+                ), appointmentAvailabilityEventPayload.getId());
 
             }
         });

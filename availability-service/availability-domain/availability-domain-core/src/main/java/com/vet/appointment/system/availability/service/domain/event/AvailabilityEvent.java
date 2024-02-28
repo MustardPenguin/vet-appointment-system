@@ -6,12 +6,16 @@ import com.vet.appointment.system.domain.event.DomainEvent;
 import java.time.ZonedDateTime;
 import java.util.List;
 
-public class AvailabilityConfirmedEvent extends DomainEvent<Availability> {
+public class AvailabilityEvent extends DomainEvent<Availability> {
 
-    private final List<String> errorMessages;
+    private List<String> errorMessages;
 
-    public AvailabilityConfirmedEvent(Availability availability, ZonedDateTime createdAt, List<String> errorMessages) {
+    public AvailabilityEvent(Availability availability, ZonedDateTime createdAt, List<String> errorMessages) {
         super(availability, createdAt);
         this.errorMessages = errorMessages;
+    }
+
+    public List<String> getErrorMessages() {
+        return errorMessages;
     }
 }
