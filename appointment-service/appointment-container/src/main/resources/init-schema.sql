@@ -24,6 +24,8 @@ CREATE TABLE "appointment".appointments(
     appointment_status appointment_status NOT NULL,
     payment_status payment_status NOT NULL,
     error_messages varchar NOT NULL,
+    availability_id uuid,
+    payment_id uuid,
     CONSTRAINT appointment_pkey PRIMARY KEY (id)
 );
 
@@ -54,9 +56,9 @@ CREATE TABLE "appointment".availability_outbox (
     id uuid NOT NULL,
     saga_id uuid NOT NULL,
     saga_type varchar NOT NULL,
+    saga_status saga_status NOT NULL,
     created_at TIMESTAMP NOT NULL,
     payload jsonb NOT NULL,
-    saga_status saga_status NOT NULL,
     version integer NOT NULL,
     CONSTRAINT availability_outbox_pkey PRIMARY KEY (id)
 );

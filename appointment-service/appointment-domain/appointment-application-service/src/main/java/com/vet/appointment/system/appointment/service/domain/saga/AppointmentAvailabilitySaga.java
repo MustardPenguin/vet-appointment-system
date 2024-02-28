@@ -42,14 +42,14 @@ public class AppointmentAvailabilitySaga implements SagaSteps<AvailabilityRespon
         }
 
         Appointment appointment = appointmentServiceHelper.getAppointmentById(availabilityResponse.getAppointmentId());
+        appointment.setAvailabilityId(availabilityResponse.getAvailabilityId());
         AppointmentAvailableEvent appointmentAvailableEvent = appointmentDomainService.initiateAppointmentAvailability(appointment);
         Appointment response = appointmentServiceHelper.saveAppointmentEntity(appointmentAvailableEvent.getEntity());
-        log.info("Successfully saved appointment with id: {} as status {}", response.getId().getValue(), response.getAppointmentStatus());
+        log.info("Successfully saved appointment with id: {} as status {} with availability id: {}",
+                response.getId().getValue(), response.getAppointmentStatus(), response.getAvailabilityId());
 
         appointmentAvailabilityOutboxMessage.setSagaStatus(SagaStatus.SUCCEEDED);
         availabilityOutboxHelper.save(appointmentAvailabilityOutboxMessage);
-
-
     }
 
     @Override

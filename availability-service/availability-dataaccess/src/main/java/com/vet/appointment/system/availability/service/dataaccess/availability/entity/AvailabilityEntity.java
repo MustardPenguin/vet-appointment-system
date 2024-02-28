@@ -1,6 +1,5 @@
 package com.vet.appointment.system.availability.service.dataaccess.availability.entity;
 
-import com.vet.appointment.system.availability.service.domain.valueobject.EventType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -12,9 +11,6 @@ public class AvailabilityEntity {
 
     @Id
     private UUID id;
-    private UUID eventId;
-    @Enumerated(EnumType.STRING)
-    private EventType eventType;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String reason;
@@ -23,8 +19,6 @@ public class AvailabilityEntity {
 
     private AvailabilityEntity(Builder builder) {
         id = builder.id;
-        eventId = builder.eventId;
-        eventType = builder.eventType;
         startDateTime = builder.startDateTime;
         endDateTime = builder.endDateTime;
         reason = builder.reason;
@@ -36,10 +30,6 @@ public class AvailabilityEntity {
 
     public UUID getId() {
         return id;
-    }
-
-    public UUID getEventId() {
-        return eventId;
     }
 
     public LocalDateTime getStartDateTime() {
@@ -54,15 +44,9 @@ public class AvailabilityEntity {
         return reason;
     }
 
-    public EventType getEventType() {
-        return eventType;
-    }
-
 
     public static final class Builder {
         private UUID id;
-        private UUID eventId;
-        private EventType eventType;
         private LocalDateTime startDateTime;
         private LocalDateTime endDateTime;
         private String reason;
@@ -72,16 +56,6 @@ public class AvailabilityEntity {
 
         public Builder id(UUID val) {
             id = val;
-            return this;
-        }
-
-        public Builder eventId(UUID val) {
-            eventId = val;
-            return this;
-        }
-
-        public Builder eventType(EventType val) {
-            eventType = val;
             return this;
         }
 

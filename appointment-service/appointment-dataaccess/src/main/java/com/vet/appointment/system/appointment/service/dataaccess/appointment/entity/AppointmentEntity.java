@@ -22,6 +22,8 @@ public class AppointmentEntity {
     private AppointmentStatus appointmentStatus;
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus;
+    private UUID availabilityId;
+    private UUID paymentId;
     private String errorMessages;
 
     public AppointmentEntity() {}
@@ -36,6 +38,8 @@ public class AppointmentEntity {
         appointmentStatus = builder.appointmentStatus;
         paymentStatus = builder.paymentStatus;
         errorMessages = builder.errorMessages;
+        availabilityId = builder.availabilityId;
+        paymentId = builder.paymentId;
     }
 
     public static Builder builder() {
@@ -78,6 +82,14 @@ public class AppointmentEntity {
         return errorMessages;
     }
 
+    public UUID getAvailabilityId() {
+        return availabilityId;
+    }
+
+    public UUID getPaymentId() {
+        return paymentId;
+    }
+
     public static final class Builder {
         private UUID id;
         private UUID ownerId;
@@ -88,6 +100,8 @@ public class AppointmentEntity {
         private AppointmentStatus appointmentStatus;
         private PaymentStatus paymentStatus;
         private String errorMessages;
+        private UUID availabilityId;
+        private UUID paymentId;
 
         private Builder() {
         }
@@ -134,6 +148,16 @@ public class AppointmentEntity {
 
         public Builder errorMessages(String val) {
             errorMessages = val;
+            return this;
+        }
+
+        public Builder availabilityId(UUID val) {
+            availabilityId = val;
+            return this;
+        }
+
+        public Builder paymentId(UUID val) {
+            paymentId = val;
             return this;
         }
 

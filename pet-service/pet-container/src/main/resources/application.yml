@@ -20,6 +20,7 @@ spring:
     name: "pet-service"
   jpa:
     show-sql: true
+    open-in-view: false
   datasource:
     url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=pet
     username: user

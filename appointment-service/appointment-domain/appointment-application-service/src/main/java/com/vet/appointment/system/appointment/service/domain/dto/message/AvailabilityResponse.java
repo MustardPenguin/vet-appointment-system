@@ -9,6 +9,7 @@ public class AvailabilityResponse {
 
     private UUID appointmentId;
     private UUID sagaId;
+    private UUID availabilityId;
     private ZonedDateTime createdAt;
     private AppointmentStatus appointmentStatus;
     private String errorMessages;
@@ -19,6 +20,7 @@ public class AvailabilityResponse {
         createdAt = builder.createdAt;
         appointmentStatus = builder.appointmentStatus;
         errorMessages = builder.errorMessages;
+        availabilityId = builder.availabilityId;
     }
 
     public static Builder builder() {
@@ -46,12 +48,17 @@ public class AvailabilityResponse {
         return errorMessages;
     }
 
+    public UUID getAvailabilityId() {
+        return availabilityId;
+    }
+
     public static final class Builder {
         private UUID appointmentId;
         private UUID sagaId;
         private ZonedDateTime createdAt;
         private AppointmentStatus appointmentStatus;
         private String errorMessages;
+        private UUID availabilityId;
 
         private Builder() {
         }
@@ -78,6 +85,11 @@ public class AvailabilityResponse {
 
         public Builder errorMessages(String val) {
             errorMessages = val;
+            return this;
+        }
+
+        public Builder availabilityId(UUID val) {
+            availabilityId = val;
             return this;
         }
 

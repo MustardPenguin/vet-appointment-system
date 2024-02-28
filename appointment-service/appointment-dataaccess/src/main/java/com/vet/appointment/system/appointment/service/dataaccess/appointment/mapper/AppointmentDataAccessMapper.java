@@ -18,6 +18,8 @@ public class AppointmentDataAccessMapper {
                 .appointmentStatus(appointment.getAppointmentStatus())
                 .paymentStatus(appointment.getPaymentStatus())
                 .errorMessages(appointment.getErrorMessages())
+                .availabilityId(appointment.getAvailabilityId())
+                .paymentId(appointment.getPaymentId())
                 .build();
     }
 
@@ -32,6 +34,8 @@ public class AppointmentDataAccessMapper {
                 .appointmentStatus(appointmentEntity.getAppointmentStatus())
                 .paymentStatus(appointmentEntity.getPaymentStatus())
                 .errorMessages(appointmentEntity.getErrorMessages())
+                .availabilityId(appointmentEntity.getAvailabilityId())
+                .paymentId(appointmentEntity.getPaymentId())
                 .build();
     }
 }
