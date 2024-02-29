@@ -5,15 +5,15 @@ import com.vet.appointment.system.appointment.service.domain.ports.input.message
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import com.vet.appointment.system.kafka.producer.KafkaMessageHelper;
 import com.vet.appointment.system.messaging.DebeziumOp;
-import com.vet.appointment.system.messaging.event.PetAppointmentEventPayload;
-import debezium.pet.appointment_outbox.Envelope;
-import debezium.pet.appointment_outbox.Value;
+import com.vet.appointment.system.messaging.event.PetCreatedEventPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
+import pet_created.pet.appointment_outbox.Envelope;
+import pet_created.pet.appointment_outbox.Value;
 
 import java.util.List;
 import java.util.UUID;
@@ -47,14 +47,14 @@ public class PetCreatedEventKafkaListener implements KafkaConsumer<Envelope> {
         messages.forEach(avroModel -> {
             if(avroModel.getBefore() == null && avroModel.getOp().equals(DebeziumOp.CREATE.getValue())) {
                 Value petEventAvroModel = avroModel.getAfter();
-                PetAppointmentEventPayload petAppointmentEventPayload = kafkaMessageHelper
-                        .getEventPayload(petEventAvroModel.getPayload(), PetAppointmentEventPayload.class);
+                PetCreatedEventPayload petCreatedEventPayload = kafkaMessageHelper
+                        .getEventPayload(petEventAvroModel.getPayload(), PetCreatedEventPayload.class);
                 petCreatedMessageListener.petCreated(PetModel.builder()
-                                .id(UUID.fromString(petAppointmentEventPayload.getId()))
-                                .ownerId(UUID.fromString(petAppointmentEventPayload.getOwnerId()))
-                                .name(petAppointmentEventPayload.getName())
-                                .species(petAppointmentEventPayload.getSpecies())
-                                .birthDate(petAppointmentEventPayload.getBirthDate())
+                                .id(UUID.fromString(petCreatedEventPayload.getId()))
+                                .ownerId(UUID.fromString(petCreatedEventPayload.getOwnerId()))
+                                .name(petCreatedEventPayload.getName())
+                                .species(petCreatedEventPayload.getSpecies())
+                                .birthDate(petCreatedEventPayload.getBirthDate())
                                 .build());
             }
         });

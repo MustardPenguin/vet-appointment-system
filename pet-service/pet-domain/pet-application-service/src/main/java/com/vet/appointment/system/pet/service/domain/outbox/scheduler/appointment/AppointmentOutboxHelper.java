@@ -2,7 +2,7 @@ package com.vet.appointment.system.pet.service.domain.outbox.scheduler.appointme
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vet.appointment.system.messaging.event.PetAppointmentEventPayload;
+import com.vet.appointment.system.messaging.event.PetCreatedEventPayload;
 import com.vet.appointment.system.pet.service.domain.exception.PetDomainException;
 import com.vet.appointment.system.pet.service.domain.dto.outbox.PetAppointmentOutboxMessage;
 import com.vet.appointment.system.pet.service.domain.ports.output.repository.AppointmentOutboxRepository;
@@ -37,20 +37,20 @@ public class AppointmentOutboxHelper {
     }
 
     @Transactional
-    public void saveAppointmentOutboxMessage(PetAppointmentEventPayload petAppointmentEventPayload) {
+    public void saveAppointmentOutboxMessage(PetCreatedEventPayload petCreatedEventPayload) {
         save(PetAppointmentOutboxMessage.builder()
                 .id(UUID.randomUUID())
-                .createdAt(petAppointmentEventPayload.getCreatedAt())
-                .payload(createPayload(petAppointmentEventPayload))
+                .createdAt(petCreatedEventPayload.getCreatedAt())
+                .payload(createPayload(petCreatedEventPayload))
                 .build());
     }
 
-    private String createPayload(PetAppointmentEventPayload petAppointmentEventPayload) {
+    private String createPayload(PetCreatedEventPayload petCreatedEventPayload) {
         try {
-            return objectMapper.writeValueAsString(petAppointmentEventPayload);
+            return objectMapper.writeValueAsString(petCreatedEventPayload);
         } catch (JsonProcessingException e) {
-            log.info("Could not create PetAppointmentEventPayload object for pet id: {}", petAppointmentEventPayload.getId());
-            throw new PetDomainException("Could not create PetAppointmentEventPayload object for pet id: " + petAppointmentEventPayload.getId());
+            log.info("Could not create PetAppointmentEventPayload object for pet id: {}", petCreatedEventPayload.getId());
+            throw new PetDomainException("Could not create PetAppointmentEventPayload object for pet id: " + petCreatedEventPayload.getId());
         }
     }
 

@@ -1,5 +1,7 @@
 package com.vet.appointment.system.appointment.service.messaging.listener.kafka;
 
+import availability_response.availability.appointment_outbox.Envelope;
+import availability_response.availability.appointment_outbox.Value;
 import com.vet.appointment.system.appointment.service.domain.dto.message.AvailabilityResponse;
 import com.vet.appointment.system.appointment.service.domain.ports.input.message.listener.AvailabilityResponseMessageListener;
 import com.vet.appointment.system.appointment.service.messaging.mapper.AppointmentMessagingDataMapper;
@@ -8,8 +10,6 @@ import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import com.vet.appointment.system.kafka.producer.KafkaMessageHelper;
 import com.vet.appointment.system.messaging.DebeziumOp;
 import com.vet.appointment.system.messaging.event.AvailabilityAppointmentEventPayload;
-import debezium.availability.appointment_outbox.Envelope;
-import debezium.availability.appointment_outbox.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;

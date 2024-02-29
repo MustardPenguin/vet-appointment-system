@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Envelope",
-  "namespace": "debezium.account.appointment_outbox",
+  "namespace": "account_created.account.appointment_outbox",
   "fields": [
     {
       "name": "before",

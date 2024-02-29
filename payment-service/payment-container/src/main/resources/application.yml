@@ -1,0 +1,44 @@
+
+# Application config
+server:
+  port: 8184
+
+# Database
+spring:
+  application:
+    name: "appointment-service"
+  jpa:
+    show-sql: true
+    open-in-view: false
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=appointment
+    username: user
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      schema-locations: classpath:init-schema.sql
+      mode: always
+      platform: postgres
+      data-locations: classpath:init-data.sql
+
+# Kafka
+kafka-config-data:
+  bootstrap-server: localhost:29092
+  schema-registry-url: http://localhost:8081
+  schema-registry-url-key: schema.registry.url
+
+kafka-producer-data:
+  key-serializer-class: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
+
+kafka-consumer-data:
+  key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+  specific-avro-reader-key: specific.avro.reader
+  specific-avro-reader: true
+
+kafka-consumer-topic-name:
+  account-created-event: debezium.account.appointment_outbox
+
+kafka-consumer-group-id:

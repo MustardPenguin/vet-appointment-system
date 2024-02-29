@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Envelope",
-  "namespace": "debezium.pet.appointment_outbox",
+  "namespace": "pet_created.pet.appointment_outbox",
   "fields": [
     {
       "name": "before",

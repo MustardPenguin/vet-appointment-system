@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Envelope",
-  "namespace": "debezium.appointment.availability_outbox",
+  "namespace": "availability_request.appointment.availability_outbox",
   "fields": [
     {
       "name": "before",

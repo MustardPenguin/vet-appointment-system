@@ -49,7 +49,7 @@ kafka-consumer-data:
   specific-avro-reader: true
 
 kafka-consumer-topic:
-  availability-request-topic-name: debezium.appointment.availability_outbox
+  availability-request-topic-name: availability_request.appointment.availability_outbox
 
 kafka-consumer-group-id:
   availability-group-id: availability-topic-consumer

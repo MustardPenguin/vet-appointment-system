@@ -45,9 +45,9 @@ kafka-consumer-data:
   specific-avro-reader: true
 
 kafka-consumer-topic-name:
-  account-created-event: debezium.account.appointment_outbox
-  pet-created-event: debezium.pet.appointment_outbox
-  availability-response-event: debezium.availability.appointment_outbox
+  account-created-event: account_created.account.appointment_outbox
+  pet-created-event: pet_created.pet.appointment_outbox
+  availability-response-event: availability_response.availability.appointment_outbox
 
 kafka-consumer-group-id:
   account-group-id: account-topic-consumer

@@ -1,14 +1,13 @@
 package com.vet.appointment.system.appointment.service.messaging.listener.kafka;
 
+import account_created.account.appointment_outbox.Envelope;
+import account_created.account.appointment_outbox.Value;
 import com.vet.appointment.system.appointment.service.domain.dto.message.AccountModel;
 import com.vet.appointment.system.appointment.service.domain.ports.input.message.listener.AccountCreatedMessageListener;
-import com.vet.appointment.system.kafka.avro.model.CreateAccountEventAvroModel;
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import com.vet.appointment.system.kafka.producer.KafkaMessageHelper;
 import com.vet.appointment.system.messaging.DebeziumOp;
-import com.vet.appointment.system.messaging.event.AccountAppointmentEventPayload;
-import debezium.account.appointment_outbox.Envelope;
-import debezium.account.appointment_outbox.Value;
+import com.vet.appointment.system.messaging.event.AccountCreatedEventPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -46,14 +45,14 @@ public class AccountCreatedEventKafkaListener implements KafkaConsumer<Envelope>
         messages.forEach(avroModel -> {
             if(avroModel.getBefore() == null && avroModel.getOp().equals(DebeziumOp.CREATE.getValue())) {
                 Value accountEventAvroModel = avroModel.getAfter();
-                AccountAppointmentEventPayload accountAppointmentEventPayload =
-                        kafkaMessageHelper.getEventPayload(accountEventAvroModel.getPayload(), AccountAppointmentEventPayload.class);
+                AccountCreatedEventPayload accountCreatedEventPayload =
+                        kafkaMessageHelper.getEventPayload(accountEventAvroModel.getPayload(), AccountCreatedEventPayload.class);
                 accountCreatedMessageListener.accountCreated(
                         new AccountModel(
-                                accountAppointmentEventPayload.getId(),
-                                accountAppointmentEventPayload.getEmail(),
-                                accountAppointmentEventPayload.getFirstName(),
-                                accountAppointmentEventPayload.getLastName()));
+                                accountCreatedEventPayload.getId(),
+                                accountCreatedEventPayload.getEmail(),
+                                accountCreatedEventPayload.getFirstName(),
+                                accountCreatedEventPayload.getLastName()));
             }
         });
     }

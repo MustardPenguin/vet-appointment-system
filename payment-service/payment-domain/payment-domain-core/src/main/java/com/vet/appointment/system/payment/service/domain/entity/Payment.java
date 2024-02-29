@@ -11,4 +11,5 @@ public class Payment extends AggregateRoot<PaymentId> {
     private UUID accountId;
     private BigDecimal amount;
     private String reason;
+
 }

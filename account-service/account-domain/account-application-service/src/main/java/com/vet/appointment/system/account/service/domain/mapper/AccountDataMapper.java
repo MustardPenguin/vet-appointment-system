@@ -3,7 +3,7 @@ package com.vet.appointment.system.account.service.domain.mapper;
 import com.vet.appointment.service.account.service.domain.entity.Account;
 import com.vet.appointment.service.account.service.domain.event.AccountCreatedEvent;
 import com.vet.appointment.system.account.service.domain.dto.create.CreateAccountCommand;
-import com.vet.appointment.system.messaging.event.AccountAppointmentEventPayload;
+import com.vet.appointment.system.messaging.event.AccountCreatedEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -21,8 +21,8 @@ public class AccountDataMapper {
                 .build();
     }
 
-    public AccountAppointmentEventPayload accountCreatedEventToAccountAppointmentEventPayload(AccountCreatedEvent accountCreatedEvent) {
-        return AccountAppointmentEventPayload.builder()
+    public AccountCreatedEventPayload accountCreatedEventToAccountAppointmentEventPayload(AccountCreatedEvent accountCreatedEvent) {
+        return AccountCreatedEventPayload.builder()
                 .id(accountCreatedEvent.getEntity().getId().getValue())
                 .createdAt(accountCreatedEvent.getCreatedAt())
                 .email(accountCreatedEvent.getEntity().getEmail())

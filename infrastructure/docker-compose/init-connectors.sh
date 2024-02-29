@@ -18,7 +18,7 @@ account_appointment_json=$(jq -n \
       "database.password": "admin",
       "database.dbname": "postgres",
       "table.include.list": "account.appointment_outbox",
-      "topic.prefix": "debezium",
+      "topic.prefix": "account_created",
       "tombstones.on.delete" : "false",
       "slot.name": "account_appointment_outbox_slot",
       "plugin.name": "pgoutput"
@@ -39,7 +39,7 @@ pet_appointment_json=$(jq -n \
       "database.password": "admin",
       "database.dbname": "postgres",
       "table.include.list": "pet.appointment_outbox",
-      "topic.prefix": "debezium",
+      "topic.prefix": "pet_created",
       "tombstones.on.delete" : "false",
       "slot.name": "pet_appointment_outbox_slot",
       "plugin.name": "pgoutput"
@@ -60,7 +60,7 @@ appointment_availability_json=$(jq -n \
       "database.password": "admin",
       "database.dbname": "postgres",
       "table.include.list": "appointment.availability_outbox",
-      "topic.prefix": "debezium",
+      "topic.prefix": "availability_request",
       "tombstones.on.delete" : "false",
       "slot.name": "appointment_availability_outbox_slot",
       "plugin.name": "pgoutput"
@@ -81,7 +81,7 @@ availability_appointment_json=$(jq -n \
       "database.password": "admin",
       "database.dbname": "postgres",
       "table.include.list": "availability.appointment_outbox",
-      "topic.prefix": "debezium",
+      "topic.prefix": "availability_response",
       "tombstones.on.delete" : "false",
       "slot.name": "availability_appointment_outbox_slot",
       "plugin.name": "pgoutput"

@@ -1,6 +1,6 @@
 package com.vet.appointment.system.pet.service.domain.mapper;
 
-import com.vet.appointment.system.messaging.event.PetAppointmentEventPayload;
+import com.vet.appointment.system.messaging.event.PetCreatedEventPayload;
 import com.vet.appointment.system.pet.service.domain.dto.create.CreatePetCommand;
 import com.vet.appointment.system.pet.service.domain.entity.Pet;
 import com.vet.appointment.system.pet.service.domain.event.PetCreatedEvent;
@@ -21,8 +21,8 @@ public class PetDataMapper {
                 .build();
     }
 
-    public PetAppointmentEventPayload petCreatedEventToPetAppointmentEventPayload(PetCreatedEvent petCreatedEvent) {
-        return PetAppointmentEventPayload.builder()
+    public PetCreatedEventPayload petCreatedEventToPetAppointmentEventPayload(PetCreatedEvent petCreatedEvent) {
+        return PetCreatedEventPayload.builder()
                 .id(petCreatedEvent.getEntity().getId().getValue().toString())
                 .ownerId(petCreatedEvent.getEntity().getOwnerId().toString())
                 .birthDate(petCreatedEvent.getEntity().getBirthDate())

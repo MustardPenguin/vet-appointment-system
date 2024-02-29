@@ -16,5 +16,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>payment-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>payment-messaging</artifactId>
+        </dependency>
     </dependencies>
 </project>

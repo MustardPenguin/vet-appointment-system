@@ -71,42 +71,4 @@ public class AppointmentAvailabilityMessageListenerImpl implements AppointmentAv
         }
     }
 
-//    @Override
-//    @Transactional
-//    public void checkAvailability(AvailabilityRequest availabilityRequest) {
-//        Appointment appointment = new Appointment(
-//                new AppointmentId(availabilityRequest.getEventId()),
-//                availabilityRequest.getStartDateTime(),
-//                availabilityRequest.getEndDateTime());
-//
-//        log.info("Checking availability for appointment: {}", appointment.getId().getValue());
-//        Optional<List<Availability>> optionalAvailabilities = availabilityRepository.getAvailabilitiesOnDate(appointment.getAppointmentStartDateTime(), appointment.getAppointmentEndDateTime());
-//
-//        List<String> errorMessages = new ArrayList<>();
-//        AvailabilityEvent availabilityEvent = availabilityDomainService
-//                .validateAppointmentAvailability(appointment, optionalAvailabilities, errorMessages);
-//
-//        AppointmentStatus appointmentStatus = optionalAvailabilities.get().isEmpty() ? AppointmentStatus.AVAILABLE : AppointmentStatus.UNAVAILABLE;
-//        appointmentOutboxHelper.saveAppointmentOutboxMessage(new AvailabilityAppointmentEventPayload(
-//                        availabilityEvent.getEntity().getEventId(),
-//                        String.join(", ", errorMessages),
-//                        availabilityEvent.getCreatedAt(),
-//                        appointmentStatus),
-//                availabilityRequest.getSagaId());
-//
-//        log.info("Appointment status: {}", appointmentStatus);
-//        if(appointmentStatus.equals(AppointmentStatus.UNAVAILABLE)) {
-//            log.info("Appointment is not available for appointment id: {}, Reasons: {}", appointment.getId().getValue(), errorMessages);
-//            return;
-//        }
-//        log.info("Availability for appointment id {} is confirmed, saving to database as id {}",
-//                appointment.getId().getValue(), availabilityEvent.getEntity().getEventId());
-//        Availability response = availabilityRepository.save(availabilityEvent.getEntity());
-//        if(response == null) {
-//            log.error("Failed to save availability entity for appointment id: {}", availabilityEvent.getEntity().getEventId());
-//            throw new AvailabilityDomainException("Failed to save availability entity for appointment id: " +
-//                    availabilityEvent.getEntity().getEventId());
-//        }
-//    }
-
 }
