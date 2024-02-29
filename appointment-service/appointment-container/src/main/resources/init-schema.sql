@@ -26,6 +26,7 @@ CREATE TABLE "appointment".appointments(
     error_messages varchar NOT NULL,
     availability_id uuid,
     payment_id uuid,
+    cost numeric(10, 2),
     CONSTRAINT appointment_pkey PRIMARY KEY (id)
 );
 

@@ -4,6 +4,7 @@ import com.vet.appointment.system.domain.dto.ResponseMessage;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public class GetAppointmentResponse extends ResponseMessage {
     private String errorMessages;
     private UUID availabilityId;
     private UUID paymentId;
+    private BigDecimal cost;
 
     public UUID getId() {
         return id;
@@ -65,6 +67,10 @@ public class GetAppointmentResponse extends ResponseMessage {
         return paymentId;
     }
 
+    public BigDecimal getCost() {
+        return cost;
+    }
+
     private GetAppointmentResponse(Builder builder) {
         super(builder.message, builder.statusCode);
         id = builder.id;
@@ -78,6 +84,7 @@ public class GetAppointmentResponse extends ResponseMessage {
         errorMessages = builder.errorMessages;
         availabilityId = builder.availabilityId;
         paymentId = builder.paymentId;
+        cost = builder.cost;
     }
 
     public static Builder builder() {
@@ -97,6 +104,7 @@ public class GetAppointmentResponse extends ResponseMessage {
         private String errorMessages;
         private UUID availabilityId;
         private UUID paymentId;
+        private BigDecimal cost;
         private String message;
         private int statusCode;
 
@@ -165,6 +173,11 @@ public class GetAppointmentResponse extends ResponseMessage {
 
         public Builder paymentId(UUID val) {
             paymentId = val;
+            return this;
+        }
+
+        public Builder cost(BigDecimal val) {
+            cost = val;
             return this;
         }
 

@@ -49,6 +49,7 @@ public class AppointmentDataMapper {
                 .errorMessages(appointment.getErrorMessages())
                 .availabilityId(appointment.getAvailabilityId())
                 .paymentId(appointment.getPaymentId())
+                .cost(appointment.getCost())
                 .message("Successfully fetched appointment")
                 .statusCode(200)
                 .build();

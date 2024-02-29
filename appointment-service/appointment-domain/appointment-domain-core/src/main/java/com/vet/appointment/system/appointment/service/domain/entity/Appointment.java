@@ -6,6 +6,7 @@ import com.vet.appointment.system.domain.valueobject.AppointmentId;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ public class Appointment extends AggregateRoot<AppointmentId> {
     private String errorMessages;
     private UUID availabilityId;
     private UUID paymentId;
+    private BigDecimal cost;
 
     public LocalDateTime getAppointmentStartDateTime() {
         return appointmentStartDateTime;
@@ -78,6 +80,10 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         this.paymentStatus = paymentStatus;
     }
 
+    public BigDecimal getCost() {
+        return cost;
+    }
+
     public void initAvailability() {
         if(appointmentStatus != AppointmentStatus.REQUESTING) {
             throw new AppointmentDomainException("Appointment is not in correct state for availability operation!");
@@ -85,6 +91,11 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         if(availabilityId == null) {
             throw new AppointmentDomainException("Availability id is not set for appointment!");
         }
+        int duration = appointmentEndDateTime.getMinute() - appointmentStartDateTime.getMinute();
+        if(duration < 0) {
+            throw new AppointmentDomainException("Appointment duration is negative!");
+        }
+        cost = new BigDecimal(duration).multiply(new BigDecimal(.25));
         appointmentStatus = AppointmentStatus.AVAILABLE;
     }
 
@@ -112,6 +123,7 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         errorMessages = builder.errorMessages;
         availabilityId = builder.availabilityId;
         paymentId = builder.paymentId;
+        cost = builder.cost;
     }
 
     public static Builder builder() {
@@ -131,6 +143,7 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         private String errorMessages;
         private UUID availabilityId;
         private UUID paymentId;
+        private BigDecimal cost;
 
         private Builder() {
         }
@@ -187,6 +200,11 @@ public class Appointment extends AggregateRoot<AppointmentId> {
 
         public Builder paymentId(UUID val) {
             paymentId = val;
+            return this;
+        }
+
+        public Builder cost(BigDecimal val) {
+            cost = val;
             return this;
         }
 

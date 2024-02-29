@@ -4,7 +4,7 @@ import com.vet.appointment.system.appointment.service.dataaccess.outbox.availabi
 import com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.mapper.AvailabilityDataAccessMapper;
 import com.vet.appointment.system.appointment.service.dataaccess.outbox.availability.repository.AvailabilityOutboxJpaRepository;
 import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentAvailabilityOutboxMessage;
-import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AvailabilityOutboxRepository;
+import com.vet.appointment.system.appointment.service.domain.ports.output.repository.outbox.AvailabilityOutboxRepository;
 import com.vet.appointment.system.saga.SagaStatus;
 import org.springframework.stereotype.Component;
 

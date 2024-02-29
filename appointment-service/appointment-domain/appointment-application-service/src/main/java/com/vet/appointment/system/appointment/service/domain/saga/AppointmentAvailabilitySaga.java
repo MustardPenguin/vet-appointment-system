@@ -7,7 +7,9 @@ import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentAvailableEvent;
 import com.vet.appointment.system.appointment.service.domain.helper.AppointmentServiceHelper;
 import com.vet.appointment.system.appointment.service.domain.helper.AvailabilityOutboxHelper;
+import com.vet.appointment.system.appointment.service.domain.helper.PaymentOutboxHelper;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
+import com.vet.appointment.system.messaging.event.AppointmentPaymentEventPayload;
 import com.vet.appointment.system.saga.SagaStatus;
 import com.vet.appointment.system.saga.SagaSteps;
 import lombok.extern.slf4j.Slf4j;
@@ -24,13 +26,16 @@ public class AppointmentAvailabilitySaga implements SagaSteps<AvailabilityRespon
     private final AvailabilityOutboxHelper availabilityOutboxHelper;
     private final AppointmentDomainService appointmentDomainService;
     private final AppointmentServiceHelper appointmentServiceHelper;
+    private final PaymentOutboxHelper paymentOutboxHelper;
 
     public AppointmentAvailabilitySaga(AvailabilityOutboxHelper availabilityOutboxHelper,
                                        AppointmentDomainService appointmentDomainService,
-                                       AppointmentServiceHelper appointmentServiceHelper) {
+                                       AppointmentServiceHelper appointmentServiceHelper,
+                                       PaymentOutboxHelper paymentOutboxHelper) {
         this.availabilityOutboxHelper = availabilityOutboxHelper;
         this.appointmentDomainService = appointmentDomainService;
         this.appointmentServiceHelper = appointmentServiceHelper;
+        this.paymentOutboxHelper = paymentOutboxHelper;
     }
 
     @Override
@@ -50,6 +55,11 @@ public class AppointmentAvailabilitySaga implements SagaSteps<AvailabilityRespon
 
         appointmentAvailabilityOutboxMessage.setSagaStatus(SagaStatus.SUCCEEDED);
         availabilityOutboxHelper.save(appointmentAvailabilityOutboxMessage);
+
+        paymentOutboxHelper.savePaymentOutboxMessage(
+                new AppointmentPaymentEventPayload(appointment.getOwnerId(), appointment.getCost(), "Appointment deposit", appointmentAvailableEvent.getCreatedAt()),
+                SagaStatus.PROCESSING,
+                availabilityResponse.getSagaId());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.vet.appointment.system.appointment.service.domain.ports.output.repository;
+package com.vet.appointment.system.appointment.service.domain.ports.output.repository.outbox;
 
 import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentAvailabilityOutboxMessage;
 import com.vet.appointment.system.saga.SagaStatus;

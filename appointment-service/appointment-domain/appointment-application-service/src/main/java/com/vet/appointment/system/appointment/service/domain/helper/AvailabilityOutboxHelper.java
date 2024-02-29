@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;
 import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentAvailabilityOutboxMessage;
-import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AvailabilityOutboxRepository;
+import com.vet.appointment.system.appointment.service.domain.ports.output.repository.outbox.AvailabilityOutboxRepository;
 import com.vet.appointment.system.messaging.event.AppointmentAvailabilityEventPayload;
 import com.vet.appointment.system.saga.SagaStatus;
 import lombok.extern.slf4j.Slf4j;

@@ -4,6 +4,7 @@ import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -24,6 +25,7 @@ public class AppointmentEntity {
     private PaymentStatus paymentStatus;
     private UUID availabilityId;
     private UUID paymentId;
+    private BigDecimal cost;
     private String errorMessages;
 
     public AppointmentEntity() {}
@@ -40,6 +42,7 @@ public class AppointmentEntity {
         errorMessages = builder.errorMessages;
         availabilityId = builder.availabilityId;
         paymentId = builder.paymentId;
+        cost = builder.cost;
     }
 
     public static Builder builder() {
@@ -90,6 +93,10 @@ public class AppointmentEntity {
         return paymentId;
     }
 
+    public BigDecimal getCost() {
+        return cost;
+    }
+
     public static final class Builder {
         private UUID id;
         private UUID ownerId;
@@ -102,6 +109,7 @@ public class AppointmentEntity {
         private String errorMessages;
         private UUID availabilityId;
         private UUID paymentId;
+        private BigDecimal cost;
 
         private Builder() {
         }
@@ -158,6 +166,11 @@ public class AppointmentEntity {
 
         public Builder paymentId(UUID val) {
             paymentId = val;
+            return this;
+        }
+
+        public Builder cost(BigDecimal val) {
+            cost = val;
             return this;
         }
 

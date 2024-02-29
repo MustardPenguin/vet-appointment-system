@@ -20,6 +20,7 @@ public class AppointmentDataAccessMapper {
                 .errorMessages(appointment.getErrorMessages())
                 .availabilityId(appointment.getAvailabilityId())
                 .paymentId(appointment.getPaymentId())
+                .cost(appointment.getCost())
                 .build();
     }
 
@@ -36,6 +37,7 @@ public class AppointmentDataAccessMapper {
                 .errorMessages(appointmentEntity.getErrorMessages())
                 .availabilityId(appointmentEntity.getAvailabilityId())
                 .paymentId(appointmentEntity.getPaymentId())
+                .cost(appointmentEntity.getCost())
                 .build();
     }
 }

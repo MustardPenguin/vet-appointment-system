@@ -4,5 +4,5 @@ VALUES (
     '3e648395-b2c2-497a-8d61-7b22b99ed5c4',
     '2024-04-23T09:30',
     '2024-04-23T010:30',
-    'Appointment'
+    'Meeting during this time'
 );
