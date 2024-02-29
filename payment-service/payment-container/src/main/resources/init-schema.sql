@@ -2,9 +2,6 @@
 DROP SCHEMA IF EXISTS "payment" CASCADE;
 CREATE SCHEMA "payment";
 
-
-
-
 DROP TABLE IF EXISTS "payment".appointment_outbox CASCADE;
 
 CREATE TABLE "payment".appointment_outbox (
@@ -19,10 +16,10 @@ CREATE TABLE "payment".appointment_outbox (
 
 DROP TABLE IF EXISTS "payment".accounts CASCADE;
 
-CREATE TABLE "payment".accounts(
+CREATE TABLE "payment".balances(
     id uuid NOT NULL,
+    account_id uuid NOT NULL,
     email varchar NOT NULL,
-    first_name varchar NOT NULL,
-    last_name varchar NOT NULL,
-    CONSTRAINT account_pkey PRIMARY KEY (id)
+    credit numeric(10, 2) NOT NULL,
+    CONSTRAINT balance_pkey PRIMARY KEY (id)
 );

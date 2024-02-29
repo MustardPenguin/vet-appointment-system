@@ -51,9 +51,7 @@ public class AccountCreatedEventKafkaListener implements KafkaConsumer<Envelope>
 
                 accountCreatedMessageListener.accountCreated(new AccountModel(
                         accountCreatedEventPayload.getId(),
-                        accountCreatedEventPayload.getEmail(),
-                        accountCreatedEventPayload.getFirstName(),
-                        accountCreatedEventPayload.getLastName()
+                        accountCreatedEventPayload.getEmail()
                 ));
             }
         });

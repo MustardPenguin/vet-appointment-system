@@ -11,7 +11,7 @@ spring:
     show-sql: true
     open-in-view: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=appointment
+    url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=payment
     username: user
     password: admin
     driver-class-name: org.postgresql.Driver
@@ -39,6 +39,6 @@ kafka-consumer-data:
   specific-avro-reader: true
 
 kafka-consumer-topic-name:
-  account-created-event: debezium.account.appointment_outbox
+  account-created-event: account_created.account.appointment_outbox
 
 kafka-consumer-group-id:
