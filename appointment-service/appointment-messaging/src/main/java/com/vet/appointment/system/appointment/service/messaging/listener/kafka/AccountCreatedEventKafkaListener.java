@@ -31,7 +31,8 @@ public class AccountCreatedEventKafkaListener implements KafkaConsumer<Envelope>
     }
 
     @Override
-    @KafkaListener(topics = "${kafka-consumer-topic-name.account-created-event}", groupId = "${kafka-consumer-group-id.account-group-id}")
+    @KafkaListener(topics = "${kafka-consumer-topic-name.account-created-event}",
+            groupId = "account-created-listener-#{T(java.util.UUID).randomUUID().toString()}")
     public void receive(@Payload List<Envelope> messages,
                         @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,
                         @Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,

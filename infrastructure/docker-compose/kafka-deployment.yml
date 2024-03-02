@@ -78,8 +78,8 @@ services:
       DEBEZIUM_CONFIG_DATABASE_PORT: ${POSTGRES_PORT}
       DEBEZIUM_CONFIG_DATABASE_USER: ${POSTGRES_USER}
       DEBEZIUM_CONFIG_DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
-#      DEBEZIUM_CONFIG_DATABASE_DBNAME: "postgres"
-#      DEBEZIUM_CONFIG_DATABASE_SERVER_NAME: "postgres"
+      DEBEZIUM_CONFIG_DATABASE_DBNAME: "postgres"
+      DEBEZIUM_CONFIG_DATABASE_SERVER_NAME: "postgres"
       # Schema registry config
       CONNECT_SCHEMA_NAME_ADJUSTMENT_MODE: avro
       KEY_CONVERTER: io.confluent.connect.avro.AvroConverter
@@ -96,7 +96,7 @@ services:
       - "-c"
       - "max_connections=200"
       - "-c"
-      - "max_replication_slots=4"
+      - "max_replication_slots=10"
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

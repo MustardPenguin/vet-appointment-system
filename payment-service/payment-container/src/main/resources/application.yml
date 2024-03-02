@@ -40,5 +40,7 @@ kafka-consumer-data:
 
 kafka-consumer-topic-name:
   account-created-event: account_created.account.appointment_outbox
+  payment-request-event: payment_request.appointment.payment_outbox
 
 kafka-consumer-group-id:
+    payment-request-event: payment_request_group

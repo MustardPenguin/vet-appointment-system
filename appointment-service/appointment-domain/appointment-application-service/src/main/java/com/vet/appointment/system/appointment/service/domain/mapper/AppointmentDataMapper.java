@@ -3,10 +3,13 @@ package com.vet.appointment.system.appointment.service.domain.mapper;
 import com.vet.appointment.system.appointment.service.domain.dto.create.CreateAppointmentCommand;
 import com.vet.appointment.system.appointment.service.domain.dto.get.GetAppointmentResponse;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
+import com.vet.appointment.system.appointment.service.domain.event.AppointmentAvailableEvent;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
+import com.vet.appointment.system.appointment.service.domain.event.AppointmentEvent;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 import com.vet.appointment.system.messaging.event.AppointmentAvailabilityEventPayload;
+import com.vet.appointment.system.messaging.event.AppointmentPaymentEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -53,5 +56,14 @@ public class AppointmentDataMapper {
                 .message("Successfully fetched appointment")
                 .statusCode(200)
                 .build();
+    }
+
+    public AppointmentPaymentEventPayload appointmentToPaymentEventPayload(AppointmentAvailableEvent appointmentEvent) {
+        Appointment appointment = appointmentEvent.getEntity();
+        return new AppointmentPaymentEventPayload(
+                appointment.getOwnerId(),
+                appointment.getCost(),
+                "Appointment deposit for appointment id: " + appointment.getId().getValue() + " and account id: " + appointment.getOwnerId(),
+                appointmentEvent.getCreatedAt());
     }
 }

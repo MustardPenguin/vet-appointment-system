@@ -33,7 +33,8 @@ public class PetCreatedEventKafkaListener implements KafkaConsumer<Envelope> {
     }
 
     @Override
-    @KafkaListener(topics = "${kafka-consumer-topic-name.pet-created-event}", groupId = "${kafka-consumer-group-id.pet-group-id}")
+    @KafkaListener(topics = "${kafka-consumer-topic-name.pet-created-event}",
+            groupId = "pet-created-listener-#{T(java.util.UUID).randomUUID().toString()}")
     public void receive(@Payload List<Envelope> messages,
                         @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,
                         @Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,
