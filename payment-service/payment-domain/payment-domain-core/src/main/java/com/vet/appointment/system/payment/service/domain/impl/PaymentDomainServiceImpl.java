@@ -31,7 +31,7 @@ public class PaymentDomainServiceImpl implements PaymentDomainService {
         if(!errorMessages.isEmpty()) {
             return new PaymentFailedEvent(payment, ZonedDateTime.now(ZoneId.of(UTC)), errorMessages);
         }
-
+        balance.subtractCredit(payment.getCost());
         return new PaymentPaidEvent(payment, ZonedDateTime.now(ZoneId.of(UTC)), errorMessages);
     }
 }

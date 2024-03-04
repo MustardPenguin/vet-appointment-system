@@ -8,6 +8,7 @@ import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 public class Appointment extends AggregateRoot<AppointmentId> {
@@ -91,11 +92,13 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         if(availabilityId == null) {
             throw new AppointmentDomainException("Availability id is not set for appointment!");
         }
-        int duration = appointmentEndDateTime.getMinute() - appointmentStartDateTime.getMinute();
-        if(duration < 0) {
+        long minutes = ChronoUnit.MINUTES.between(appointmentStartDateTime, appointmentEndDateTime);
+        BigDecimal duration = new BigDecimal(minutes);
+
+        if(duration.compareTo(BigDecimal.ZERO) == -1) {
             throw new AppointmentDomainException("Appointment duration is negative!");
         }
-        cost = new BigDecimal(duration).multiply(new BigDecimal(.25));
+        cost = duration.multiply(new BigDecimal(.25));
         appointmentStatus = AppointmentStatus.AVAILABLE;
     }
 

@@ -11,4 +11,6 @@ public interface BalanceRepository {
     void createNewAccountBalance(AccountModel accountModel);
 
     Optional<Balance> findBalanceByAccountId(UUID accountId);
+
+    Balance save(Balance balance);
 }

@@ -1,18 +1,27 @@
-package com.vet.appointment.system.payment.service.domain.dto.model;
+package com.vet.appointment.system.payment.service.dataaccess.transaction.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-public class TransactionModel {
-    
+@Entity
+@Table(name = "transactions")
+public class TransactionEntity {
+
+    @Id
     private UUID id;
     private UUID accountId;
     private BigDecimal cost;
     private String reason;
     private ZonedDateTime createdAt;
 
-    private TransactionModel(Builder builder) {
+    public TransactionEntity() {}
+
+    private TransactionEntity(Builder builder) {
         id = builder.id;
         accountId = builder.accountId;
         cost = builder.cost;
@@ -43,7 +52,6 @@ public class TransactionModel {
     public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
-
 
     public static final class Builder {
         private UUID id;
@@ -80,8 +88,8 @@ public class TransactionModel {
             return this;
         }
 
-        public TransactionModel build() {
-            return new TransactionModel(this);
+        public TransactionEntity build() {
+            return new TransactionEntity(this);
         }
     }
 }

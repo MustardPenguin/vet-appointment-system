@@ -1,6 +1,7 @@
 package com.vet.appointment.system.payment.service.dataaccess.balance.adapter;
 
 import com.vet.appointment.system.payment.service.dataaccess.balance.entity.BalanceEntity;
+import com.vet.appointment.system.payment.service.dataaccess.balance.mapper.BalanceDataAccessMapper;
 import com.vet.appointment.system.payment.service.dataaccess.balance.repository.BalanceJpaRepository;
 import com.vet.appointment.system.payment.service.domain.dto.message.AccountModel;
 import com.vet.appointment.system.payment.service.domain.entity.Balance;
@@ -16,9 +17,12 @@ import java.util.UUID;
 @Component
 public class BalanceRepositoryImpl implements BalanceRepository {
 
+    private final BalanceDataAccessMapper balanceDataAccessMapper;
     private final BalanceJpaRepository balanceJpaRepository;
 
-    public BalanceRepositoryImpl(BalanceJpaRepository balanceJpaRepository) {
+    public BalanceRepositoryImpl(BalanceDataAccessMapper balanceDataAccessMapper,
+                                 BalanceJpaRepository balanceJpaRepository) {
+        this.balanceDataAccessMapper = balanceDataAccessMapper;
         this.balanceJpaRepository = balanceJpaRepository;
     }
 
@@ -36,10 +40,12 @@ public class BalanceRepositoryImpl implements BalanceRepository {
     @Override
     public Optional<Balance> findBalanceByAccountId(UUID accountId) {
         return balanceJpaRepository.findByAccountId(accountId)
-                .map(balance -> new Balance(
-                        balance.getId(),
-                        balance.getAccountId(),
-                        balance.getEmail(),
-                        balance.getCredit()));
+                .map(balanceDataAccessMapper::balanceEntityToBalance);
+    }
+
+    @Override
+    public Balance save(Balance balance) {
+        BalanceEntity balanceEntity = balanceJpaRepository.save(balanceDataAccessMapper.balanceToBalanceEntity(balance));
+        return balanceDataAccessMapper.balanceEntityToBalance(balanceEntity);
     }
 }

@@ -17,6 +17,12 @@ public class Balance {
         this.credit = credit;
     }
 
+    public BigDecimal subtractCredit(BigDecimal amount) {
+        BigDecimal difference = credit.subtract(amount);
+        credit = difference;
+        return difference;
+    }
+
     public UUID getId() {
         return id;
     }
