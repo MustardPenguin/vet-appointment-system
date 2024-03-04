@@ -6,5 +6,5 @@ import java.util.UUID;
 
 public interface PaymentRequestMessageListener {
 
-    void paymentRequestReceived(PaymentRequest paymentRequest, UUID accountId);
+    void paymentRequestReceived(PaymentRequest paymentRequest);
 }

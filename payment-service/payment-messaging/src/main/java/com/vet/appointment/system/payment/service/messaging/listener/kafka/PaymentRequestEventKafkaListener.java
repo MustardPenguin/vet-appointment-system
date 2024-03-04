@@ -6,6 +6,7 @@ import com.vet.appointment.system.messaging.DebeziumOp;
 import com.vet.appointment.system.messaging.event.AppointmentPaymentEventPayload;
 import com.vet.appointment.system.payment.service.domain.dto.message.PaymentRequest;
 import com.vet.appointment.system.payment.service.domain.ports.input.message.listener.PaymentRequestMessageListener;
+import com.vet.appointment.system.payment.service.messaging.mapper.PaymentMessagingMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.checkerframework.checker.units.qual.K;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -25,11 +26,14 @@ import java.util.UUID;
 public class PaymentRequestEventKafkaListener implements KafkaConsumer<Envelope> {
 
     private final PaymentRequestMessageListener paymentRequestMessageListener;
+    private final PaymentMessagingMapper paymentMessagingMapper;
     private final KafkaMessageHelper kafkaMessageHelper;
 
     public PaymentRequestEventKafkaListener(PaymentRequestMessageListener paymentRequestMessageListener,
+                                            PaymentMessagingMapper paymentMessagingMapper,
                                             KafkaMessageHelper kafkaMessageHelper) {
         this.paymentRequestMessageListener = paymentRequestMessageListener;
+        this.paymentMessagingMapper = paymentMessagingMapper;
         this.kafkaMessageHelper = kafkaMessageHelper;
     }
 
@@ -53,12 +57,8 @@ public class PaymentRequestEventKafkaListener implements KafkaConsumer<Envelope>
                         kafkaMessageHelper.getEventPayload(paymentRequestEventAvroModel.getPayload(), AppointmentPaymentEventPayload.class);
 
                 paymentRequestMessageListener.paymentRequestReceived(
-                        new PaymentRequest(
-                                UUID.fromString(paymentRequestEventAvroModel.getSagaId()),
-                                appointmentPaymentEventPayload.getCost(),
-                                appointmentPaymentEventPayload.getReason(),
-                                appointmentPaymentEventPayload.getCreatedAt()),
-                        appointmentPaymentEventPayload.getAccountId());
+                        paymentMessagingMapper.paymentEventPayloadToPaymentRequest(
+                                appointmentPaymentEventPayload, UUID.fromString(paymentRequestEventAvroModel.getSagaId())));
             }
         });
     }
