@@ -1,5 +1,6 @@
 package com.vet.appointment.system.payment.service.domain.impl;
 
+import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 import com.vet.appointment.system.payment.service.domain.PaymentDomainService;
 import com.vet.appointment.system.payment.service.domain.entity.Balance;
 import com.vet.appointment.system.payment.service.domain.entity.Payment;
@@ -29,9 +30,11 @@ public class PaymentDomainServiceImpl implements PaymentDomainService {
         }
 
         if(!errorMessages.isEmpty()) {
+            payment.setPaymentStatus(PaymentStatus.FAILED);
             return new PaymentFailedEvent(payment, ZonedDateTime.now(ZoneId.of(UTC)), errorMessages);
         }
         balance.subtractCredit(payment.getCost());
+        payment.setPaymentStatus(PaymentStatus.PAID);
         return new PaymentPaidEvent(payment, ZonedDateTime.now(ZoneId.of(UTC)), errorMessages);
     }
 }

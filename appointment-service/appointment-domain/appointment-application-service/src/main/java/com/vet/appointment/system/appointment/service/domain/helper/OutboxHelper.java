@@ -18,11 +18,11 @@ public class OutboxHelper<T> {
         this.objectMapper = objectMapper;
     }
 
-    public String createPayload(T eventPayload, UUID accountId) {
+    public String createPayload(T eventPayload, UUID id) {
         try {
             return objectMapper.writeValueAsString(eventPayload);
         } catch (JsonProcessingException e) {
-            log.error("Could not create {} object for account id {}", eventPayload.getClass(), accountId);
+            log.error("Could not create {} object for account id {}", eventPayload.getClass(), id);
             throw new AppointmentDomainException("Error while creating payload", e);
         }
     }

@@ -6,6 +6,7 @@ import com.vet.appointment.system.appointment.service.domain.exception.Appointme
 import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentAvailabilityOutboxMessage;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.outbox.AvailabilityOutboxRepository;
 import com.vet.appointment.system.messaging.event.AppointmentAvailabilityEventPayload;
+import com.vet.appointment.system.messaging.event.AppointmentPaymentEventPayload;
 import com.vet.appointment.system.saga.SagaStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,11 +22,14 @@ import static com.vet.appointment.system.saga.SagaConstants.APPOINTMENT_SAGA_NAM
 public class AvailabilityOutboxHelper {
 
     private final AvailabilityOutboxRepository availabilityOutboxRepository;
+    private final OutboxHelper<AppointmentAvailabilityEventPayload> outboxHelper;
     private final ObjectMapper objectMapper;
 
     public AvailabilityOutboxHelper(AvailabilityOutboxRepository availabilityOutboxRepository,
+                                    OutboxHelper<AppointmentAvailabilityEventPayload> outboxHelper,
                                     ObjectMapper objectMapper) {
         this.availabilityOutboxRepository = availabilityOutboxRepository;
+        this.outboxHelper = outboxHelper;
         this.objectMapper = objectMapper;
     }
 
@@ -47,7 +51,7 @@ public class AvailabilityOutboxHelper {
         save(AppointmentAvailabilityOutboxMessage.builder()
                 .id(UUID.randomUUID())
                 .createdAt(appointmentAvailabilityEventPayload.getCreatedAt())
-                .payload(createPayload(appointmentAvailabilityEventPayload))
+                .payload(outboxHelper.createPayload(appointmentAvailabilityEventPayload, appointmentAvailabilityEventPayload.getId()))
                 .sagaStatus(sagaStatus)
                 .sagaId(sagaId)
                 .sagaType(APPOINTMENT_SAGA_NAME)
@@ -56,14 +60,5 @@ public class AvailabilityOutboxHelper {
 
     public Optional<AppointmentAvailabilityOutboxMessage> findAvailabilityOutboxMessageBySagaIdAndSagaStatus(UUID sagaId, SagaStatus sagaStatus) {
         return availabilityOutboxRepository.findBySagaIdAndSagaStatus(APPOINTMENT_SAGA_NAME, sagaId, sagaStatus);
-    }
-
-    private String createPayload(AppointmentAvailabilityEventPayload appointmentAvailabilityEventPayload) {
-        try {
-            return objectMapper.writeValueAsString(appointmentAvailabilityEventPayload);
-        } catch (JsonProcessingException e) {
-            log.info("Could not create AppointmentAvailabilityEventPayload object for account id: {}", appointmentAvailabilityEventPayload.getId());
-            throw new AppointmentDomainException("Could not create AppointmentAvailabilityEventPayload object for account id: " + appointmentAvailabilityEventPayload.getId());
-        }
     }
 }
