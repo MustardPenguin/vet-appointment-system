@@ -45,7 +45,7 @@ public class AvailabilityResponseKafkaListener implements KafkaConsumer<Envelope
                         @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
 
         messages.forEach(avroModel -> {
-            if(avroModel.getOp().equals(DebeziumOp.CREATE.getValue())) {
+            if(avroModel.getBefore() == null && avroModel.getOp().equals(DebeziumOp.CREATE.getValue())) {
                 Value availabilityResponseAvroModel = avroModel.getAfter();
                 AvailabilityAppointmentEventPayload availabilityAppointmentEventPayload = kafkaMessageHelper
                         .getEventPayload(availabilityResponseAvroModel.getPayload(), AvailabilityAppointmentEventPayload.class);

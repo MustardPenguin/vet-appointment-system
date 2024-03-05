@@ -1,7 +1,6 @@
 package com.vet.appointment.system.appointment.service.domain;
 
-import com.vet.appointment.system.appointment.service.domain.dto.get.GetAppointmentQuery;
-import com.vet.appointment.system.appointment.service.domain.dto.get.GetAppointmentResponse;
+import com.vet.appointment.system.appointment.service.domain.dto.rest.get.GetAppointmentResponse;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.helper.AppointmentServiceHelper;
 import com.vet.appointment.system.appointment.service.domain.mapper.AppointmentDataMapper;

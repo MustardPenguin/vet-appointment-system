@@ -2,21 +2,13 @@ package com.vet.appointment.system.appointment.service.domain.impl;
 
 import com.vet.appointment.system.appointment.service.domain.CreateAppointmentCommandHandler;
 import com.vet.appointment.system.appointment.service.domain.GetAppointmentQueryHandler;
-import com.vet.appointment.system.appointment.service.domain.dto.create.CreateAppointmentResponse;
-import com.vet.appointment.system.appointment.service.domain.dto.create.CreateAppointmentCommand;
-import com.vet.appointment.system.appointment.service.domain.dto.get.GetAppointmentQuery;
-import com.vet.appointment.system.appointment.service.domain.dto.get.GetAppointmentResponse;
-import com.vet.appointment.system.appointment.service.domain.dto.message.AccountModel;
-import com.vet.appointment.system.appointment.service.domain.dto.message.PetModel;
-import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
-import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;
+import com.vet.appointment.system.appointment.service.domain.dto.rest.create.CreateAppointmentResponse;
+import com.vet.appointment.system.appointment.service.domain.dto.rest.create.CreateAppointmentCommand;
+import com.vet.appointment.system.appointment.service.domain.dto.rest.get.GetAppointmentResponse;
 import com.vet.appointment.system.appointment.service.domain.ports.input.AppointmentApplicationService;
-import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AccountRepository;
-import com.vet.appointment.system.appointment.service.domain.ports.output.repository.PetRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j

@@ -1,4 +1,4 @@
-package com.vet.appointment.system.appointment.service.domain.dto.get;
+package com.vet.appointment.system.appointment.service.domain.dto.rest.get;
 
 import com.vet.appointment.system.domain.dto.ResponseMessage;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;

@@ -28,13 +28,6 @@
               }
             },
             {
-              "name": "saga_type",
-              "type": {
-                "type": "string",
-                "connect.version": 1
-              }
-            },
-            {
               "name": "created_at",
               "type": {
                 "type": "long",
@@ -48,17 +41,6 @@
                 "type": "string",
                 "connect.version": 1,
                 "connect.name": "io.debezium.data.Json"
-              }
-            },
-            {
-              "name": "saga_status",
-              "type": {
-                "type": "string",
-                "connect.version": 1,
-                "connect.parameters": {
-                  "allowed": "PROCESSING,SUCCEEDED,COMPENSATING,COMPENSATED"
-                },
-                "connect.name": "io.debezium.data.Enum"
               }
             },
             {

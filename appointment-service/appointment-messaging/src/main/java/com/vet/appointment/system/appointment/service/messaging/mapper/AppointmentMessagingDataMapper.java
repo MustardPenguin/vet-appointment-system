@@ -1,7 +1,9 @@
 package com.vet.appointment.system.appointment.service.messaging.mapper;
 
 import com.vet.appointment.system.appointment.service.domain.dto.message.AvailabilityResponse;
+import com.vet.appointment.system.appointment.service.domain.dto.message.PaymentResponse;
 import com.vet.appointment.system.messaging.event.AvailabilityAppointmentEventPayload;
+import com.vet.appointment.system.messaging.event.PaymentAppointmentEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -18,6 +20,17 @@ public class AppointmentMessagingDataMapper {
                 .createdAt(availabilityAppointmentEventPayload.getCreatedAt())
                 .appointmentStatus(availabilityAppointmentEventPayload.getAppointmentStatus())
                 .errorMessages(availabilityAppointmentEventPayload.getErrorMessages())
+                .build();
+    }
+
+    public PaymentResponse paymentAppointmentEventPayloadToPaymentResponse(PaymentAppointmentEventPayload paymentAppointmentEventPayload,
+                                                                           UUID sagaId) {
+        return PaymentResponse.builder()
+                .paymentId(paymentAppointmentEventPayload.getPaymentId())
+                .paymentStatus(paymentAppointmentEventPayload.getPaymentStatus())
+                .createdAt(paymentAppointmentEventPayload.getCreatedAt())
+                .errorMessages(paymentAppointmentEventPayload.getErrorMessages())
+                .sagaId(sagaId)
                 .build();
     }
 }

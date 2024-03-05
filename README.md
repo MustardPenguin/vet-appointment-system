@@ -49,21 +49,16 @@ To remove the containers, run the following command:
 docker-compose -f kafka-deployment.yml down
 ```
 
-<h4>Initialize Kafka</h4>
-After starting the containers, create the topics for kafka:
-
-```bash
-docker-compose -f init-kafka.yml up
-```
+<h4>Initialize connectors</h4>
 
 And start bash script for Debezium connectors, this may take a couple of minutes for connectors to start working.
 ```bash
 ./init-connectors.sh
 ```
 
-Run the shutdown script to delete Debezium connectors
+Run this script to delete Debezium connectors
 ```bash
-./shutdown.sh
+./delete-connectors.sh
 ```
 
 <u><h3>Services</h3></u>

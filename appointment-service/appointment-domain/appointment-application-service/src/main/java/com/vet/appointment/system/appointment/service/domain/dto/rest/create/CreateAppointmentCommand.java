@@ -1,4 +1,4 @@
-package com.vet.appointment.system.appointment.service.domain.dto.create;
+package com.vet.appointment.system.appointment.service.domain.dto.rest.create;
 
 import jakarta.validation.constraints.Future;
 

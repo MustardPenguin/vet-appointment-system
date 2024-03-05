@@ -1,10 +1,9 @@
 package com.vet.appointment.system.appointment.service.domain;
 
-import com.vet.appointment.system.appointment.service.domain.dto.create.CreateAppointmentCommand;
-import com.vet.appointment.system.appointment.service.domain.dto.create.CreateAppointmentResponse;
+import com.vet.appointment.system.appointment.service.domain.dto.rest.create.CreateAppointmentCommand;
+import com.vet.appointment.system.appointment.service.domain.dto.rest.create.CreateAppointmentResponse;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
-import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;
 import com.vet.appointment.system.appointment.service.domain.helper.AppointmentServiceHelper;
 import com.vet.appointment.system.appointment.service.domain.mapper.AppointmentDataMapper;
 import com.vet.appointment.system.appointment.service.domain.helper.AvailabilityOutboxHelper;
