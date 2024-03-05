@@ -3,7 +3,7 @@
  *
  * DO NOT EDIT DIRECTLY
  */
-package payment_request.appointment.payment_outbox;
+package payment_response.payment.appointment_outbox;
 
 import org.apache.avro.generic.GenericArray;
 import org.apache.avro.specific.SpecificData;
@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class Value extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 7203856353441837552L;
+  private static final long serialVersionUID = -3594757702822875270L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Value\",\"namespace\":\"payment_request.appointment.payment_outbox\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Uuid\"}},{\"name\":\"saga_id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Uuid\"}},{\"name\":\"saga_type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1}},{\"name\":\"created_at\",\"type\":{\"type\":\"long\",\"connect.version\":1,\"connect.name\":\"io.debezium.time.MicroTimestamp\"}},{\"name\":\"payload\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Json\"}},{\"name\":\"saga_status\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.parameters\":{\"allowed\":\"PROCESSING,SUCCEEDED,COMPENSATING,COMPENSATED\"},\"connect.name\":\"io.debezium.data.Enum\"}},{\"name\":\"version\",\"type\":\"int\"}],\"connect.name\":\"debezium.appointment.payment_outbox.Value\"}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Value\",\"namespace\":\"payment_response.payment.appointment_outbox\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Uuid\"}},{\"name\":\"saga_id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Uuid\"}},{\"name\":\"saga_type\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1}},{\"name\":\"created_at\",\"type\":{\"type\":\"long\",\"connect.version\":1,\"connect.name\":\"io.debezium.time.MicroTimestamp\"}},{\"name\":\"payload\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Json\"}},{\"name\":\"saga_status\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.parameters\":{\"allowed\":\"PROCESSING,SUCCEEDED,COMPENSATING,COMPENSATED\"},\"connect.name\":\"io.debezium.data.Enum\"}},{\"name\":\"version\",\"type\":\"int\"}],\"connect.name\":\"debezium.payment.appointment_outbox.Value\"}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -262,8 +262,8 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
    * Creates a new Value RecordBuilder.
    * @return A new Value RecordBuilder
    */
-  public static payment_request.appointment.payment_outbox.Value.Builder newBuilder() {
-    return new payment_request.appointment.payment_outbox.Value.Builder();
+  public static payment_response.payment.appointment_outbox.Value.Builder newBuilder() {
+    return new payment_response.payment.appointment_outbox.Value.Builder();
   }
 
   /**
@@ -271,11 +271,11 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
    * @param other The existing builder to copy.
    * @return A new Value RecordBuilder
    */
-  public static payment_request.appointment.payment_outbox.Value.Builder newBuilder(payment_request.appointment.payment_outbox.Value.Builder other) {
+  public static payment_response.payment.appointment_outbox.Value.Builder newBuilder(payment_response.payment.appointment_outbox.Value.Builder other) {
     if (other == null) {
-      return new payment_request.appointment.payment_outbox.Value.Builder();
+      return new payment_response.payment.appointment_outbox.Value.Builder();
     } else {
-      return new payment_request.appointment.payment_outbox.Value.Builder(other);
+      return new payment_response.payment.appointment_outbox.Value.Builder(other);
     }
   }
 
@@ -284,11 +284,11 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
    * @param other The existing instance to copy.
    * @return A new Value RecordBuilder
    */
-  public static payment_request.appointment.payment_outbox.Value.Builder newBuilder(payment_request.appointment.payment_outbox.Value other) {
+  public static payment_response.payment.appointment_outbox.Value.Builder newBuilder(payment_response.payment.appointment_outbox.Value other) {
     if (other == null) {
-      return new payment_request.appointment.payment_outbox.Value.Builder();
+      return new payment_response.payment.appointment_outbox.Value.Builder();
     } else {
-      return new payment_request.appointment.payment_outbox.Value.Builder(other);
+      return new payment_response.payment.appointment_outbox.Value.Builder(other);
     }
   }
 
@@ -316,7 +316,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(payment_request.appointment.payment_outbox.Value.Builder other) {
+    private Builder(payment_response.payment.appointment_outbox.Value.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.id)) {
         this.id = data().deepCopy(fields()[0].schema(), other.id);
@@ -352,7 +352,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
      * Creates a Builder by copying an existing Value instance
      * @param other The existing instance to copy.
      */
-    private Builder(payment_request.appointment.payment_outbox.Value other) {
+    private Builder(payment_response.payment.appointment_outbox.Value other) {
       super(SCHEMA$, MODEL$);
       if (isValidValue(fields()[0], other.id)) {
         this.id = data().deepCopy(fields()[0].schema(), other.id);
@@ -398,7 +398,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'id'.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder setId(java.lang.String value) {
+    public payment_response.payment.appointment_outbox.Value.Builder setId(java.lang.String value) {
       validate(fields()[0], value);
       this.id = value;
       fieldSetFlags()[0] = true;
@@ -418,7 +418,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'id' field.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder clearId() {
+    public payment_response.payment.appointment_outbox.Value.Builder clearId() {
       id = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -438,7 +438,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'saga_id'.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder setSagaId(java.lang.String value) {
+    public payment_response.payment.appointment_outbox.Value.Builder setSagaId(java.lang.String value) {
       validate(fields()[1], value);
       this.saga_id = value;
       fieldSetFlags()[1] = true;
@@ -458,7 +458,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'saga_id' field.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder clearSagaId() {
+    public payment_response.payment.appointment_outbox.Value.Builder clearSagaId() {
       saga_id = null;
       fieldSetFlags()[1] = false;
       return this;
@@ -478,7 +478,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'saga_type'.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder setSagaType(java.lang.String value) {
+    public payment_response.payment.appointment_outbox.Value.Builder setSagaType(java.lang.String value) {
       validate(fields()[2], value);
       this.saga_type = value;
       fieldSetFlags()[2] = true;
@@ -498,7 +498,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'saga_type' field.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder clearSagaType() {
+    public payment_response.payment.appointment_outbox.Value.Builder clearSagaType() {
       saga_type = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -518,7 +518,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'created_at'.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder setCreatedAt(long value) {
+    public payment_response.payment.appointment_outbox.Value.Builder setCreatedAt(long value) {
       validate(fields()[3], value);
       this.created_at = value;
       fieldSetFlags()[3] = true;
@@ -538,7 +538,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'created_at' field.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder clearCreatedAt() {
+    public payment_response.payment.appointment_outbox.Value.Builder clearCreatedAt() {
       fieldSetFlags()[3] = false;
       return this;
     }
@@ -557,7 +557,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'payload'.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder setPayload(java.lang.String value) {
+    public payment_response.payment.appointment_outbox.Value.Builder setPayload(java.lang.String value) {
       validate(fields()[4], value);
       this.payload = value;
       fieldSetFlags()[4] = true;
@@ -577,7 +577,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'payload' field.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder clearPayload() {
+    public payment_response.payment.appointment_outbox.Value.Builder clearPayload() {
       payload = null;
       fieldSetFlags()[4] = false;
       return this;
@@ -597,7 +597,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'saga_status'.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder setSagaStatus(java.lang.String value) {
+    public payment_response.payment.appointment_outbox.Value.Builder setSagaStatus(java.lang.String value) {
       validate(fields()[5], value);
       this.saga_status = value;
       fieldSetFlags()[5] = true;
@@ -617,7 +617,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'saga_status' field.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder clearSagaStatus() {
+    public payment_response.payment.appointment_outbox.Value.Builder clearSagaStatus() {
       saga_status = null;
       fieldSetFlags()[5] = false;
       return this;
@@ -637,7 +637,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'version'.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder setVersion(int value) {
+    public payment_response.payment.appointment_outbox.Value.Builder setVersion(int value) {
       validate(fields()[6], value);
       this.version = value;
       fieldSetFlags()[6] = true;
@@ -657,7 +657,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'version' field.
       * @return This builder.
       */
-    public payment_request.appointment.payment_outbox.Value.Builder clearVersion() {
+    public payment_response.payment.appointment_outbox.Value.Builder clearVersion() {
       fieldSetFlags()[6] = false;
       return this;
     }

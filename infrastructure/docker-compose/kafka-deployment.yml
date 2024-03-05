@@ -64,7 +64,7 @@ services:
     networks:
       - ${GLOBAL_NETWORK:-kafka}
   kafka-debezium:
-    image: debezium/connect:latest
+    image: debezium/connect:2.5
     # For mac
     platform: linux/amd64
     hostname: kafka-debezium
@@ -86,7 +86,6 @@ services:
       STATUS_STORAGE_TOPIC: "connect-status"
       BOOTSTRAP_SERVERS: "kafka-broker:9092"
       LOGGING_LEVEL: "DEBUG"
-
       # Database connection config
       DEBEZIUM_CONFIG_DATABASE_HOSTNAME: ${POSTGRES_HOSTNAME}
       DEBEZIUM_CONFIG_DATABASE_PORT: ${POSTGRES_PORT}

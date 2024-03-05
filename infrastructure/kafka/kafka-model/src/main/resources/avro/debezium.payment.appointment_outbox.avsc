@@ -1,7 +1,7 @@
 {
   "type": "record",
   "name": "Envelope",
-  "namespace": "payment_request.appointment.payment_outbox",
+  "namespace": "payment_response.payment.appointment_outbox",
   "fields": [
     {
       "name": "before",
@@ -66,7 +66,7 @@
               "type": "int"
             }
           ],
-          "connect.name": "debezium.appointment.payment_outbox.Value"
+          "connect.name": "debezium.payment.appointment_outbox.Value"
         }
       ],
       "default": null
@@ -208,5 +208,5 @@
     }
   ],
   "connect.version": 1,
-  "connect.name": "debezium.appointment.payment_outbox.Envelope"
+  "connect.name": "debezium.payment.appointment_outbox.Envelope"
 }
