@@ -15,15 +15,15 @@ import java.util.UUID;
 
 @Slf4j
 @Component
-public class AppointmentServiceHelper {
+public class AppointmentServiceDataHelper {
 
     private final AccountRepository accountRepository;
     private final PetRepository petRepository;
     private final AppointmentRepository appointmentRepository;
 
-    public AppointmentServiceHelper(AccountRepository accountRepository,
-                                    PetRepository petRepository,
-                                    AppointmentRepository appointmentRepository) {
+    public AppointmentServiceDataHelper(AccountRepository accountRepository,
+                                        PetRepository petRepository,
+                                        AppointmentRepository appointmentRepository) {
         this.accountRepository = accountRepository;
         this.petRepository = petRepository;
         this.appointmentRepository = appointmentRepository;

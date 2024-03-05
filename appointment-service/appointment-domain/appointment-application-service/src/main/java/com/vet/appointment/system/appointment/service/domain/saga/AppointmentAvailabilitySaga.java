@@ -5,12 +5,10 @@ import com.vet.appointment.system.appointment.service.domain.dto.message.Availab
 import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentAvailabilityOutboxMessage;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentAvailableEvent;
-import com.vet.appointment.system.appointment.service.domain.helper.AppointmentServiceHelper;
+import com.vet.appointment.system.appointment.service.domain.helper.AppointmentServiceDataHelper;
 import com.vet.appointment.system.appointment.service.domain.helper.AvailabilityOutboxHelper;
 import com.vet.appointment.system.appointment.service.domain.helper.PaymentOutboxHelper;
 import com.vet.appointment.system.appointment.service.domain.mapper.AppointmentDataMapper;
-import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
-import com.vet.appointment.system.messaging.event.AppointmentPaymentEventPayload;
 import com.vet.appointment.system.saga.SagaStatus;
 import com.vet.appointment.system.saga.SagaSteps;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Slf4j
 @Component
@@ -26,18 +23,18 @@ public class AppointmentAvailabilitySaga implements SagaSteps<AvailabilityRespon
 
     private final AvailabilityOutboxHelper availabilityOutboxHelper;
     private final AppointmentDomainService appointmentDomainService;
-    private final AppointmentServiceHelper appointmentServiceHelper;
+    private final AppointmentServiceDataHelper appointmentServiceDataHelper;
     private final PaymentOutboxHelper paymentOutboxHelper;
     private final AppointmentDataMapper appointmentDataMapper;
 
     public AppointmentAvailabilitySaga(AvailabilityOutboxHelper availabilityOutboxHelper,
                                        AppointmentDomainService appointmentDomainService,
-                                       AppointmentServiceHelper appointmentServiceHelper,
+                                       AppointmentServiceDataHelper appointmentServiceDataHelper,
                                        PaymentOutboxHelper paymentOutboxHelper,
                                        AppointmentDataMapper appointmentDataMapper) {
         this.availabilityOutboxHelper = availabilityOutboxHelper;
         this.appointmentDomainService = appointmentDomainService;
-        this.appointmentServiceHelper = appointmentServiceHelper;
+        this.appointmentServiceDataHelper = appointmentServiceDataHelper;
         this.paymentOutboxHelper = paymentOutboxHelper;
         this.appointmentDataMapper = appointmentDataMapper;
     }
@@ -50,10 +47,10 @@ public class AppointmentAvailabilitySaga implements SagaSteps<AvailabilityRespon
             return;
         }
 
-        Appointment appointment = appointmentServiceHelper.getAppointmentById(availabilityResponse.getAppointmentId());
+        Appointment appointment = appointmentServiceDataHelper.getAppointmentById(availabilityResponse.getAppointmentId());
         appointment.setAvailabilityId(availabilityResponse.getAvailabilityId());
         AppointmentAvailableEvent appointmentAvailableEvent = appointmentDomainService.initiateAppointmentAvailability(appointment);
-        Appointment response = appointmentServiceHelper.saveAppointmentEntity(appointmentAvailableEvent.getEntity());
+        Appointment response = appointmentServiceDataHelper.saveAppointmentEntity(appointmentAvailableEvent.getEntity());
         log.info("Successfully saved appointment with id: {} as status {} with availability id: {}",
                 response.getId().getValue(), response.getAppointmentStatus(), response.getAvailabilityId());
 
@@ -74,9 +71,9 @@ public class AppointmentAvailabilitySaga implements SagaSteps<AvailabilityRespon
             return;
         }
 
-        Appointment appointment = appointmentServiceHelper.getAppointmentById(availabilityResponse.getAppointmentId());
+        Appointment appointment = appointmentServiceDataHelper.getAppointmentById(availabilityResponse.getAppointmentId());
         appointmentDomainService.initiateAppointmentUnavailable(appointment, availabilityResponse.getErrorMessages());
-        Appointment response = appointmentServiceHelper.saveAppointmentEntity(appointment);
+        Appointment response = appointmentServiceDataHelper.saveAppointmentEntity(appointment);
         log.info("Successfully saved appointment with id: {} as status {}", response.getId().getValue(), response.getAppointmentStatus());
 
         appointmentAvailabilityOutboxMessage.setSagaStatus(SagaStatus.COMPENSATED);

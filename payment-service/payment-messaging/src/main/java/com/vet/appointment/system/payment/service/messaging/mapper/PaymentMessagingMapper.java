@@ -11,6 +11,7 @@ public class PaymentMessagingMapper {
 
     public PaymentRequest paymentEventPayloadToPaymentRequest(AppointmentPaymentEventPayload appointmentPaymentEventPayload, UUID sagaId) {
         return PaymentRequest.builder()
+                .appointmentId(appointmentPaymentEventPayload.getAppointmentId())
                 .accountId(appointmentPaymentEventPayload.getAccountId())
                 .cost(appointmentPaymentEventPayload.getCost())
                 .reason(appointmentPaymentEventPayload.getReason())

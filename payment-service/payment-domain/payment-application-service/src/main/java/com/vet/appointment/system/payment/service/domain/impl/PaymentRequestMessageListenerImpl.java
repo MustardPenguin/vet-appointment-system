@@ -59,7 +59,7 @@ public class PaymentRequestMessageListenerImpl implements PaymentRequestMessageL
         PaymentEvent paymentEvent = paymentDomainService.validatePaymentRequest(payment, balance, errorMessages);
 
         appointmentOutboxHelper.saveAppointmentOutboxMessage(
-                paymentDataMapper.paymentEventToPaymentAppointmentEventPayload(paymentEvent),
+                paymentDataMapper.paymentEventToPaymentAppointmentEventPayload(paymentEvent, paymentRequest.getAppointmentId()),
                 paymentRequest.getSagaId());
 
         if(!errorMessages.isEmpty()) {

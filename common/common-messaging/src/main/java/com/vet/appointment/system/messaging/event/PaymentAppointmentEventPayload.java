@@ -1,5 +1,6 @@
 package com.vet.appointment.system.messaging.event;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 
 import java.time.ZonedDateTime;
@@ -8,14 +9,21 @@ import java.util.UUID;
 
 public class PaymentAppointmentEventPayload {
 
+    @JsonProperty
+    private UUID appointmentId;
+    @JsonProperty
     private UUID paymentId;
+    @JsonProperty
     private String errorMessages;
+    @JsonProperty
     private PaymentStatus paymentStatus;
+    @JsonProperty
     private ZonedDateTime createdAt;
 
     public PaymentAppointmentEventPayload() {}
 
     private PaymentAppointmentEventPayload(Builder builder) {
+        appointmentId = builder.appointmentId;
         paymentId = builder.paymentId;
         errorMessages = builder.errorMessages;
         paymentStatus = builder.paymentStatus;
@@ -26,6 +34,9 @@ public class PaymentAppointmentEventPayload {
         return new Builder();
     }
 
+    public UUID getAppointmentId() {
+        return appointmentId;
+    }
     public UUID getPaymentId() {
         return paymentId;
     }
@@ -43,6 +54,7 @@ public class PaymentAppointmentEventPayload {
     }
 
     public static final class Builder {
+        private UUID appointmentId;
         private UUID paymentId;
         private String errorMessages;
         private PaymentStatus paymentStatus;
@@ -51,6 +63,10 @@ public class PaymentAppointmentEventPayload {
         private Builder() {
         }
 
+        public Builder appointmentId(UUID val) {
+            appointmentId = val;
+            return this;
+        }
         public Builder paymentId(UUID val) {
             paymentId = val;
             return this;

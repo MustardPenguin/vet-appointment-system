@@ -59,10 +59,12 @@ public class AppointmentDataMapper {
 
     public AppointmentPaymentEventPayload appointmentToPaymentEventPayload(AppointmentAvailableEvent appointmentEvent) {
         Appointment appointment = appointmentEvent.getEntity();
-        return new AppointmentPaymentEventPayload(
-                appointment.getOwnerId(),
-                appointment.getCost(),
-                "Appointment deposit for appointment id: " + appointment.getId().getValue() + " and account id: " + appointment.getOwnerId(),
-                appointmentEvent.getCreatedAt());
+        return AppointmentPaymentEventPayload.builder()
+                .appointmentId(appointment.getId().getValue())
+                .accountId(appointment.getOwnerId())
+                .createdAt(appointmentEvent.getCreatedAt())
+                .cost(appointment.getCost())
+                .reason("Appointment deposit for appointment id: " + appointment.getId().getValue() + " and account id: " + appointment.getOwnerId())
+                .build();
     }
 }

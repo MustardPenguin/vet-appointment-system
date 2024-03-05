@@ -4,7 +4,7 @@ import com.vet.appointment.system.appointment.service.domain.dto.rest.create.Cre
 import com.vet.appointment.system.appointment.service.domain.dto.rest.create.CreateAppointmentResponse;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
-import com.vet.appointment.system.appointment.service.domain.helper.AppointmentServiceHelper;
+import com.vet.appointment.system.appointment.service.domain.helper.AppointmentServiceDataHelper;
 import com.vet.appointment.system.appointment.service.domain.mapper.AppointmentDataMapper;
 import com.vet.appointment.system.appointment.service.domain.helper.AvailabilityOutboxHelper;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.AppointmentRepository;
@@ -23,29 +23,29 @@ public class CreateAppointmentCommandHandler {
     private final AppointmentDomainService appointmentDomainService;
     private final AppointmentRepository appointmentRepository;
     private final AvailabilityOutboxHelper availabilityOutboxHelper;
-    private final AppointmentServiceHelper appointmentServiceHelper;
+    private final AppointmentServiceDataHelper appointmentServiceDataHelper;
 
     public CreateAppointmentCommandHandler(AppointmentDataMapper appointmentDataMapper,
                                            AppointmentDomainService appointmentDomainService,
                                            AppointmentRepository appointmentRepository,
                                            AvailabilityOutboxHelper availabilityOutboxHelper,
-                                           AppointmentServiceHelper appointmentServiceHelper) {
+                                           AppointmentServiceDataHelper appointmentServiceDataHelper) {
         this.appointmentDataMapper = appointmentDataMapper;
         this.appointmentDomainService = appointmentDomainService;
         this.appointmentRepository = appointmentRepository;
         this.availabilityOutboxHelper = availabilityOutboxHelper;
-        this.appointmentServiceHelper = appointmentServiceHelper;
+        this.appointmentServiceDataHelper = appointmentServiceDataHelper;
     }
 
     @Transactional
     public CreateAppointmentResponse createAppointmentFromCommand(CreateAppointmentCommand createAppointmentCommand) {
-        appointmentServiceHelper.validateAccountAndPet(createAppointmentCommand.getOwnerId(), createAppointmentCommand.getPetId());
+        appointmentServiceDataHelper.validateAccountAndPet(createAppointmentCommand.getOwnerId(), createAppointmentCommand.getPetId());
         Appointment appointment = appointmentDataMapper.createAppointmentCommandToAppointment(createAppointmentCommand);
 
         AppointmentCreatedEvent appointmentCreatedEvent =
                 appointmentDomainService.validateAndInitiateAppointment(appointment);
 
-        Appointment response = appointmentServiceHelper.saveAppointmentEntity(appointment);
+        Appointment response = appointmentServiceDataHelper.saveAppointmentEntity(appointment);
         availabilityOutboxHelper.saveAvailabilityOutboxMessage(
                 appointmentDataMapper.appointmentEventToEventPayload(appointmentCreatedEvent),
                 SagaStatus.PROCESSING,

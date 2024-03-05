@@ -5,7 +5,11 @@ import com.vet.appointment.system.appointment.service.dataaccess.outbox.payment.
 import com.vet.appointment.system.appointment.service.dataaccess.outbox.payment.repository.PaymentOutboxJpaRepository;
 import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentPaymentOutboxMessage;
 import com.vet.appointment.system.appointment.service.domain.ports.output.repository.outbox.PaymentOutboxRepository;
+import com.vet.appointment.system.saga.SagaStatus;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class PaymentOutboxRepositoryImpl implements PaymentOutboxRepository {
@@ -24,5 +28,11 @@ public class PaymentOutboxRepositoryImpl implements PaymentOutboxRepository {
         PaymentOutboxEntity response = paymentOutboxJpaRepository.save(
                 paymentOutboxDataAccessMapper.paymentOutboxMessageToOutboxEntity(appointmentPaymentOutboxMessage));
         return paymentOutboxDataAccessMapper.outboxEntityToPaymentOutboxMessage(response);
+    }
+
+    @Override
+    public AppointmentPaymentOutboxMessage findBySagaIdAndSagaStatus(String sagaType, UUID sagaId, SagaStatus sagaStatus) {
+        return paymentOutboxDataAccessMapper.outboxEntityToPaymentOutboxMessage(
+                paymentOutboxJpaRepository.findPaymentOutboxEntityBySagaTypeAndSagaIdAndSagaStatus(sagaType, sagaId, sagaStatus));
     }
 }

@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public class PaymentResponse {
 
+    private UUID appointmentId;
     private UUID paymentId;
     private UUID sagaId;
     private String errorMessages;
@@ -14,6 +15,7 @@ public class PaymentResponse {
     private ZonedDateTime createdAt;
 
     private PaymentResponse(Builder builder) {
+        appointmentId = builder.appointmentId;
         paymentId = builder.paymentId;
         sagaId = builder.sagaId;
         errorMessages = builder.errorMessages;
@@ -25,6 +27,9 @@ public class PaymentResponse {
         return new Builder();
     }
 
+    public UUID getAppointmentId() {
+        return appointmentId;
+    }
     public UUID getPaymentId() {
         return paymentId;
     }
@@ -46,6 +51,7 @@ public class PaymentResponse {
     }
 
     public static final class Builder {
+        private UUID appointmentId;
         private UUID paymentId;
         private UUID sagaId;
         private String errorMessages;
@@ -55,6 +61,10 @@ public class PaymentResponse {
         private Builder() {
         }
 
+        public Builder appointmentId(UUID val) {
+            appointmentId = val;
+            return this;
+        }
         public Builder paymentId(UUID val) {
             paymentId = val;
             return this;

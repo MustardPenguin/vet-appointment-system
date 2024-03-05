@@ -26,6 +26,7 @@ public class AppointmentMessagingDataMapper {
     public PaymentResponse paymentAppointmentEventPayloadToPaymentResponse(PaymentAppointmentEventPayload paymentAppointmentEventPayload,
                                                                            UUID sagaId) {
         return PaymentResponse.builder()
+                .appointmentId(paymentAppointmentEventPayload.getAppointmentId())
                 .paymentId(paymentAppointmentEventPayload.getPaymentId())
                 .paymentStatus(paymentAppointmentEventPayload.getPaymentStatus())
                 .createdAt(paymentAppointmentEventPayload.getCreatedAt())

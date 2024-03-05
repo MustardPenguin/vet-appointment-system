@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.vet.appointment.system.saga.SagaConstants.APPOINTMENT_SAGA_NAME;
@@ -49,5 +50,9 @@ public class PaymentOutboxHelper {
                 .sagaId(sagaId)
                 .sagaType(APPOINTMENT_SAGA_NAME)
                 .build());
+    }
+
+    public AppointmentPaymentOutboxMessage findPaymentOutboxMessageBySagaIdAndSagaStatus(UUID sagaId, SagaStatus sagaStatus) {
+        return paymentOutboxRepository.findBySagaIdAndSagaStatus(APPOINTMENT_SAGA_NAME, sagaId, sagaStatus);
     }
 }

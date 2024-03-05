@@ -73,14 +73,6 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         this.paymentId = paymentId;
     }
 
-    public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
-        this.appointmentStatus = appointmentStatus;
-    }
-
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
     public BigDecimal getCost() {
         return cost;
     }
@@ -108,6 +100,20 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         }
         appointmentStatus = AppointmentStatus.UNAVAILABLE;
         this.errorMessages = errorMessages;
+    }
+
+    public void confirmAppointment() {
+        if(appointmentStatus != AppointmentStatus.AVAILABLE) {
+            throw new AppointmentDomainException("Appointment is not in correct state for confirm operation!");
+        }
+        if(paymentId == null) {
+            throw new AppointmentDomainException("Payment id is not set for appointment!");
+        }
+        if(paymentStatus != PaymentStatus.PENDING) {
+            throw new AppointmentDomainException("Payment is not in correct state for confirm operation!");
+        }
+        appointmentStatus = AppointmentStatus.CONFIRMED;
+        paymentStatus = PaymentStatus.PAID;
     }
 
     public void initCancelling() {

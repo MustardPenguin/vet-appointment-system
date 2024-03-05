@@ -8,13 +8,15 @@ import java.util.UUID;
 
 public class PaymentRequest {
 
-    private final UUID accountId;
+    private UUID appointmentId;
+    private UUID accountId;
     private UUID sagaId;
     private BigDecimal cost;
     private String reason;
     private ZonedDateTime createdAt;
 
     private PaymentRequest(Builder builder) {
+        appointmentId = builder.appointmentId;
         accountId = builder.accountId;
         sagaId = builder.sagaId;
         cost = builder.cost;
@@ -24,6 +26,10 @@ public class PaymentRequest {
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    public UUID getAppointmentId() {
+        return appointmentId;
     }
 
     public UUID getSagaId() {
@@ -46,6 +52,7 @@ public class PaymentRequest {
     }
 
     public static final class Builder {
+        private UUID appointmentId;
         private UUID accountId;
         private UUID sagaId;
         private BigDecimal cost;
@@ -55,6 +62,10 @@ public class PaymentRequest {
         private Builder() {
         }
 
+        public Builder appointmentId(UUID val) {
+            appointmentId = val;
+            return this;
+        }
         public Builder accountId(UUID val) {
             accountId = val;
             return this;

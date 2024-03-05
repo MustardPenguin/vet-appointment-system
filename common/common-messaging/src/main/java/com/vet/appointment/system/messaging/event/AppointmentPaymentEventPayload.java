@@ -9,6 +9,8 @@ import java.util.UUID;
 public class AppointmentPaymentEventPayload {
 
     @JsonProperty
+    private UUID appointmentId;
+    @JsonProperty
     private UUID accountId;
     @JsonProperty
     private BigDecimal cost;
@@ -19,13 +21,21 @@ public class AppointmentPaymentEventPayload {
 
     public AppointmentPaymentEventPayload() {}
 
-    public AppointmentPaymentEventPayload(UUID accountId, BigDecimal cost, String reason, ZonedDateTime createdAt) {
-        this.accountId = accountId;
-        this.cost = cost;
-        this.reason = reason;
-        this.createdAt = createdAt;
+    private AppointmentPaymentEventPayload(Builder builder) {
+        appointmentId = builder.appointmentId;
+        accountId = builder.accountId;
+        cost = builder.cost;
+        reason = builder.reason;
+        createdAt = builder.createdAt;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public UUID getAppointmentId() {
+        return appointmentId;
+    }
     public UUID getAccountId() {
         return accountId;
     }
@@ -40,5 +50,46 @@ public class AppointmentPaymentEventPayload {
 
     public ZonedDateTime getCreatedAt() {
         return createdAt;
+    }
+
+
+    public static final class Builder {
+        private UUID appointmentId;
+        private UUID accountId;
+        private BigDecimal cost;
+        private String reason;
+        private ZonedDateTime createdAt;
+
+        private Builder() {
+        }
+
+        public Builder appointmentId(UUID val) {
+            appointmentId = val;
+            return this;
+        }
+
+        public Builder accountId(UUID val) {
+            accountId = val;
+            return this;
+        }
+
+        public Builder cost(BigDecimal val) {
+            cost = val;
+            return this;
+        }
+
+        public Builder reason(String val) {
+            reason = val;
+            return this;
+        }
+
+        public Builder createdAt(ZonedDateTime val) {
+            createdAt = val;
+            return this;
+        }
+
+        public AppointmentPaymentEventPayload build() {
+            return new AppointmentPaymentEventPayload(this);
+        }
     }
 }

@@ -57,6 +57,9 @@ public class AppointmentPaymentOutboxMessage {
         return sagaType;
     }
 
+    public void setSagaStatus(SagaStatus sagaStatus) {
+        this.sagaStatus = sagaStatus;
+    }
 
     public static final class Builder {
         private UUID id;

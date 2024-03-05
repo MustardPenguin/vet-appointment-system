@@ -37,8 +37,10 @@ public class PaymentDataMapper {
                 .build();
     }
 
-    public PaymentAppointmentEventPayload paymentEventToPaymentAppointmentEventPayload(PaymentEvent paymentEvent) {
+    public PaymentAppointmentEventPayload paymentEventToPaymentAppointmentEventPayload(PaymentEvent paymentEvent,
+                                                                                       UUID appointmentId) {
         return PaymentAppointmentEventPayload.builder()
+                .appointmentId(appointmentId)
                 .paymentId(paymentEvent.getEntity().getId().getValue())
                 .errorMessages(String.join(", ", paymentEvent.getErrorMessages()))
                 .createdAt(paymentEvent.getCreatedAt())
