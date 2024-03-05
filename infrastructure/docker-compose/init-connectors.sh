@@ -136,7 +136,7 @@ payment_appointment_json=$(jq -n \
       "table.include.list": "payment.appointment_outbox",
       "topic.prefix": "payment_response",
       "tombstones.on.delete" : "false",
-      "slot.name": "appointment_payment_outbox_slot",
+      "slot.name": "payment_appointment_outbox_slot",
       "plugin.name": "pgoutput"
     }
   }')
