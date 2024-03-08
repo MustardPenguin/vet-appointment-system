@@ -23,14 +23,11 @@ public class AvailabilityOutboxHelper {
 
     private final AvailabilityOutboxRepository availabilityOutboxRepository;
     private final OutboxHelper<AppointmentAvailabilityEventPayload> outboxHelper;
-    private final ObjectMapper objectMapper;
 
     public AvailabilityOutboxHelper(AvailabilityOutboxRepository availabilityOutboxRepository,
-                                    OutboxHelper<AppointmentAvailabilityEventPayload> outboxHelper,
-                                    ObjectMapper objectMapper) {
+                                    OutboxHelper<AppointmentAvailabilityEventPayload> outboxHelper) {
         this.availabilityOutboxRepository = availabilityOutboxRepository;
         this.outboxHelper = outboxHelper;
-        this.objectMapper = objectMapper;
     }
 
     @Transactional

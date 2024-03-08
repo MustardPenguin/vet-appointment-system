@@ -51,7 +51,9 @@ docker-compose -f kafka-deployment.yml down
 
 <h4>Initialize connectors</h4>
 
-And start bash script for Debezium connectors, this may take a couple of minutes for connectors to start working.
+Start this bash script in order to initialize Debezium connectors. This script requires jq command to be installed in your system. 
+https://jqlang.github.io/jq/
+
 ```bash
 ./init-connectors.sh
 ```

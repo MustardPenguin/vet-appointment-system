@@ -4,6 +4,7 @@ import availability_request.appointment.availability_outbox.Envelope;
 import availability_request.appointment.availability_outbox.Value;
 import com.vet.appointment.system.availability.service.domain.dto.message.AvailabilityRequest;
 import com.vet.appointment.system.availability.service.domain.ports.input.message.listener.AppointmentAvailabilityMessageListener;
+import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import com.vet.appointment.system.kafka.producer.KafkaMessageHelper;
 import com.vet.appointment.system.messaging.DebeziumOp;
@@ -43,14 +44,19 @@ public class AppointmentAvailabilityKafkaListener implements KafkaConsumer<Envel
                 Value appointmentAvailabilityAvroModel = avroModel.getAfter();
                 AppointmentAvailabilityEventPayload appointmentAvailabilityEventPayload =
                         kafkaMessageHelper.getEventPayload(appointmentAvailabilityAvroModel.getPayload(), AppointmentAvailabilityEventPayload.class);
+                log.info("Received appointment availability event for id: {} with appointment status: {}",
+                        appointmentAvailabilityEventPayload.getId(), appointmentAvailabilityEventPayload.getAppointmentStatus());
 
-                appointmentAvailabilityMessageListener.checkAvailability(new AvailabilityRequest(
-                        UUID.fromString(appointmentAvailabilityAvroModel.getSagaId()),
-                        appointmentAvailabilityEventPayload.getAppointmentStartDateTime(),
-                        appointmentAvailabilityEventPayload.getAppointmentEndDateTime(),
-                        "Appointment for id: " + appointmentAvailabilityEventPayload.getId()
-                ), appointmentAvailabilityEventPayload.getId());
-
+                if(appointmentAvailabilityEventPayload.getAppointmentStatus() == AppointmentStatus.REQUESTING) {
+                    appointmentAvailabilityMessageListener.checkAvailability(new AvailabilityRequest(
+                            UUID.fromString(appointmentAvailabilityAvroModel.getSagaId()),
+                            appointmentAvailabilityEventPayload.getAppointmentStartDateTime(),
+                            appointmentAvailabilityEventPayload.getAppointmentEndDateTime(),
+                            "Appointment for id: " + appointmentAvailabilityEventPayload.getId()
+                    ), appointmentAvailabilityEventPayload.getId());
+                } else if(appointmentAvailabilityEventPayload.getAppointmentStatus() == AppointmentStatus.CANCELLING) {
+//                    appointmentAvailabilityMessageListener.cancelAvailability(appointmentAvailabilityEventPayload.getId());
+                }
             }
         });
     }

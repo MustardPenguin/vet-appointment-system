@@ -77,6 +77,17 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         return cost;
     }
 
+    public void initAppointment() {
+        if(appointmentStartDateTime.isAfter(appointmentEndDateTime)) {
+            throw new AppointmentDomainException("Appointment start date time is after appointment end date time!");
+        }
+        if(appointmentStartDateTime.getDayOfMonth() != appointmentEndDateTime.getDayOfMonth()) {
+            throw new AppointmentDomainException("Appointment start date time and appointment end date time are not on the same day!");
+        }
+        appointmentStatus = AppointmentStatus.REQUESTING;
+        paymentStatus = PaymentStatus.PENDING;
+    }
+
     public void initAvailability() {
         if(appointmentStatus != AppointmentStatus.REQUESTING) {
             throw new AppointmentDomainException("Appointment is not in correct state for availability operation!");
@@ -116,8 +127,10 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         paymentStatus = PaymentStatus.PAID;
     }
 
-    public void initCancelling() {
+    public void initCancelling(String errorMessages) {
         appointmentStatus = AppointmentStatus.CANCELLING;
+        paymentStatus = PaymentStatus.FAILED;
+        this.errorMessages = errorMessages;
     }
 
     private Appointment(Builder builder) {

@@ -3,6 +3,7 @@ package com.vet.appointment.system.appointment.service.domain.impl;
 import com.vet.appointment.system.appointment.service.domain.AppointmentDomainService;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentAvailableEvent;
+import com.vet.appointment.system.appointment.service.domain.event.AppointmentCancelledEvent;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
 import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;
 
@@ -15,13 +16,7 @@ public class AppointmentDomainServiceImpl implements AppointmentDomainService {
 
     @Override
     public AppointmentCreatedEvent validateAndInitiateAppointment(Appointment appointment) {
-        if(appointment.getAppointmentStartDateTime().isAfter(appointment.getAppointmentEndDateTime())) {
-            throw new AppointmentDomainException("Appointment start date time is after appointment end date time!");
-        }
-        if(appointment.getAppointmentStartDateTime().getDayOfMonth() != appointment.getAppointmentEndDateTime().getDayOfMonth()) {
-            throw new AppointmentDomainException("Appointment start date time and appointment end date time are not on the same day!");
-        }
-
+        appointment.initAppointment();
         return new AppointmentCreatedEvent(appointment, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 
@@ -34,5 +29,11 @@ public class AppointmentDomainServiceImpl implements AppointmentDomainService {
     @Override
     public void initiateAppointmentUnavailable(Appointment appointment, String errorMessages) {
         appointment.initUnavailability(errorMessages);
+    }
+
+    @Override
+    public AppointmentCancelledEvent initiateAppointmentCancelled(Appointment appointment, String errorMessages) {
+        appointment.initCancelling(errorMessages);
+        return new AppointmentCancelledEvent(appointment, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 }

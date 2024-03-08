@@ -5,6 +5,7 @@ import com.vet.appointment.system.appointment.service.domain.dto.rest.get.GetApp
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentAvailableEvent;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
+import com.vet.appointment.system.appointment.service.domain.event.AppointmentEvent;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 import com.vet.appointment.system.messaging.event.AppointmentAvailabilityEventPayload;
@@ -30,12 +31,15 @@ public class AppointmentDataMapper {
                 .build();
     }
 
-    public AppointmentAvailabilityEventPayload appointmentEventToEventPayload(AppointmentCreatedEvent appointmentCreatedEvent) {
-        return new AppointmentAvailabilityEventPayload(
-                appointmentCreatedEvent.getEntity().getId().getValue(),
-                appointmentCreatedEvent.getEntity().getAppointmentStartDateTime(),
-                appointmentCreatedEvent.getEntity().getAppointmentEndDateTime(),
-                appointmentCreatedEvent.getCreatedAt());
+    public AppointmentAvailabilityEventPayload appointmentEventToEventPayload(AppointmentEvent appointmentEvent) {
+        Appointment appointment = appointmentEvent.getEntity();
+        return AppointmentAvailabilityEventPayload.builder()
+                .id(appointment.getId().getValue())
+                .createdAt(appointmentEvent.getCreatedAt())
+                .appointmentStatus(appointment.getAppointmentStatus())
+                .appointmentStartDateTime(appointment.getAppointmentStartDateTime())
+                .appointmentEndDateTime(appointment.getAppointmentEndDateTime())
+                .build();
     }
 
     public GetAppointmentResponse appointmentToGetAppointmentResponse(Appointment appointment) {
