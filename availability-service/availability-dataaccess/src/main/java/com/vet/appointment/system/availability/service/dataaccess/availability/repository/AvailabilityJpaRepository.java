@@ -21,4 +21,6 @@ public interface AvailabilityJpaRepository extends JpaRepository<AvailabilityEnt
                     "OR (end_date_time < :end AND end_date_time > :start) ", nativeQuery = true)
     Optional<List<AvailabilityEntity>>
         getAvailabilityEntityBetween(@Param("start") LocalDateTime appointmentStartDateTime, @Param("end") LocalDateTime appointmentEndDateTime);
+
+    Optional<AvailabilityEntity> findAvailabilityEntityById(UUID availabilityId);
 }

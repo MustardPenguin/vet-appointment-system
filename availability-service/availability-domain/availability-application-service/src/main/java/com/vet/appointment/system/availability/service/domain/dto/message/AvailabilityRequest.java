@@ -5,16 +5,26 @@ import java.util.UUID;
 
 public class AvailabilityRequest {
 
+    private UUID availabilityId;
     private UUID sagaId;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
     private String reason;
 
-    public AvailabilityRequest(UUID sagaId, LocalDateTime startDateTime, LocalDateTime endDateTime, String reason) {
-        this.sagaId = sagaId;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
-        this.reason = reason;
+    private AvailabilityRequest(Builder builder) {
+        availabilityId = builder.availabilityId;
+        sagaId = builder.sagaId;
+        startDateTime = builder.startDateTime;
+        endDateTime = builder.endDateTime;
+        reason = builder.reason;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public UUID getAvailabilityId() {
+        return availabilityId;
     }
 
     public UUID getSagaId() {
@@ -31,5 +41,46 @@ public class AvailabilityRequest {
 
     public String getReason() {
         return reason;
+    }
+
+
+    public static final class Builder {
+        private UUID availabilityId;
+        private UUID sagaId;
+        private LocalDateTime startDateTime;
+        private LocalDateTime endDateTime;
+        private String reason;
+
+        private Builder() {
+        }
+
+        public Builder availabilityId(UUID val) {
+            availabilityId = val;
+            return this;
+        }
+
+        public Builder sagaId(UUID val) {
+            sagaId = val;
+            return this;
+        }
+
+        public Builder startDateTime(LocalDateTime val) {
+            startDateTime = val;
+            return this;
+        }
+
+        public Builder endDateTime(LocalDateTime val) {
+            endDateTime = val;
+            return this;
+        }
+
+        public Builder reason(String val) {
+            reason = val;
+            return this;
+        }
+
+        public AvailabilityRequest build() {
+            return new AvailabilityRequest(this);
+        }
     }
 }

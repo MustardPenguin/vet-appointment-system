@@ -35,6 +35,7 @@ public class AppointmentDataMapper {
         Appointment appointment = appointmentEvent.getEntity();
         return AppointmentAvailabilityEventPayload.builder()
                 .id(appointment.getId().getValue())
+                .availabilityId(appointment.getAvailabilityId())
                 .createdAt(appointmentEvent.getCreatedAt())
                 .appointmentStatus(appointment.getAppointmentStatus())
                 .appointmentStartDateTime(appointment.getAppointmentStartDateTime())

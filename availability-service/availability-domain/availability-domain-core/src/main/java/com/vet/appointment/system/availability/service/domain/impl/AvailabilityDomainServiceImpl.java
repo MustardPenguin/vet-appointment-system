@@ -4,8 +4,10 @@ import com.vet.appointment.system.availability.service.domain.AvailabilityDomain
 import com.vet.appointment.system.availability.service.domain.entity.Appointment;
 import com.vet.appointment.system.availability.service.domain.entity.Availability;
 import com.vet.appointment.system.availability.service.domain.event.AvailabilityAvailableEvent;
+import com.vet.appointment.system.availability.service.domain.event.AvailabilityCancelledEvent;
 import com.vet.appointment.system.availability.service.domain.event.AvailabilityEvent;
 import com.vet.appointment.system.availability.service.domain.event.AvailabilityUnavailableEvent;
+import com.vet.appointment.system.availability.service.domain.valueobject.AvailabilityId;
 import com.vet.appointment.system.availability.service.domain.valueobject.AvailabilityStatus;
 
 import java.time.ZoneId;
@@ -33,5 +35,14 @@ public class AvailabilityDomainServiceImpl implements AvailabilityDomainService 
         }
         availability.setAvailabilityStatus(AvailabilityStatus.UNAVAILABLE);
         return new AvailabilityUnavailableEvent(availability, ZonedDateTime.now(ZoneId.of(UTC)), errorMessages);
+    }
+
+    @Override
+    public AvailabilityEvent cancelAvailability(Availability availability, List<String> errorMessages) {
+        if(availability.getAvailabilityStatus() != AvailabilityStatus.AVAILABLE) {
+            errorMessages.add("Availability is already cancelled!");
+        }
+        availability.setAvailabilityStatus(AvailabilityStatus.CANCELLED);
+        return new AvailabilityCancelledEvent(availability, ZonedDateTime.now(ZoneId.of(UTC)), errorMessages);
     }
 }

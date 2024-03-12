@@ -12,4 +12,6 @@ public interface AvailabilityDomainService {
     AvailabilityEvent validateAvailability(Availability availability,
                                                       Optional<List<Availability>> availabilities,
                                                       List<String> errorMessages);
+
+    AvailabilityEvent cancelAvailability(Availability availability, List<String> errorMessages);
 }

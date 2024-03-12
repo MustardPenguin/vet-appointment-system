@@ -12,6 +12,8 @@ public class AppointmentAvailabilityEventPayload {
     @JsonProperty
     private UUID id;
     @JsonProperty
+    private UUID availabilityId;
+    @JsonProperty
     private LocalDateTime appointmentStartDateTime;
     @JsonProperty
     private LocalDateTime appointmentEndDateTime;
@@ -22,6 +24,7 @@ public class AppointmentAvailabilityEventPayload {
 
     private AppointmentAvailabilityEventPayload(Builder builder) {
         id = builder.id;
+        availabilityId = builder.availabilityId;
         appointmentStartDateTime = builder.appointmentStartDateTime;
         appointmentEndDateTime = builder.appointmentEndDateTime;
         createdAt = builder.createdAt;
@@ -52,10 +55,15 @@ public class AppointmentAvailabilityEventPayload {
         return appointmentStatus;
     }
 
+    public UUID getAvailabilityId() {
+        return availabilityId;
+    }
+
     public AppointmentAvailabilityEventPayload() {}
 
     public static final class Builder {
         private UUID id;
+        private UUID availabilityId;
         private LocalDateTime appointmentStartDateTime;
         private LocalDateTime appointmentEndDateTime;
         private ZonedDateTime createdAt;
@@ -66,6 +74,11 @@ public class AppointmentAvailabilityEventPayload {
 
         public Builder id(UUID val) {
             id = val;
+            return this;
+        }
+
+        public Builder availabilityId(UUID val) {
+            availabilityId = val;
             return this;
         }
 

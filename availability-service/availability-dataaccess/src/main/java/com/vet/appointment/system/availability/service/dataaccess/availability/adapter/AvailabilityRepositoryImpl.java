@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -31,9 +32,20 @@ public class AvailabilityRepositoryImpl implements AvailabilityRepository {
     }
 
     @Override
+    public Optional<Availability> findAvailabilityById(UUID availabilityId) {
+        return availabilityJpaRepository.findAvailabilityEntityById(availabilityId)
+                .map(availabilityDataAccessMapper::availabilityEntityToAvailability);
+    }
+
+    @Override
     public Availability save(Availability availability) {
         AvailabilityEntity availabilityEntity = availabilityJpaRepository
                 .save(availabilityDataAccessMapper.availabilityToAvailabilityEntity(availability));
         return availabilityDataAccessMapper.availabilityEntityToAvailability(availabilityEntity);
+    }
+
+    @Override
+    public void delete(Availability availability) {
+        availabilityJpaRepository.delete(availabilityDataAccessMapper.availabilityToAvailabilityEntity(availability));
     }
 }

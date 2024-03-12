@@ -4,6 +4,7 @@ import availability_request.appointment.availability_outbox.Envelope;
 import availability_request.appointment.availability_outbox.Value;
 import com.vet.appointment.system.availability.service.domain.dto.message.AvailabilityRequest;
 import com.vet.appointment.system.availability.service.domain.ports.input.message.listener.AppointmentAvailabilityMessageListener;
+import com.vet.appointment.system.availability.service.messaging.mapper.AvailabilityMessagingDataMapper;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import com.vet.appointment.system.kafka.producer.KafkaMessageHelper;
@@ -24,11 +25,14 @@ import java.util.UUID;
 public class AppointmentAvailabilityKafkaListener implements KafkaConsumer<Envelope> {
 
     private final AppointmentAvailabilityMessageListener appointmentAvailabilityMessageListener;
+    private final AvailabilityMessagingDataMapper availabilityMessagingDataMapper;
     private final KafkaMessageHelper kafkaMessageHelper;
 
     public AppointmentAvailabilityKafkaListener(AppointmentAvailabilityMessageListener appointmentAvailabilityMessageListener,
+                                                AvailabilityMessagingDataMapper availabilityMessagingDataMapper,
                                                 KafkaMessageHelper kafkaMessageHelper) {
         this.appointmentAvailabilityMessageListener = appointmentAvailabilityMessageListener;
+        this.availabilityMessagingDataMapper = availabilityMessagingDataMapper;
         this.kafkaMessageHelper = kafkaMessageHelper;
     }
 
@@ -47,15 +51,14 @@ public class AppointmentAvailabilityKafkaListener implements KafkaConsumer<Envel
                 log.info("Received appointment availability event for id: {} with appointment status: {}",
                         appointmentAvailabilityEventPayload.getId(), appointmentAvailabilityEventPayload.getAppointmentStatus());
 
+                AvailabilityRequest availabilityRequest = availabilityMessagingDataMapper
+                        .availabilityEventPayloadToAvailabilityRequest(appointmentAvailabilityEventPayload, UUID.fromString(appointmentAvailabilityAvroModel.getSagaId()));
                 if(appointmentAvailabilityEventPayload.getAppointmentStatus() == AppointmentStatus.REQUESTING) {
-                    appointmentAvailabilityMessageListener.checkAvailability(new AvailabilityRequest(
-                            UUID.fromString(appointmentAvailabilityAvroModel.getSagaId()),
-                            appointmentAvailabilityEventPayload.getAppointmentStartDateTime(),
-                            appointmentAvailabilityEventPayload.getAppointmentEndDateTime(),
-                            "Appointment for id: " + appointmentAvailabilityEventPayload.getId()
-                    ), appointmentAvailabilityEventPayload.getId());
+                    appointmentAvailabilityMessageListener
+                            .checkAvailability(availabilityRequest, appointmentAvailabilityEventPayload.getId());
                 } else if(appointmentAvailabilityEventPayload.getAppointmentStatus() == AppointmentStatus.CANCELLING) {
-//                    appointmentAvailabilityMessageListener.cancelAvailability(appointmentAvailabilityEventPayload.getId());
+                    appointmentAvailabilityMessageListener
+                            .cancelAvailability(availabilityRequest, appointmentAvailabilityEventPayload.getId());
                 }
             }
         });
