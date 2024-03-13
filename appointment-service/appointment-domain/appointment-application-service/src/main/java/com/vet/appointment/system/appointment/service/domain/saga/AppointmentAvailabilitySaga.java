@@ -88,7 +88,7 @@ public class AppointmentAvailabilitySaga implements SagaSteps<AvailabilityRespon
             log.info("Could not find an outbox message with saga id: {} and status: PROCESSING, message was possibly already processed.", availabilityResponse.getSagaId());
             return null;
         }
-        log.info("Outbox message is found with saga id: {} and status: PROCESSING", availabilityResponse.getSagaId());
+        log.info("Outbox message is found with saga id: {} and status: PROCESSING/COMPENSATING", availabilityResponse.getSagaId());
 
         return appointmentAvailabilityOutboxMessageOptional.get();
     }
