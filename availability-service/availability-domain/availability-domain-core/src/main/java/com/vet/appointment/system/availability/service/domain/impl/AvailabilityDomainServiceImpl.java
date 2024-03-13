@@ -39,7 +39,7 @@ public class AvailabilityDomainServiceImpl implements AvailabilityDomainService 
 
     @Override
     public AvailabilityEvent cancelAvailability(Availability availability, List<String> errorMessages) {
-        if(availability.getAvailabilityStatus() != AvailabilityStatus.AVAILABLE) {
+        if(availability.getAvailabilityStatus() == AvailabilityStatus.UNAVAILABLE) {
             errorMessages.add("Availability is already cancelled!");
         }
         availability.setAvailabilityStatus(AvailabilityStatus.CANCELLED);

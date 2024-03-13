@@ -83,10 +83,10 @@ public class AppointmentAvailabilityMessageListenerImpl implements AppointmentAv
 
         AvailabilityEvent availabilityEvent = availabilityServiceHelper.cancelAvailability(availabilityRequest);
 
-//        appointmentOutboxHelper.saveAppointmentOutboxMessage(
-//                availabilityDataMapper.availiblityEventToAvailabilityAppointmentEventPayload(
-//                        availabilityEvent, appointmentId, AppointmentStatus.CANCELLED),
-//                availabilityRequest.getSagaId());
+        appointmentOutboxHelper.saveAppointmentOutboxMessage(
+                availabilityDataMapper.availiblityEventToAvailabilityAppointmentEventPayload(
+                        availabilityEvent, appointmentId, AppointmentStatus.CANCELLED),
+                availabilityRequest.getSagaId());
     }
 
     private Availability save(Availability availability, UUID appointmentId) {

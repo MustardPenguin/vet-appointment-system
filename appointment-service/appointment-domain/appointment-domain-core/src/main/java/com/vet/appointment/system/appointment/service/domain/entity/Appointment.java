@@ -72,6 +72,13 @@ public class Appointment extends AggregateRoot<AppointmentId> {
     public void setPaymentId(UUID paymentId) {
         this.paymentId = paymentId;
     }
+    public void setErrorMessages(String errorMessages) {
+        if(this.errorMessages == null) {
+            this.errorMessages = errorMessages;
+        } else {
+            this.errorMessages += " " + errorMessages;
+        }
+    }
 
     public BigDecimal getCost() {
         return cost;
@@ -109,8 +116,8 @@ public class Appointment extends AggregateRoot<AppointmentId> {
         if(appointmentStatus != AppointmentStatus.REQUESTING && appointmentStatus != AppointmentStatus.CANCELLING) {
             throw new AppointmentDomainException("Appointment is not in correct state for unavailability operation!");
         }
-        appointmentStatus = AppointmentStatus.UNAVAILABLE;
-        this.errorMessages = errorMessages;
+        appointmentStatus = appointmentStatus == AppointmentStatus.CANCELLING ? AppointmentStatus.CANCELLED : AppointmentStatus.UNAVAILABLE;
+        setErrorMessages(errorMessages);
     }
 
     public void confirmAppointment() {
@@ -130,7 +137,7 @@ public class Appointment extends AggregateRoot<AppointmentId> {
     public void initCancelling(String errorMessages) {
         appointmentStatus = AppointmentStatus.CANCELLING;
         paymentStatus = PaymentStatus.FAILED;
-        this.errorMessages = errorMessages;
+        setErrorMessages(errorMessages);
     }
 
     private Appointment(Builder builder) {

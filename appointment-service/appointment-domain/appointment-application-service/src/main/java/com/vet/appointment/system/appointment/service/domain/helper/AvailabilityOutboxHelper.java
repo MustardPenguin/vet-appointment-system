@@ -55,7 +55,7 @@ public class AvailabilityOutboxHelper {
                 .build());
     }
 
-    public Optional<AppointmentAvailabilityOutboxMessage> findAvailabilityOutboxMessageBySagaIdAndSagaStatus(UUID sagaId, SagaStatus sagaStatus) {
-        return availabilityOutboxRepository.findBySagaIdAndSagaStatus(APPOINTMENT_SAGA_NAME, sagaId, sagaStatus);
+    public Optional<AppointmentAvailabilityOutboxMessage> findAvailabilityOutboxMessageBySagaIdAndSagaStatus(UUID sagaId, SagaStatus... sagaStatuses) {
+        return availabilityOutboxRepository.findBySagaIdAndSagaStatus(APPOINTMENT_SAGA_NAME, sagaId, sagaStatuses);
     }
 }

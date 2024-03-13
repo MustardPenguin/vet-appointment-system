@@ -8,6 +8,7 @@ import com.vet.appointment.system.appointment.service.domain.ports.output.reposi
 import com.vet.appointment.system.saga.SagaStatus;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,8 +32,8 @@ public class AvailabilityOutboxRepositoryImpl implements AvailabilityOutboxRepos
     }
 
     @Override
-    public Optional<AppointmentAvailabilityOutboxMessage> findBySagaIdAndSagaStatus(String sagaType, UUID sagaId, SagaStatus sagaStatus) {
-        return availabilityOutboxJpaRepository.findAvailabilityOutboxEntityBySagaTypeAndSagaIdAndSagaStatus(sagaType, sagaId, sagaStatus)
+    public Optional<AppointmentAvailabilityOutboxMessage> findBySagaIdAndSagaStatus(String sagaType, UUID sagaId, SagaStatus... sagaStatuses) {
+        return availabilityOutboxJpaRepository.findAvailabilityOutboxEntityBySagaTypeAndSagaIdAndSagaStatusIn(sagaType, sagaId, Arrays.asList(sagaStatuses))
                 .map(availabilityDataAccessMapper::availabilityOutboxEntityToOutboxMessage);
     }
 }
