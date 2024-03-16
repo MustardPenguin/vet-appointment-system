@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-postgres-deployment
+  namespace: default
+  labels:
+    app: account-postgres-deployment
+spec:
+  selector:
+    matchLabels:
+      app: account-postgres-deployment
+  template:
+    metadata:
+      labels:
+        app: account-postgres-deployment
+    spec:
+      containers:
+        - name: postgres
+          image: debezium/postgres:16
+          env:
+            - name: POSTGRES_USER
+              value: "user"
+            - name: POSTGRES_PASSWORD
+              value: "admin"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-postgres-service
+  namespace: default
+  labels:
+    app: account-postgres-deployment
+spec:
+  selector:
+    app: account-postgres-deployment
+  ports:
+    - name: account-postgres-service-port
+      protocol: TCP
+      port: 5432
+  type: LoadBalancer
