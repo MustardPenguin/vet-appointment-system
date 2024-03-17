@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-server-deployment
+  namespace: default
+  labels:
+    app: eureka-server-deployment
+spec:
+  selector:
+    matchLabels:
+      app: eureka-server-deployment
+  template:
+    metadata:
+      labels:
+        app: eureka-server-deployment
+    spec:
+      containers:
+        - name: eureka-server
+          image: com.vet.appointment.system/eureka-server:1.0-SNAPSHOT
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-server-service
+  namespace: default
+  labels:
+    app: eureka-server-deployment
+spec:
+  selector:
+    app: eureka-server-deployment
+  ports:
+    - name: eureka-server-service-port
+      protocol: TCP
+      port: 8761
+  type: LoadBalancer
