@@ -25,13 +25,10 @@ spec:
               value: "account-postgres-service"
             - name: EUREKA_HOST
               value: "https://eureka-service"
-#              value: "jdbc:postgresql://postgres-service:5432/postgres?stringtype=unspecified&currentSchema=account"
-#            - name: SPRING_DATASOURCE_URL
-#              value: "jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=account"
-#            - name: KAFKA_CONFIG_BOOTSTRAP_SERVERS
-#              value: "localhost:29092"
-#            - name: KAFKA_CONFIG_SCHEMA_REGISTRY_URL
-#              value: "http://localhost:8081"
+            - name: KAFKA_BOOTSTRAP_HOST
+              value: "kafka-broker-service"
+            - name: SCHEMA_REGISTRY_HOST
+              value: "https://schema-registry-service"
           resources:
             limits:
               cpu: "500m"
