@@ -24,7 +24,7 @@ spec:
             - name: DATABASE_HOST
               value: "account-postgres-service"
             - name: EUREKA_HOST
-              value: "172.19.0.1"
+              value: "https://eureka-service"
 #              value: "jdbc:postgresql://postgres-service:5432/postgres?stringtype=unspecified&currentSchema=account"
 #            - name: SPRING_DATASOURCE_URL
 #              value: "jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=account"
@@ -54,4 +54,4 @@ spec:
     - name: account-service-port
       protocol: TCP
       port: 8181
-  type: LoadBalancer
+  type: ClusterIP

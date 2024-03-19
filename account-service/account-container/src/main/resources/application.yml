@@ -15,7 +15,7 @@ logging:
 eureka:
   client:
     service-url:
-      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka
+      defaultZone: ${EUREKA_HOST:localhost}:8761/eureka
 
 # Database
 spring:
@@ -38,8 +38,8 @@ spring:
 
 # Kafka
 kafka-config-data:
-  bootstrap-server: localhost:29092
-  schema-registry-url: http://${SCHEMA_REGISTRY_HOST:localhost}:8081
+  bootstrap-server: ${KAFKA_BOOTSTRAP_HOST:localhost}:29092
+  schema-registry-url: ${SCHEMA_REGISTRY_HOST:http://localhost}:8081
   schema-registry-url-key: schema.registry.url
 
 kafka-producer-data:

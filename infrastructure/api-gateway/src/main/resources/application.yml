@@ -12,10 +12,10 @@ logging:
       springframework: DEBUG
 
 jwt:
-  secret: eba2564000c1fa6172fb005030cd5c173dd15e8c6e5fb8d2b67093d6dc2712ce
+  secret: ${JWT_SECRET:eba2564000c1fa6172fb005030cd5c173dd15e8c6e5fb8d2b67093d6dc2712ce}
 
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: ${EUREKA_HOST:http://localhost}:8761/eureka
 

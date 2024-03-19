@@ -11,7 +11,7 @@ spring:
     show-sql: true
     open-in-view: false
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?stringtype=unspecified&currentSchema=payment
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:5432/postgres?stringtype=unspecified&currentSchema=payment
     username: user
     password: admin
     driver-class-name: org.postgresql.Driver
@@ -24,8 +24,8 @@ spring:
 
 # Kafka
 kafka-config-data:
-  bootstrap-server: localhost:29092
-  schema-registry-url: http://localhost:8081
+  bootstrap-server: ${KAFKA_BOOTSTRAP_HOST:localhost}:29092
+  schema-registry-url: ${SCHEMA_REGISTRY_HOST:http://localhost}:8081
   schema-registry-url-key: schema.registry.url
 
 kafka-producer-data:
