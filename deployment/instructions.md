@@ -63,9 +63,39 @@ kind load docker-image com.vet.appointment.system/api-gateway:1.0-SNAPSHOT
 kind load docker-image com.vet.appointment.system/debezium-connect:1.0-SNAPSHOT
 ```
 
-Finally, the deployment files can be run with these commands in this order:
+Finally, the deployment files in kubernetes directory can be run with these commands in this order:
 ```bash
 kubectl apply -f database-deployment.yml
 kubectl apply -f infrastructure-deployment.yml
 kubectl apply -f microservices-deployment.yml
 ```
+
+<h3>Accessing the Kubernetes dashboard</h3>
+
+Documentation for reference: https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/
+
+Run this command to start a dashboard in 'kubernetes-dashboard' namespace
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
+```
+
+Then, an authentication token will be needed to access the dashboard. Run this command to create a service account in the kubernetes-dashboard namespace
+
+```bash
+kubectl apply -f dashboard-service-account.yml
+```
+
+Then, run this command to get the token
+
+```bash
+kubectl -n kubernetes-dashboard create token admin-user
+```
+
+Finally, run this command to enable access to the dashboard
+
+```bash
+kubectl proxy
+```
+
+The dashboard can be accessed at this URL: http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/

@@ -8,6 +8,13 @@ The purpose of this project is purely for educational purposes to learn how to d
 
 <h2>To run locally</h2>
 
+<u><h3>Prerequisites</h3></u>
+ - Java 17+
+ - Docker-compose
+ - Docker
+ - Maven
+ - Jq
+
 <u><h3>Kafka deployment</h3></u>
 
 <h4>Debezium dependencies</h4>
