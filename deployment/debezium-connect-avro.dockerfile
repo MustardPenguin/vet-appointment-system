@@ -2,4 +2,4 @@
 FROM debezium/connect:2.5
 
 RUN mkdir /kafka/connect/debezium-connector-schemaregistry
-COPY ./debezium-dependencies/jar /kafka/connect/debezium-connector-schemaregistry
+COPY ../infrastructure/docker-compose/debezium-dependencies/jar /kafka/connect/debezium-connector-schemaregistry

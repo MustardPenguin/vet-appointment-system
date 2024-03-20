@@ -261,3 +261,64 @@ spec:
       protocol: TCP
       port: 9000
   type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: debezium-connect-deployment
+  namespace: default
+  labels:
+    app: debezium-connect-deployment
+spec:
+  selector:
+    matchLabels:
+      app: debezium-connect-deployment
+  template:
+    metadata:
+      labels:
+        app: debezium-connect-deployment
+    spec:
+      containers:
+        - name: debezium-connect
+          image: com.vet.appointment.system/debezium-connect:1.0-SNAPSHOT
+          env:
+            # General config
+            - name: GROUP_ID
+              value: "1"
+            - name: CONFIG_STORAGE_TOPIC
+              value: "connect-config"
+            - name: OFFSET_STORAGE_TOPIC
+              value: "connect-offsets"
+            - name: STATUS_STORAGE_TOPIC
+              value: "connect-status"
+            - name: BOOTSTRAP_SERVERS
+              value: "kafka-broker-service:9092"
+            - name: LOGGING_LEVEL
+              value: "DEBUG"
+            # Schema registry config
+            - name: CONNECT_SCHEMA_NAME_ADJUSTMENT_MODE
+              value: "avro"
+            - name: KEY_CONVERTER
+              value: "io.confluent.connect.avro.AvroConverter"
+            - name: VALUE_CONVERTER
+              value: "io.confluent.connect.avro.AvroConverter"
+            - name: CONNECT_KEY_CONVERTER_SCHEMA_REGISTRY_URL
+              value: "http://schema-registry-service:8081"
+            - name: CONNECT_VALUE_CONVERTER_SCHEMA_REGISTRY_URL
+              value: "http://schema-registry-service:8081"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: debezium-connect-service
+  namespace: default
+  labels:
+    app: debezium-connect-deployment
+spec:
+  selector:
+    app: debezium-connect-deployment
+  ports:
+  - name: debezium-connect-service-port
+    protocol: TCP
+    port: 8083
+  type: LoadBalancer
