@@ -19,23 +19,15 @@ spec:
       containers:
         - name: account-service
           image: com.vet.appointment.system/account-service:1.0-SNAPSHOT
-#          imagePullPolicy: Never
           env:
             - name: DATABASE_HOST
               value: "account-postgres-service"
             - name: EUREKA_HOST
-              value: "https://eureka-service"
+              value: "http://eureka-server-service"
             - name: KAFKA_BOOTSTRAP_HOST
               value: "kafka-broker-service"
             - name: SCHEMA_REGISTRY_HOST
               value: "https://schema-registry-service"
-          resources:
-            limits:
-              cpu: "500m"
-              memory: "1024Mi"
-            requests:
-              cpu: "200m"
-              memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service

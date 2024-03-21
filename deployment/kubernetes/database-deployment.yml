@@ -20,9 +20,15 @@ spec:
           image: debezium/postgres:16
           env:
             - name: POSTGRES_USER
-              value: "user"
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
-              value: "admin"
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_PASSWORD
 ---
 apiVersion: v1
 kind: Service
@@ -39,3 +45,51 @@ spec:
       protocol: TCP
       port: 5432
   type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment-postgres-deployment
+  namespace: default
+  labels:
+    app: appointment-postgres-deployment
+spec:
+  selector:
+    matchLabels:
+      app: appointment-postgres-deployment
+  template:
+    metadata:
+      labels:
+        app: appointment-postgres-deployment
+    spec:
+      containers:
+        - name: postgres
+          image: debezium/postgres:16
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointment-postgres-service
+  namespace: default
+  labels:
+    app: appointment-postgres-deployment
+spec:
+  selector:
+    app: appointment-postgres-deployment
+  ports:
+    - name: appointment-postgres-service-port
+      protocol: TCP
+      port: 5432
+  type: LoadBalancer
+---
