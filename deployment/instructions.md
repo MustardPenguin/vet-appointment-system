@@ -65,6 +65,7 @@ kind load docker-image com.vet.appointment.system/debezium-connect:1.0-SNAPSHOT
 
 Finally, the deployment files in kubernetes directory can be run with these commands in this order:
 ```bash
+kubectl apply -f config.yml
 kubectl apply -f database-deployment.yml
 kubectl apply -f infrastructure-deployment.yml
 kubectl apply -f microservices-deployment.yml
