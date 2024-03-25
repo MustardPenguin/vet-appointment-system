@@ -1,12 +1,12 @@
 
 # Application config
 server:
-  port: 8184
+  port: 8185
 
 # Database
 spring:
   application:
-    name: "appointment-service"
+    name: "payment-service"
   jpa:
     show-sql: true
     open-in-view: false
@@ -24,7 +24,7 @@ spring:
 
 # Kafka
 kafka-config-data:
-  bootstrap-server: ${KAFKA_BOOTSTRAP_HOST:localhost}:29092
+  bootstrap-server: ${KAFKA_BOOTSTRAP_HOST:localhost}:${KAFKA_BOOTSTRAP_PORT:29092}
   schema-registry-url: ${SCHEMA_REGISTRY_HOST:http://localhost}:8081
   schema-registry-url-key: schema.registry.url
 

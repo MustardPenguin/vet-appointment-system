@@ -22,13 +22,25 @@ spec:
             - name: DATABASE_HOST
               value: "account-postgres-service"
             - name: EUREKA_HOST
-              value: "http://eureka-server-service"
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: EUREKA_HOST
             - name: KAFKA_BOOTSTRAP_HOST
-              value: "kafka-broker-service"
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: KAFKA_BOOTSTRAP_HOST
             - name: KAFKA_BOOTSTRAP_PORT
-              value: "9092"
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: KAFKA_BOOTSTRAP_PORT
             - name: SCHEMA_REGISTRY_HOST
-              value: "http://schema-registry-service"
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: SCHEMA_REGISTRY_HOST
 ---
 apiVersion: v1
 kind: Service
@@ -69,13 +81,25 @@ spec:
             - name: DATABASE_HOST
               value: "appointment-postgres-service"
             - name: EUREKA_HOST
-              value: "http://eureka-server-service"
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: EUREKA_HOST
             - name: KAFKA_BOOTSTRAP_HOST
-              value: "kafka-broker-service"
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: KAFKA_BOOTSTRAP_HOST
             - name: KAFKA_BOOTSTRAP_PORT
-              value: "9092"
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: KAFKA_BOOTSTRAP_PORT
             - name: SCHEMA_REGISTRY_HOST
-              value: "http://schema-registry-service"
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: SCHEMA_REGISTRY_HOST
 ---
 apiVersion: v1
 kind: Service
@@ -91,3 +115,176 @@ spec:
     - name: appointment-service-port
       protocol: TCP
       port: 8183
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pet-service-deployment
+  namespace: default
+  labels:
+    app: pet-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: pet-service-deployment
+  template:
+    metadata:
+      labels:
+        app: pet-service-deployment
+    spec:
+      containers:
+        - name: postgres
+          image: com.vet.appointment.system/pet-service:1.0-SNAPSHOT
+          env:
+            - name: DATABASE_HOST
+              value: "pet-postgres-service"
+            - name: EUREKA_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: EUREKA_HOST
+            - name: KAFKA_BOOTSTRAP_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: KAFKA_BOOTSTRAP_HOST
+            - name: KAFKA_BOOTSTRAP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: KAFKA_BOOTSTRAP_PORT
+            - name: SCHEMA_REGISTRY_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: SCHEMA_REGISTRY_HOST
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pet-service
+  namespace: default
+  labels:
+    app: pet-service-deployment
+spec:
+  selector:
+    app: pet-service-deployment
+  ports:
+    - name: pet-service-port
+      protocol: TCP
+      port: 8182
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: availability-service-deployment
+  labels:
+    app: availability-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: availability-service-deployment
+  template:
+    metadata:
+      labels:
+        app: availability-service-deployment
+    spec:
+      containers:
+        - name: availability-service
+          image: com.vet.appointment.system/availability-service:1.0-SNAPSHOT
+          env:
+            - name: DATABASE_HOST
+              value: "availability-postgres-service"
+            - name: EUREKA_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: EUREKA_HOST
+            - name: KAFKA_BOOTSTRAP_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: KAFKA_BOOTSTRAP_HOST
+            - name: KAFKA_BOOTSTRAP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: KAFKA_BOOTSTRAP_PORT
+            - name: SCHEMA_REGISTRY_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: SCHEMA_REGISTRY_HOST
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: availability-service
+  namespace: default
+  labels:
+    app: availability-service-deployment
+spec:
+  selector:
+    app: availability-service-deployment
+  ports:
+    - name: availability-service-port
+      protocol: TCP
+      port: 8184
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service-deployment
+  namespace: default
+  labels:
+    app: payment-service-deployment
+spec:
+  selector:
+    matchLabels:
+      app: payment-service-deployment
+  template:
+    metadata:
+      labels:
+        app: payment-service-deployment
+    spec:
+      containers:
+        - name: payment-service
+          image: com.vet.appointment.system/payment-service:1.0-SNAPSHOT
+          env:
+            - name: DATABASE_HOST
+              value: "payment-postgres-service"
+            - name: EUREKA_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: EUREKA_HOST
+            - name: KAFKA_BOOTSTRAP_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: KAFKA_BOOTSTRAP_HOST
+            - name: KAFKA_BOOTSTRAP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: KAFKA_BOOTSTRAP_PORT
+            - name: SCHEMA_REGISTRY_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: microservices-config
+                  key: SCHEMA_REGISTRY_HOST
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  namespace: default
+  labels:
+    app: payment-service-deployment
+spec:
+  selector:
+    app: payment-service-deployment
+  ports:
+    - name: payment-service-port
+      protocol: TCP
+      port: 8185

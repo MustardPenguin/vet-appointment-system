@@ -10,6 +10,11 @@ First, the image of all the microservices are needed, run at the root of the pro
 mvn clean install
 ```
 
+Then, create a Kind cluster:
+```bash
+kind create cluster
+```
+
 Additionally, since there is no official support for Confluent Schema Registry in Debezium, certain jar files are required in the Connect plugin directory.
 https://debezium.io/documentation/reference/stable/configuration/avro.html#confluent-schema-registry
 
@@ -62,6 +67,23 @@ kind load docker-image com.vet.appointment.system/api-gateway:1.0-SNAPSHOT
 ```bash
 kind load docker-image com.vet.appointment.system/debezium-connect:1.0-SNAPSHOT
 ```
+
+The images for the infrastructure services are also needed, so load them as well:
+```bash
+kind load docker-image confluentinc/cp-zookeeper:latest
+```
+```bash
+kind load docker-image confluentinc/cp-schema-registry:latest
+```
+```bash
+kind load docker-image confluentinc/cp-zookeeper:latest
+```
+```bash
+kind load docker-image provectuslabs/kafka-ui:latest
+```
+
+
+
 
 Finally, the deployment files in kubernetes directory can be run with these commands in this order:
 ```bash
