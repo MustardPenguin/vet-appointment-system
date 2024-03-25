@@ -41,10 +41,10 @@ public class GatewayConfig {
                 .route("protected-misc", route -> route
                         .path("/api/protected")
                         .filters(filter -> filter.filter(authenticationFilter))
-                        .uri("http://localhost:8181"))
+                        .uri("lb://account-service"))
                 .route("anonymous", route -> route
                         .path("/api/authenticate", "/api/any")
-                        .uri("http://localhost:8181"))
+                        .uri("lb://account-service"))
                 .build();
 
     }
