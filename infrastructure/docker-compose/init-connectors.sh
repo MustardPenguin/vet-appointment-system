@@ -99,6 +99,8 @@ availability_appointment_json=$(jq -n \
     }
   }')
 
+echo ""
+
 appointment_payment_json=$(jq -n \
   --arg dbh "$DATABASE_HOSTNAME" \
   --arg user "$DATABASE_USER" \
@@ -119,6 +121,8 @@ appointment_payment_json=$(jq -n \
       "plugin.name": "pgoutput"
     }
   }')
+
+echo ""
 
 payment_appointment_json=$(jq -n \
   --arg dbh "$DATABASE_HOSTNAME" \
