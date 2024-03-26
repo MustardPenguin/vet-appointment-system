@@ -4,6 +4,7 @@ Prerequisites:
  - Docker
  - Kubectl
  - Kind
+ - Maven
 
 First, the image of all the microservices are needed, run at the root of the project(vet-appointment-system).
 ```bash
