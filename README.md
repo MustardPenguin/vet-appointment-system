@@ -9,10 +9,13 @@ The purpose of this project is purely for educational purposes to learn how to d
 <h2>Links</h2>
 
 <h3>To run a local Kubernetes cluster using Kind</h3>
+
 [Deployment Instructions](deployment/instructions.md)
 
 <h3>To run for local development</h3>
+
 [Local instructions](local-instructions.md)
 
 <h3>API Documentation</h3>
+
 [Documentation](documentation.md)
