@@ -3,6 +3,8 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
+namespace: default
+
 
 image:
   repository: nginx
@@ -39,14 +41,27 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-
 service:
   type: ClusterIP
   port: 80
 
-postgres-service:
+postgresService:
+  deploymentPostfix: -postgres-deployment
+  servicePostfix: -postgres-service
+  image: debezium/postgres:16
   type: LoadBalancer
+  password: admin
+  user: user
   port: 5432
+  # Will loop through and create a postgres container for each of these services
+  services:
+    - availability
+    - appointment
+    - payment
+    - account
+    - pet
+
+
 
 ingress:
   enabled: false

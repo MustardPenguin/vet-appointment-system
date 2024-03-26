@@ -1,5 +1,50 @@
+---
+{{- with .Values.postgresService }} {{/* Sets scope to postgresService from values.yaml */}}
+{{- $postgresService := .}} {{/* Sets the postgresService variable to the current scope for later use  */}}
+{{- range .services }} {{/* Loops through all the services found at .Values.postgresService.services */}}
+{{- $service := . }} {{/* Sets the service variable to the scope in the loop */}}
+{{- $deploymentName := printf "%s%s" $service $postgresService.deploymentPostfix }}
+{{- $serviceName := printf "%s%s" $service $postgresService.servicePostfix }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "account-postgres-service"
-  namespace: ""
+  name: {{ $deploymentName }}
+  namespace: default
+  labels:
+    app: {{ $deploymentName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ $deploymentName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $deploymentName }}
+    spec:
+      containers:
+        - name: postgres
+          image: debezium/postgres:16
+          env:
+            - name: POSTGRES_USER
+              value: {{ $postgresService.user }}
+            - name: POSTGRES_PASSWORD
+              value: {{ $postgresService.password }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $serviceName }}
+  namespace: default
+  labels:
+    app: {{ $deploymentName }}
+spec:
+  selector:
+    app: {{ $deploymentName }}
+  ports:
+    - name: account-postgres-service-port
+      protocol: TCP
+      port: {{ $postgresService.port }}
+  type: LoadBalancer
+---
+{{- end }}
+{{- end }}
