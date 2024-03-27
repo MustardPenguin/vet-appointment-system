@@ -84,14 +84,24 @@ kind load docker-image provectuslabs/kafka-ui:latest
 ```
 
 
-
-
-Finally, the deployment files in kubernetes directory can be run with these commands in this order:
+Afterwards, the deployment files in kubernetes directory can be run with these commands in this order:
 ```bash
 kubectl apply -f config.yml
 kubectl apply -f database-deployment.yml
 kubectl apply -f infrastructure-deployment.yml
 kubectl apply -f microservices-deployment.yml
+```
+
+Finally, port forward the Debezium connectors to the host machine, replacing the <debezium-pod-name> with the pod name from 'kubectl get pods':
+
+```bash
+kubectl port-forward pods/<debezuium-pod-name> 8083:8083
+```
+
+Start the Debezium connector script to create the connectors:
+
+```bash
+./init-connectors
 ```
 
 <h3>Accessing the Kubernetes dashboard</h3>

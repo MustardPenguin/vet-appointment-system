@@ -1,6 +1,6 @@
 apiVersion: v2
 name: vet-appointment-system-chart
-description: A Helm chart for Kubernetes
+description: This is a sandbox chart for learning purposes.
 
 # A chart can be either an 'application' or a 'library' chart.
 #
