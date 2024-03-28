@@ -1,14 +1,16 @@
 ---
 # Global variables
-{{- $postgresDeploymentName := .Values.postgresDeploymentName }}
-{{- $serviceDeploymentName := .Values.serviceDeploymentName }}
-{{- $postgresServiceName := .Values.postgresName }}
-{{- $replicaCount := .Values.replicaCount }}
+{{- $postgresName := .Values.postgresName }}
+{{- $serviceNameValue := .Values.serviceName }}
 {{- $namespace :=  .Values.namespace }}
-{{- $serviceName := .Chart.Name }}
 
 # Account Service
-{{- with .Values.accountService }}
+{{- range untilStep 0 (int .Values.replicaCount) 1}}
+  {{- $index := . }}
+  {{- $postgresServiceName := printf "%s-%d" $postgresName $index }}
+  {{- with $.Values.accountService }}
+    {{- $serviceDeploymentName := printf "%s%s-%d" $serviceNameValue "-deployment" $index }}
+    {{- $serviceName := printf "%s-%d" $serviceNameValue $index }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,7 +19,6 @@ metadata:
   labels:
     app: {{ $serviceDeploymentName }}
 spec:
-  replicas: {{ $replicaCount }}
   selector:
     matchLabels:
       app: {{ $serviceDeploymentName }}
@@ -33,7 +34,7 @@ spec:
             - sh
             - -c
             - >
-              until nslookup {{ printf "%s.%s.svc.cluster.local"  $postgresServiceName $namespace }}; do
+              until nslookup {{ printf "%s.%s.svc.cluster.local" $postgresServiceName $namespace }}; do
                 echo 'Waiting for postgres DB to initiate';
                 sleep 2;
               done
@@ -45,6 +46,8 @@ spec:
             - name: {{ .name }}
               value: {{ .value }}
             {{- end }}
+            - name: DATABASE_HOST
+              value: {{ $postgresServiceName }}
 ---
 apiVersion: v1
 kind: Service
@@ -60,10 +63,11 @@ spec:
     - name: service-port
       protocol: TCP
       port: {{ .port }}
-{{- end }}
+    {{- end }}
 ---
 # Account postgres
-{{- with .Values.postgresService }}
+  {{- with $.Values.postgresService }}
+  {{- $postgresDeploymentName := printf "%s%s-%d" $postgresName "-deployment" $index }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -72,7 +76,6 @@ metadata:
   labels:
     app: {{ $postgresDeploymentName }}
 spec:
-  replicas: {{ $replicaCount }}
   selector:
     matchLabels:
       app: {{ $postgresDeploymentName }}
@@ -104,4 +107,6 @@ spec:
     - name: postgres-port
       protocol: TCP
       port: {{ .port }}
-{{- end }}
+---
+  {{- end }}
+{{- end}}

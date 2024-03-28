@@ -2,9 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-postgresDeploymentName: postgres-service-deployment
-serviceDeploymentName: account-service-deployment
-postgresName: account-postgres-service
+postgresName: account-postgres
 serviceName: account-service
 namespace: default
 replicaCount: 1
@@ -13,8 +11,9 @@ accountService:
   image: com.vet.appointment.system/account-service:1.0-SNAPSHOT
   port: 8181
   env:
-    - name: DATABASE_HOST
-      value: "account-postgres-service"
+    - name: KAFKA_BOOTSTRAP_SERVERS
+      value: "kafka-service:9092"
+
 
 postgresService:
   image: debezium/postgres:16
