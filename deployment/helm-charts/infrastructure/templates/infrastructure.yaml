@@ -1,0 +1,78 @@
+---
+{{- $namespace := .Values.namespace }}
+{{ with .Values.eurekaServer }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eureka-server-deployment
+  namespace: {{ $namespace }}
+  labels:
+    app: eureka-server-deployment
+spec:
+  selector:
+    matchLabels:
+        app: eureka-server-deployment
+  template:
+    metadata:
+        labels:
+            app: eureka-server-deployment
+    spec:
+      containers:
+        - name: eureka-server
+          image: {{ .image }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eureka-server
+  namespace: {{ $namespace }}
+  labels:
+    app: eureka-server-deployment
+spec:
+  selector:
+    app: eureka-server-deployment
+  ports:
+    - protocol: TCP
+      port: {{ .port }}
+{{- end }}
+---
+{{ with .Values.zookeeper }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zookeeper-deployment
+  namespace: {{ $namespace }}
+  labels:
+    app: zookeeper-deployment
+spec:
+  selector:
+    matchLabels:
+        app: zookeeper-deployment
+  template:
+    metadata:
+      labels:
+        app: zookeeper-deployment
+    spec:
+      containers:
+        - name: zookeeper
+          image: {{ .image }}
+          env:
+            {{- range .env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+  namespace: {{ $namespace }}
+  labels:
+    app: zookeeper-deployment
+spec:
+  selector:
+    app: zookeeper-deployment
+  ports:
+    - protocol: TCP
+      port: {{ .port }}
+{{- end }}
