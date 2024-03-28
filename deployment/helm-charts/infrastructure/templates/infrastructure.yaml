@@ -65,7 +65,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: zookeeper
+  name: zookeeper-service
   namespace: {{ $namespace }}
   labels:
     app: zookeeper-deployment
@@ -76,3 +76,86 @@ spec:
     - protocol: TCP
       port: {{ .port }}
 {{- end }}
+---
+{{ with .Values.kafkaBroker }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-broker-deployment
+  namespace: {{ $namespace }}
+  labels:
+    app: kafka-broker-deployment
+spec:
+  selector:
+    matchLabels:
+        app: kafka-broker-deployment
+  template:
+    metadata:
+      labels:
+        app: kafka-broker-deployment
+    spec:
+      containers:
+        - name: kafka-broker
+          image: {{ .image }}
+          env:
+            {{- range .env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-broker-service
+  namespace: {{ $namespace }}
+  labels:
+    app: kafka-broker-deployment
+spec:
+  selector:
+    app: kafka-broker-deployment
+  ports:
+    - protocol: TCP
+      port: {{ .port }}
+{{- end }}
+{{/*---*/}}
+{{/*{{- with .Values.schemaRegistry }}*/}}
+{{/*apiVersion: apps/v1*/}}
+{{/*kind: Deployment*/}}
+{{/*metadata:*/}}
+{{/*  name: schema-registry-deployment*/}}
+{{/*  namespace: {{ $namespace }}*/}}
+{{/*  labels:*/}}
+{{/*    app: schema-registry-deployment*/}}
+{{/*spec:*/}}
+{{/*  selector:*/}}
+{{/*    matchLabels:*/}}
+{{/*      app: schema-registry-deployment*/}}
+{{/*  template:*/}}
+{{/*    metadata:*/}}
+{{/*      labels:*/}}
+{{/*        app: schema-registry-deployment*/}}
+{{/*    spec:*/}}
+{{/*      containers:*/}}
+{{/*        - name: schema-registry*/}}
+{{/*          image: {{ .image }}*/}}
+{{/*          env:*/}}
+{{/*              {{- range .env }}*/}}
+{{/*            - name: {{ .name }}*/}}
+{{/*              value: {{ .value | quote }}*/}}
+{{/*              {{- end }}*/}}
+{{/*---*/}}
+{{/*apiVersion: v1*/}}
+{{/*kind: Service*/}}
+{{/*metadata:*/}}
+{{/*  name: schema-registry-service*/}}
+{{/*  namespace: {{ $namespace }}*/}}
+{{/*  labels:*/}}
+{{/*    app: schema-registry-deployment*/}}
+{{/*spec:*/}}
+{{/*  selector:*/}}
+{{/*    app: schema-registry-deployment*/}}
+{{/*  ports:*/}}
+{{/*    - protocol: TCP*/}}
+{{/*      port: {{ .port }}*/}}
+{{/*{{- end}}*/}}
+{{/*---*/}}

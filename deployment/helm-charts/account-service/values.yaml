@@ -13,6 +13,8 @@ accountService:
   env:
     - name: KAFKA_BOOTSTRAP_SERVERS
       value: "kafka-service:9092"
+    - name: EUREKA_HOST
+      value: "http://eureka-server"
 
 
 postgresService:
