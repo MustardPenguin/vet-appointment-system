@@ -60,9 +60,9 @@ spec:
   selector:
     app: {{ $serviceDeploymentName }}
   ports:
-    - name: service-port
-      protocol: TCP
+    - protocol: TCP
       port: {{ .port }}
+  type: ClusterIP
     {{- end }}
 ---
 # Account postgres
@@ -104,9 +104,9 @@ spec:
   selector:
     app: {{ $postgresDeploymentName }}
   ports:
-    - name: postgres-port
-      protocol: TCP
+    - protocol: TCP
       port: {{ .port }}
+  type: ClusterIP
 ---
   {{- end }}
 {{- end}}

@@ -34,7 +34,49 @@ spec:
   ports:
     - protocol: TCP
       port: {{ .port }}
+  type: LoadBalancer
 {{- end }}
+---
+{{ with .Values.apiGateway }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway-deployment
+  namespace: {{ $namespace }}
+  labels:
+    app: api-gateway-deployment
+spec:
+  selector:
+    matchLabels:
+      app: api-gateway-deployment
+  template:
+    metadata:
+      labels:
+        app: api-gateway-deployment
+    spec:
+      containers:
+        - name: api-gateway
+          image: {{ .image }}
+          env:
+            {{- range .env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+  namespace: {{ $namespace }}
+  labels:
+    app: api-gateway-deployment
+spec:
+  selector:
+    app: api-gateway-deployment
+  ports:
+    - protocol: TCP
+      port: {{ .port }}
+{{ end }}
 ---
 {{ with .Values.zookeeper }}
 apiVersion: apps/v1
@@ -75,6 +117,7 @@ spec:
   ports:
     - protocol: TCP
       port: {{ .port }}
+  type: ClusterIP
 {{- end }}
 ---
 {{ with .Values.kafkaBroker }}
@@ -116,46 +159,132 @@ spec:
   ports:
     - protocol: TCP
       port: {{ .port }}
+      targetPort: {{ .port }}
+  type: ClusterIP
 {{- end }}
-{{/*---*/}}
-{{/*{{- with .Values.schemaRegistry }}*/}}
-{{/*apiVersion: apps/v1*/}}
-{{/*kind: Deployment*/}}
-{{/*metadata:*/}}
-{{/*  name: schema-registry-deployment*/}}
-{{/*  namespace: {{ $namespace }}*/}}
-{{/*  labels:*/}}
-{{/*    app: schema-registry-deployment*/}}
-{{/*spec:*/}}
-{{/*  selector:*/}}
-{{/*    matchLabels:*/}}
-{{/*      app: schema-registry-deployment*/}}
-{{/*  template:*/}}
-{{/*    metadata:*/}}
-{{/*      labels:*/}}
-{{/*        app: schema-registry-deployment*/}}
-{{/*    spec:*/}}
-{{/*      containers:*/}}
-{{/*        - name: schema-registry*/}}
-{{/*          image: {{ .image }}*/}}
-{{/*          env:*/}}
-{{/*              {{- range .env }}*/}}
-{{/*            - name: {{ .name }}*/}}
-{{/*              value: {{ .value | quote }}*/}}
-{{/*              {{- end }}*/}}
-{{/*---*/}}
-{{/*apiVersion: v1*/}}
-{{/*kind: Service*/}}
-{{/*metadata:*/}}
-{{/*  name: schema-registry-service*/}}
-{{/*  namespace: {{ $namespace }}*/}}
-{{/*  labels:*/}}
-{{/*    app: schema-registry-deployment*/}}
-{{/*spec:*/}}
-{{/*  selector:*/}}
-{{/*    app: schema-registry-deployment*/}}
-{{/*  ports:*/}}
-{{/*    - protocol: TCP*/}}
-{{/*      port: {{ .port }}*/}}
-{{/*{{- end}}*/}}
-{{/*---*/}}
+---
+{{- with .Values.schemaRegistry }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: schema-registry-deployment
+  namespace: {{ $namespace }}
+  labels:
+    app: schema-registry-deployment
+spec:
+  selector:
+    matchLabels:
+      app: schema-registry-deployment
+  template:
+    metadata:
+      labels:
+        app: schema-registry-deployment
+    spec:
+      containers:
+        - name: schema-registry
+          image: {{ .image }}
+          env:
+              {{- range .env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+              {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: schema-registry-service
+  namespace: {{ $namespace }}
+  labels:
+    app: schema-registry-deployment
+spec:
+  selector:
+    app: schema-registry-deployment
+  ports:
+    - protocol: TCP
+      port: {{ .port }}
+  type: ClusterIP
+{{- end}}
+---
+{{- with .Values.kafkaUi }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-ui-deployment
+  namespace: {{ $namespace }}
+  labels:
+    app: kafka-ui-deployment
+spec:
+  selector:
+    matchLabels:
+      app: kafka-ui-deployment
+  template:
+    metadata:
+      labels:
+        app: kafka-ui-deployment
+    spec:
+      containers:
+        - name: kafka-ui
+          image: {{ .image }}
+          env:
+            {{- range .env }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+            {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-ui-service
+  namespace: {{ $namespace }}
+  labels:
+    app: kafka-ui-deployment
+spec:
+  selector:
+    app: kafka-ui-deployment
+  ports:
+    - protocol: TCP
+      port: {{ .port }}
+  type: LoadBalancer
+{{- end }}
+---
+{{ with .Values.debeziumConnect }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: debezium-connect-deployment
+  namespace: {{ $namespace }}
+  labels:
+    app: debezium-connect-deployment
+spec:
+  selector:
+    matchLabels:
+      app: debezium-connect-deployment
+  template:
+    metadata:
+      labels:
+        app: debezium-connect-deployment
+    spec:
+      containers:
+        - name: debezium-connect
+          image: {{ .image }}
+          env:
+            {{- range .env }}
+              - name: {{ .name }}
+                value: {{ .value | quote }}
+              {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: debezium-connect
+  namespace: {{ $namespace }}
+  labels:
+      app: debezium-connect-deployment
+spec:
+  selector:
+    app: debezium-connect-deployment
+  ports:
+    - protocol: TCP
+      port: {{ .port }}
+  type: LoadBalancer
+{{- end }}

@@ -22,7 +22,7 @@ https://debezium.io/documentation/reference/stable/configuration/avro.html#confl
 
 Build the debezium-connect-avro.dockerfile at the deployment file(vet-appointment-system/deployment)
 ```bash
-docker build -t com.vet.appointment.system/debezium-connect:1.0-SNAPSHOT -f debezium-connect-avro.dockerfile .
+docker build -t com.vet.appointment.system/debezium-connect:1.0-SNAPSHOT -f debezium-connect-avro.dockerfile ../
 ```
 
 Once that is done, these images should exist on your docker image list with this command, they will all need to be loaded into the Kind cluster.
