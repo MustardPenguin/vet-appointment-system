@@ -20,8 +20,8 @@ spring:
     open-in-view: false
   datasource:
     url: jdbc:postgresql://${DATABASE_HOST:localhost}:5432/postgres?stringtype=unspecified&currentSchema=appointment
-    username: user
-    password: admin
+    username: ${POSTGRES_USER:user}
+    password: ${POSTGRES_PASSWORD:admin}
     driver-class-name: org.postgresql.Driver
   sql:
     init:
