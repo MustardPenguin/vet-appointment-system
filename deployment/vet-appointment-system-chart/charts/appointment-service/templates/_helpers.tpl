@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "vet-appointment-system-chart.name" -}}
+{{- define "appointment-service.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "vet-appointment-system-chart.fullname" -}}
+{{- define "appointment-service.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "vet-appointment-system-chart.chart" -}}
+{{- define "appointment-service.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "vet-appointment-system-chart.labels" -}}
-helm.sh/chart: {{ include "vet-appointment-system-chart.chart" . }}
-{{ include "vet-appointment-system-chart.selectorLabels" . }}
+{{- define "appointment-service.labels" -}}
+helm.sh/chart: {{ include "appointment-service.chart" . }}
+{{ include "appointment-service.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "vet-appointment-system-chart.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "vet-appointment-system-chart.name" . }}
+{{- define "appointment-service.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "appointment-service.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "vet-appointment-system-chart.serviceAccountName" -}}
+{{- define "appointment-service.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "vet-appointment-system-chart.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "appointment-service.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

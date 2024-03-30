@@ -1,10 +1,32 @@
-# Default values for vet-appointment-system-chart.
+# Default values for account-service.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+postgresName: account-postgres
+serviceName: account-service
 namespace: default
+replicaCount: 1
 
+accountService:
+  image: com.vet.appointment.system/account-service:1.0-SNAPSHOT
+  port: 8181
+  env:
+    - name: KAFKA_BOOTSTRAP_HOST
+      value: "kafka-broker-service"
+    - name: EUREKA_HOST
+      value: "http://eureka-server"
+    - name: JWT_SECRET
+      value: "eba2564000c1fa6172fb005030cd5c173dd15e8c6e5fb8d2b67093d6dc2712ce"
+
+
+postgresService:
+  image: debezium/postgres:16
+  port: 5432
+  env:
+    - name: POSTGRES_USER
+      value: "user"
+    - name: POSTGRES_PASSWORD
+      value: "admin"
 
 image:
   repository: nginx
@@ -44,24 +66,6 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 80
-
-postgresService:
-  deploymentPostfix: -postgres-deployment
-  servicePostfix: -postgres-service
-  image: debezium/postgres:16
-  type: LoadBalancer
-  password: admin
-  user: user
-  port: 5432
-  # Will loop through and create a postgres container for each of these services
-  services:
-    - availability
-    - appointment
-    - payment
-    - account
-    - pet
-
-
 
 ingress:
   enabled: false

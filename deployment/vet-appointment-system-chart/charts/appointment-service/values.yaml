@@ -1,20 +1,23 @@
-# Default values for account-service.
+# Default values for appointment-service.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-postgresName: account-postgres
-serviceName: account-service
+postgresName: appointment-postgres
+serviceName: appointment-service
 namespace: default
 replicaCount: 1
 
-accountService:
-  image: com.vet.appointment.system/account-service:1.0-SNAPSHOT
+appointmentService:
+  image: com.vet.appointment.system/appointment-service:1.0-SNAPSHOT
   port: 8181
+  kafkaPort: 9092
   env:
-    - name: KAFKA_BOOTSTRAP_SERVERS
-      value: "kafka-service:9092"
+    - name: KAFKA_BOOTSTRAP_HOST
+      value: "kafka-broker-service"
     - name: EUREKA_HOST
       value: "http://eureka-server"
+    - name: SCHEMA_REGISTRY_HOST
+      value: "http://schema-registry-service"
 
 
 postgresService:
@@ -92,15 +95,6 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
-
-livenessProbe:
-  httpGet:
-    path: /
-    port: http
-readinessProbe:
-  httpGet:
-    path: /
-    port: http
 
 autoscaling:
   enabled: false
