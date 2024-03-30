@@ -1,0 +1,114 @@
+---
+# Global variables
+{{- $postgresName := .Values.postgresName }}
+{{- $serviceNameValue := .Values.serviceName }}
+{{- $namespace :=  .Values.namespace }}
+
+# Appointment Service
+{{- range untilStep 0 (int .Values.replicaCount) 1}}
+  {{- $index := . }}
+  {{- $postgresServiceName := printf "%s-%d" $postgresName $index }}
+  {{- with $.Values.appointmentService }}
+    {{- $serviceDeploymentName := printf "%s%s-%d" $serviceNameValue "-deployment" $index }}
+    {{- $serviceName := printf "%s-%d" $serviceNameValue $index }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $serviceDeploymentName }}
+  namespace: {{ $namespace }}
+  labels:
+    app: {{ $serviceDeploymentName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ $serviceDeploymentName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $serviceDeploymentName }}
+    spec:
+      initContainers:
+        - name: init-database
+          image: busybox:1.36.1
+          command:
+            - sh
+            - -c
+            - >
+              until nslookup {{ printf "%s.%s.svc.cluster.local" $postgresServiceName $namespace }}; do
+                echo 'Waiting for postgres DB to initiate';
+                sleep 2;
+              done
+      containers:
+        - name: {{ $serviceName }}
+          image: {{ .image }}
+          env:
+            {{- range .env }}
+            - name: {{ .name }}
+              value: {{ .value }}
+            {{- end }}
+            - name: DATABASE_HOST
+              value: {{ $postgresServiceName }}
+            - name: KAFKA_BOOTSTRAP_PORT
+              value: {{ .kafkaPort }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $serviceName }}
+  namespace: {{ $namespace }}
+  labels:
+    app: {{ $serviceDeploymentName }}
+spec:
+  selector:
+    app: {{ $serviceDeploymentName }}
+  ports:
+    - protocol: TCP
+      port: {{ .port }}
+  type: ClusterIP
+    {{- end }}
+---
+# Appointment postgres
+  {{- with $.Values.postgresService }}
+  {{- $postgresDeploymentName := printf "%s%s-%d" $postgresName "-deployment" $index }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $postgresDeploymentName }}
+  namespace: {{ $namespace }}
+  labels:
+    app: {{ $postgresDeploymentName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ $postgresDeploymentName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $postgresDeploymentName }}
+    spec:
+      containers:
+        - name: {{ $postgresServiceName }}
+          image: {{ .image }}
+          env:
+            {{- range .env }}
+            - name: {{ .name }}
+              value: {{ .value }}
+            {{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $postgresServiceName }}
+  namespace: {{ $namespace }}
+  labels:
+    app: {{ $postgresDeploymentName }}
+spec:
+  selector:
+    app: {{ $postgresDeploymentName }}
+  ports:
+    - protocol: TCP
+      port: {{ .port }}
+  type: ClusterIP
+---
+  {{- end }}
+{{- end}}
