@@ -1,0 +1,53 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      run: mvn clean install
+    - name: Login to ACR
+      run: echo ${{ secrets.AZCR_PASS }} | docker login -u ${{ secrets.AZCR_USER }} --password-stdin ${{ secrets.AZCR_URL }}
+    - name: Tag and push to Azure
+      run: >
+        docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/appointment-service"; 
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/appointment-service";
+        docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/payment-service"; 
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/payment-service";
+        docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/account-service"; 
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/account-service";
+        docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/pet-service"; 
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/pet-service";
+        docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/availability-service"; 
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/availability-service";
+        docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/api-gateway"; 
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/api-gateway";
+        docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/eureka-server"; 
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/eureka-server";
+    #   agony
+    - name: Logout
+      if: always()
+      run: docker logout
