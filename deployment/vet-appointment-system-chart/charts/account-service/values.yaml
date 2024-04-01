@@ -7,26 +7,8 @@ serviceName: account-service
 namespace: default
 replicaCount: 1
 
-accountService:
-  image: com.vet.appointment.system/account-service:1.0-SNAPSHOT
-  port: 8181
-  env:
-    - name: KAFKA_BOOTSTRAP_HOST
-      value: "kafka-broker-service"
-    - name: EUREKA_HOST
-      value: "http://eureka-server"
-    - name: JWT_SECRET
-      value: "eba2564000c1fa6172fb005030cd5c173dd15e8c6e5fb8d2b67093d6dc2712ce"
-
-
-postgresService:
-  image: debezium/postgres:16
-  port: 5432
-  env:
-    - name: POSTGRES_USER
-      value: "user"
-    - name: POSTGRES_PASSWORD
-      value: "admin"
+serviceImage: com.vet.appointment.system/account-service:1.0-SNAPSHOT
+servicePort: 8181
 
 image:
   repository: nginx

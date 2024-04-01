@@ -7,27 +7,8 @@ serviceName: appointment-service
 namespace: default
 replicaCount: 1
 
-appointmentService:
-  image: com.vet.appointment.system/appointment-service:1.0-SNAPSHOT
-  port: 8181
-  kafkaPort: 9092
-  env:
-    - name: KAFKA_BOOTSTRAP_HOST
-      value: "kafka-broker-service"
-    - name: EUREKA_HOST
-      value: "http://eureka-server"
-    - name: SCHEMA_REGISTRY_HOST
-      value: "http://schema-registry-service"
-
-
-postgresService:
-  image: debezium/postgres:16
-  port: 5432
-  env:
-    - name: POSTGRES_USER
-      value: "user"
-    - name: POSTGRES_PASSWORD
-      value: "admin"
+serviceImage: com.vet.appointment.system/appointment-service:1.0-SNAPSHOT
+servicePort: 8181
 
 image:
   repository: nginx
