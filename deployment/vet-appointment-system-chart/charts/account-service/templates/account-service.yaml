@@ -8,7 +8,7 @@
 {{- range untilStep 0 (int .Values.replicaCount) 1}}
   {{- $index := . }}
   {{- $postgresServiceName := printf "%s-%d" $postgresName $index }}
-  {{- with $.Values.accountService }}
+  {{- with $.Values }}
     {{- $serviceDeploymentName := printf "%s%s-%d" $serviceNameValue "-deployment" $index }}
     {{- $serviceName := printf "%s-%d" $serviceNameValue $index }}
 apiVersion: apps/v1
@@ -40,14 +40,20 @@ spec:
               done
       containers:
         - name: {{ $serviceName }}
-          image: {{ .image }}
+          image: {{ .serviceImage }}
           env:
-            {{- range .env }}
-            - name: {{ .name }}
-              value: {{ .value }}
-            {{- end }}
             - name: DATABASE_HOST
               value: {{ $postgresServiceName }}
+            - name: KAFKA_BOOTSTRAP_HOST
+              value: {{ .global.microservice.KAFKA_BOOTSTRAP_HOST }}
+            - name: KAFKA_BOOTSTRAP_PORT
+              value: {{ .global.microservice.KAFKA_BOOTSTRAP_PORT | quote }}
+            - name: EUREKA_HOST
+              value: {{ .global.microservice.EUREKA_HOST }}
+            - name: JWT_SECRET
+              value: {{ .global.microservice.JWT_SECRET }}
+            - name: SCHEMA_REGISTRY_HOST
+              value: {{ .global.microservice.SCHEMA_REGISTRY_HOST }}
 ---
 apiVersion: v1
 kind: Service
@@ -61,12 +67,10 @@ spec:
     app: {{ $serviceDeploymentName }}
   ports:
     - protocol: TCP
-      port: {{ .port }}
+      port: {{ .servicePort }}
   type: ClusterIP
-    {{- end }}
 ---
 # Account postgres
-  {{- with $.Values.postgresService }}
   {{- $postgresDeploymentName := printf "%s%s-%d" $postgresName "-deployment" $index }}
 apiVersion: apps/v1
 kind: Deployment
@@ -86,12 +90,12 @@ spec:
     spec:
       containers:
         - name: {{ $postgresServiceName }}
-          image: {{ .image }}
+          image: {{ $.Values.global.postgres.image }}
           env:
-            {{- range .env }}
-            - name: {{ .name }}
-              value: {{ .value }}
-            {{- end }}
+            - name: POSTGRES_USER
+              value: {{ .global.postgres.POSTGRES_USER }}
+            - name: POSTGRES_PASSWORD
+              value: {{ .global.postgres.POSTGRES_PASSWORD }}
 ---
 apiVersion: v1
 kind: Service
@@ -105,8 +109,8 @@ spec:
     app: {{ $postgresDeploymentName }}
   ports:
     - protocol: TCP
-      port: {{ .port }}
+      port: {{ .global.postgres.port }}
   type: ClusterIP
 ---
   {{- end }}
-{{- end}}
+{{- end }}
