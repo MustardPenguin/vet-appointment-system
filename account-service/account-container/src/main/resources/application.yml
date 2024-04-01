@@ -1,11 +1,15 @@
 
 # Application config
-
 server:
   port: 8181
 
 jwt:
   secret: ${JWT_SECRET:eba2564000c1fa6172fb005030cd5c173dd15e8c6e5fb8d2b67093d6dc2712ce}
+
+# For Debezium connect
+applicationDeploymentName: ${APPLICATION_DEPLOYMENT_NAME:account-deployment}
+databaseHost: ${DATABASE_HOST:172.18.0.3}
+debeziumHost: ${DEBEZIUM_HOST:http://localhost}:8083/connectors
 
 # Logging
 logging:
@@ -25,6 +29,7 @@ eureka:
 # Database
 spring:
   application:
+    # For eureka registration
     name: "account-service"
   jpa:
     show-sql: true
