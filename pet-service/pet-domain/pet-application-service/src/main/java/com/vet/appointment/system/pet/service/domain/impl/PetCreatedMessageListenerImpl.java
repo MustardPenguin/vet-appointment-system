@@ -7,6 +7,8 @@ import com.vet.appointment.system.pet.service.domain.ports.output.repository.Pet
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Slf4j
 @Component
 public class PetCreatedMessageListenerImpl implements PetCreatedMessageListener {
@@ -21,7 +23,8 @@ public class PetCreatedMessageListenerImpl implements PetCreatedMessageListener 
     public void petCreated(Pet pet) {
         log.info("Successfully received propagation event for pet id: {} and owner id: {}", pet.getId().getValue(), pet.getOwnerId());
 
-        if(petRepository.getPetById(pet.getId().getValue()) != null) {
+        Pet existingPet = petRepository.getPetById(UUID.randomUUID());
+        if(existingPet != null) {
             log.info("Pet with id: {} already exists in the database, either this instance is the source of message or it received a duplicate message!", pet.getId().getValue());
             return;
         }

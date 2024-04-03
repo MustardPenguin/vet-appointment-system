@@ -29,6 +29,10 @@ public class PetRepositoryImpl implements PetRepository {
 
     @Override
     public Pet getPetById(UUID id) {
-        return petDataAccessMapper.petEntityToPet(petJpaRepository.findPetEntityById(id).get());
+        PetEntity pet = petJpaRepository.findById(id).orElse(null);
+        if(pet == null) {
+            return null;
+        }
+        return petDataAccessMapper.petEntityToPet(pet);
     }
 }
