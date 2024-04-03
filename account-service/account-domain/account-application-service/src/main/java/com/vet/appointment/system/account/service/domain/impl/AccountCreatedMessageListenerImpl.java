@@ -2,7 +2,7 @@ package com.vet.appointment.system.account.service.domain.impl;
 
 import com.vet.appointment.service.account.service.domain.entity.Account;
 import com.vet.appointment.service.account.service.domain.exception.AccountDomainException;
-import com.vet.appointment.system.account.service.domain.ports.input.AccountCreatedMessageListener;
+import com.vet.appointment.system.account.service.domain.ports.input.message.listener.AccountCreatedMessageListener;
 import com.vet.appointment.system.account.service.domain.ports.output.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -28,6 +28,6 @@ public class AccountCreatedMessageListenerImpl implements AccountCreatedMessageL
             log.error("Failed to register account of email {} and id {}!", account.getEmail(), account.getId());
             throw new AccountDomainException("Failed to register account of email " + account.getEmail() + " and id " + account.getId() + "!");
         }
-        log.info("Successfully saved account of email {} and id {} from propagation event!", account.getEmail(), account.getId());
+        log.info("Successfully saved account of email {} and id {} from propagation event!", account.getEmail(), account.getId().getValue());
     }
 }

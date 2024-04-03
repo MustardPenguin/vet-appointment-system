@@ -1,7 +1,8 @@
 package com.vet.appointment.system.account.service.messaging.listener.kafka;
 
 import account_created.account.appointment_outbox.Envelope;
-import com.vet.appointment.system.account.service.domain.ports.input.AccountCreatedMessageListener;
+import account_created.account.appointment_outbox.Value;
+import com.vet.appointment.system.account.service.domain.ports.input.message.listener.AccountCreatedMessageListener;
 import com.vet.appointment.system.account.service.messaging.mapper.AccountMessagingDataMapper;
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import com.vet.appointment.system.kafka.producer.KafkaMessageHelper;
@@ -41,10 +42,11 @@ public class AccountCreatedEventKafkaListener implements KafkaConsumer<Envelope>
                         @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
         log.info("Received account created event!");
 
-        messages.forEach(avroModel -> {
-            if(avroModel.getBefore() == null && avroModel.getOp().equals(DebeziumOp.CREATE.getValue())) {
+        messages.forEach(message -> {
+            if(message.getBefore() == null && message.getOp().equals(DebeziumOp.CREATE.getValue())) {
+                Value avroModel = message.getAfter();
                 AccountCreatedEventPayload accountCreatedEventPayload =
-                        kafkaMessageHelper.getEventPayload(avroModel.getAfter().getPayload(), AccountCreatedEventPayload.class);
+                        kafkaMessageHelper.getEventPayload(avroModel.getPayload(), AccountCreatedEventPayload.class);
                 accountCreatedMessageListener
                         .accountCreated(accountMessagingDataMapper.accountCreatedEventPayloadToAccount(accountCreatedEventPayload));
             }

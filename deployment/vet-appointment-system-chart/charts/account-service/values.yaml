@@ -9,6 +9,7 @@ replicaCount: 3
 
 serviceImage: com.vet.appointment.system/account-service:1.0-SNAPSHOT
 servicePort: 8181
+loggingLevel: "INFO"
 
 image:
   repository: nginx

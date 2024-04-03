@@ -59,7 +59,7 @@ spec:
             - name: APPLICATION_DEPLOYMENT_NAME
               value: {{ $serviceDeploymentName }}
             - name: LOGGING_LEVEL
-              value: "INFO"
+              value: {{ .loggingLevel }}
 ---
 apiVersion: v1
 kind: Service

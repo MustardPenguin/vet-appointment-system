@@ -22,6 +22,10 @@
         </dependency>
         <dependency>
             <groupId>com.vet.appointment.system</groupId>
+            <artifactId>kafka-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
             <artifactId>kafka-model</artifactId>
         </dependency>
         <dependency>

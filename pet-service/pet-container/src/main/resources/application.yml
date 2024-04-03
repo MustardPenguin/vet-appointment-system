@@ -11,6 +11,17 @@ eureka:
   instance:
     prefer-ip-address: true
 
+# Logging
+logging:
+  level:
+    com.vet.appointment.system: DEBUG
+    org:
+      springframework: ${LOGGING_LEVEL:INFO}
+
+# For Debezium connect
+applicationDeploymentName: ${APPLICATION_DEPLOYMENT_NAME:pet-deployment}
+databaseHost: ${DATABASE_HOST:localhost}
+debeziumHost: ${DEBEZIUM_HOST:http://localhost}:8083/connectors
 
 # Database
 spring:
@@ -45,3 +56,6 @@ kafka-consumer-data:
   value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
   specific-avro-reader-key: specific.avro.reader
   specific-avro-reader: true
+
+kafka-consumer-topic-name:
+  pet-created-event: pet_created.pet.appointment_outbox
