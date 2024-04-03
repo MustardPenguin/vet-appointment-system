@@ -1,14 +1,15 @@
-# Default values for appointment-service.
+# Default values for pet-service.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-postgresName: appointment-postgres
-serviceName: appointment-service
+postgresName: pet-postgres
+serviceName: pet-service
 namespace: default
 replicaCount: 1
 
-serviceImage: com.vet.appointment.system/appointment-service:1.0-SNAPSHOT
-servicePort: 8183
+serviceImage: com.vet.appointment.system/pet-service:1.0-SNAPSHOT
+servicePort: 8182
+loggingLevel: "INFO"
 
 image:
   repository: nginx
@@ -76,6 +77,15 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
 
 autoscaling:
   enabled: false
