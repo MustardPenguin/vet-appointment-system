@@ -45,7 +45,9 @@ public class DebeziumConnectService {
         log.info("Request body: {}", requestBody);
         // Send request to Debezium connect
         String response = webClientService.postSynchronously(DEBEZIUM_HOST, requestBody, false);
-        log.info("Response from Debezium connect: {}", response);
+        if(response.isEmpty()) {
+            log.info("Ignore error message if running locally for development! Use the init-connector script for Debezium connect.");
+        }
     }
 
     private String writeValueAsString(Object object) {

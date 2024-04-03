@@ -8,7 +8,7 @@ jwt:
 
 # For Debezium connect
 applicationDeploymentName: ${APPLICATION_DEPLOYMENT_NAME:account-deployment}
-databaseHost: ${DATABASE_HOST:172.18.0.3}
+databaseHost: ${DATABASE_HOST:localhost}
 debeziumHost: ${DEBEZIUM_HOST:http://localhost}:8083/connectors
 
 # Logging
@@ -16,7 +16,7 @@ logging:
   level:
     com.vet.appointment.system: DEBUG
     org:
-      springframework: INFO
+      springframework: ${LOGGING_LEVEL:INFO}
 
 # Service registry
 eureka:
@@ -61,3 +61,6 @@ kafka-consumer-data:
   value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
   specific-avro-reader-key: specific.avro.reader
   specific-avro-reader: true
+
+kafka-consumer-topic-name:
+  account-created-event: account_created.account.appointment_outbox

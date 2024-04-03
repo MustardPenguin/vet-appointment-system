@@ -28,6 +28,7 @@ public class AccountDataMapper {
                 .email(accountCreatedEvent.getEntity().getEmail())
                 .firstName(accountCreatedEvent.getEntity().getFirstName())
                 .lastName(accountCreatedEvent.getEntity().getLastName())
+                .password(accountCreatedEvent.getEntity().getPassword())
                 .build();
     }
 }

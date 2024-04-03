@@ -52,6 +52,10 @@ spec:
               value: {{ .global.microservice.EUREKA_HOST }}
             - name: SCHEMA_REGISTRY_HOST
               value: {{ .global.microservice.SCHEMA_REGISTRY_HOST }}
+            - name: DEBEZIUM_HOST
+              value: {{ .global.microservice.DEBEZIUM_HOST }}
+            - name: APPLICATION_DEPLOYMENT_NAME
+              value: {{ $serviceDeploymentName }}
 ---
 apiVersion: v1
 kind: Service

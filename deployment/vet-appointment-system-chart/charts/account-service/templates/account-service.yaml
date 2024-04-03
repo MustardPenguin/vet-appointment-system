@@ -54,6 +54,12 @@ spec:
               value: {{ .global.microservice.JWT_SECRET }}
             - name: SCHEMA_REGISTRY_HOST
               value: {{ .global.microservice.SCHEMA_REGISTRY_HOST }}
+            - name: DEBEZIUM_HOST
+              value: {{ .global.microservice.DEBEZIUM_HOST }}
+            - name: APPLICATION_DEPLOYMENT_NAME
+              value: {{ $serviceDeploymentName }}
+            - name: LOGGING_LEVEL
+              value: "INFO"
 ---
 apiVersion: v1
 kind: Service

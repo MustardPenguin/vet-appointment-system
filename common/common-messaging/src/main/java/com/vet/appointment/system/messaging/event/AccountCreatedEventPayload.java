@@ -16,6 +16,8 @@ public class AccountCreatedEventPayload {
     @JsonProperty
     private String lastName;
     @JsonProperty
+    private String password;
+    @JsonProperty
     private ZonedDateTime createdAt;
 
     public AccountCreatedEventPayload() {}
@@ -23,6 +25,7 @@ public class AccountCreatedEventPayload {
     private AccountCreatedEventPayload(Builder builder) {
         id = builder.id;
         email = builder.email;
+        password = builder.password;
         firstName = builder.firstName;
         lastName = builder.lastName;
         createdAt = builder.createdAt;
@@ -49,6 +52,10 @@ public class AccountCreatedEventPayload {
         return lastName;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public ZonedDateTime getCreatedAt() {
         return createdAt;
     }
@@ -56,6 +63,7 @@ public class AccountCreatedEventPayload {
     public static final class Builder {
         private UUID id;
         private String email;
+        private String password;
         private String firstName;
         private String lastName;
         private ZonedDateTime createdAt;
@@ -70,6 +78,11 @@ public class AccountCreatedEventPayload {
 
         public Builder email(String val) {
             email = val;
+            return this;
+        }
+
+        public Builder password(String val) {
+            password = val;
             return this;
         }
 

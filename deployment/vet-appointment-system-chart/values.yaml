@@ -9,6 +9,7 @@ global:
     SCHEMA_REGISTRY_HOST: "http://schema-registry-service"
     EUREKA_HOST: "http://eureka-server"
     JWT_SECRET: "eba2564000c1fa6172fb005030cd5c173dd15e8c6e5fb8d2b67093d6dc2712ce"
+    DEBEZIUM_HOST: "http://debezium-connect"
 
   postgres:
     image: debezium/postgres:16

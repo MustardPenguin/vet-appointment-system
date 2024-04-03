@@ -5,7 +5,7 @@ server:
 
 # For Debezium connect
 applicationDeploymentName: ${APPLICATION_DEPLOYMENT_NAME:account-deployment}
-databaseHost: ${DATABASE_HOST:172.18.0.3}
+databaseHost: ${DATABASE_HOST:localhost}
 debeziumHost: ${DEBEZIUM_HOST:http://localhost}:8083/connectors
 
 # Service registry

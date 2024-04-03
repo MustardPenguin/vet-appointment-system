@@ -1,9 +1,8 @@
-package com.vet.appointment.system.appointment.service.messaging.listener.kafka;
+package com.vet.appointment.system.account.service.messaging.listener.kafka;
 
 import account_created.account.appointment_outbox.Envelope;
-import account_created.account.appointment_outbox.Value;
-import com.vet.appointment.system.appointment.service.domain.dto.message.AccountModel;
-import com.vet.appointment.system.appointment.service.domain.ports.input.message.listener.AccountCreatedMessageListener;
+import com.vet.appointment.system.account.service.domain.ports.input.AccountCreatedMessageListener;
+import com.vet.appointment.system.account.service.messaging.mapper.AccountMessagingDataMapper;
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import com.vet.appointment.system.kafka.producer.KafkaMessageHelper;
 import com.vet.appointment.system.messaging.DebeziumOp;
@@ -22,11 +21,14 @@ import java.util.List;
 public class AccountCreatedEventKafkaListener implements KafkaConsumer<Envelope> {
 
     private final AccountCreatedMessageListener accountCreatedMessageListener;
+    private final AccountMessagingDataMapper accountMessagingDataMapper;
     private final KafkaMessageHelper kafkaMessageHelper;
 
     public AccountCreatedEventKafkaListener(AccountCreatedMessageListener accountCreatedMessageListener,
+                                            AccountMessagingDataMapper accountMessagingDataMapper,
                                             KafkaMessageHelper kafkaMessageHelper) {
         this.accountCreatedMessageListener = accountCreatedMessageListener;
+        this.accountMessagingDataMapper = accountMessagingDataMapper;
         this.kafkaMessageHelper = kafkaMessageHelper;
     }
 
@@ -37,23 +39,14 @@ public class AccountCreatedEventKafkaListener implements KafkaConsumer<Envelope>
                         @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,
                         @Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,
                         @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
-        log.info("Received kafka event message!");
-        log.info("Messages: {}", messages);
-        log.info("Key: {}", keys);
-        log.info("Partitions: {}", partitions);
-        log.info("Offsets: {}", offsets);
+        log.info("Received account created event!");
 
         messages.forEach(avroModel -> {
             if(avroModel.getBefore() == null && avroModel.getOp().equals(DebeziumOp.CREATE.getValue())) {
-                Value accountEventAvroModel = avroModel.getAfter();
                 AccountCreatedEventPayload accountCreatedEventPayload =
-                        kafkaMessageHelper.getEventPayload(accountEventAvroModel.getPayload(), AccountCreatedEventPayload.class);
-                accountCreatedMessageListener.accountCreated(
-                        new AccountModel(
-                                accountCreatedEventPayload.getId(),
-                                accountCreatedEventPayload.getEmail(),
-                                accountCreatedEventPayload.getFirstName(),
-                                accountCreatedEventPayload.getLastName()));
+                        kafkaMessageHelper.getEventPayload(avroModel.getAfter().getPayload(), AccountCreatedEventPayload.class);
+                accountCreatedMessageListener
+                        .accountCreated(accountMessagingDataMapper.accountCreatedEventPayloadToAccount(accountCreatedEventPayload));
             }
         });
     }
