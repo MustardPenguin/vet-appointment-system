@@ -2,24 +2,22 @@ package com.vet.appointment.system.account.service.application.rest;
 
 import com.vet.appointment.system.application.debezium.DebeziumConnectConfig;
 import com.vet.appointment.system.application.debezium.DebeziumConnectService;
-import com.vet.appointment.system.application.webclient.WebClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @Component
-public class AppStartupRunner implements ApplicationRunner {
+public class DebeziumConnectStartup implements ApplicationRunner {
 
     @Value("${applicationDeploymentName}")
     private String APPLICATION_DEPLOYMENT_NAME;
 
     private final DebeziumConnectService debeziumConnectService;
 
-    public AppStartupRunner(DebeziumConnectService debeziumConnectService) {
+    public DebeziumConnectStartup(DebeziumConnectService debeziumConnectService) {
         this.debeziumConnectService = debeziumConnectService;
     }
 

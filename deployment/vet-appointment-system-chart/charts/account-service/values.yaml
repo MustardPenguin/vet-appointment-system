@@ -5,7 +5,7 @@
 postgresName: account-postgres
 serviceName: account-service
 namespace: default
-replicaCount: 3
+replicaCount: 1
 
 serviceImage: com.vet.appointment.system/account-service:1.0-SNAPSHOT
 servicePort: 8181

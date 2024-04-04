@@ -46,7 +46,7 @@ public class DebeziumConnectService {
         // Send request to Debezium connect
         String response = webClientService.postSynchronously(DEBEZIUM_HOST, requestBody, false);
         if(response.isEmpty()) {
-            log.info("Ignore error message if running locally for development! Use the init-connector script for Debezium connect.");
+            log.info("Ignore the above error message if running locally for development! Use the init-connector script for Debezium connect instead.");
         }
     }
 
