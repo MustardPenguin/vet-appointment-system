@@ -4,9 +4,16 @@ server:
   port: 8183
 
 # For Debezium connect
-applicationDeploymentName: ${APPLICATION_DEPLOYMENT_NAME:account-deployment}
+applicationDeploymentName: ${APPLICATION_DEPLOYMENT_NAME:appointment-deployment}
 databaseHost: ${DATABASE_HOST:localhost}
 debeziumHost: ${DEBEZIUM_HOST:http://localhost}:8083/connectors
+
+# Logging
+logging:
+  level:
+    com.vet.appointment.system: DEBUG
+    org:
+      springframework: ${LOGGING_LEVEL:INFO}
 
 # Service registry
 eureka:
@@ -52,6 +59,7 @@ kafka-consumer-data:
   specific-avro-reader: true
 
 kafka-consumer-topic-name:
+  appointment-created-event: appointment_created.appointment.appointment_outbox
   account-created-event: account_created.account.appointment_outbox
   pet-created-event: pet_created.pet.appointment_outbox
   availability-response-event: availability_response.availability.appointment_outbox

@@ -5,10 +5,11 @@
 postgresName: appointment-postgres
 serviceName: appointment-service
 namespace: default
-replicaCount: 1
+replicaCount: 2
 
 serviceImage: com.vet.appointment.system/appointment-service:1.0-SNAPSHOT
 servicePort: 8183
+loggingLevel: "INFO"
 
 image:
   repository: nginx

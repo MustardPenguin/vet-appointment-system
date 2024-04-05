@@ -1,4 +1,4 @@
-package com.vet.appointment.system.appointment.service.domain.impl;
+package com.vet.appointment.system.appointment.service.domain.impl.message.listener;
 
 import com.vet.appointment.system.appointment.service.domain.dto.message.AccountModel;
 import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;

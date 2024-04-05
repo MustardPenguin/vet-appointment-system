@@ -76,3 +76,13 @@ CREATE TABLE "appointment".payment_outbox (
     version integer NOT NULL,
     CONSTRAINT payment_outbox_pkey PRIMARY KEY (id)
 );
+
+DROP TABLE IF EXISTS "appointment".appointment_outbox CASCADE;
+
+CREATE TABLE "appointment".appointment_outbox (
+    id uuid NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    payload jsonb NOT NULL,
+    version integer NOT NULL,
+    CONSTRAINT appointment_outbox_pkey PRIMARY KEY (id)
+);

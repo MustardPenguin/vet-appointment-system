@@ -3,7 +3,7 @@
  *
  * DO NOT EDIT DIRECTLY
  */
-package debezium.account.appointment_outbox;
+package appointment_created.appointment.appointment_outbox;
 
 import org.apache.avro.generic.GenericArray;
 import org.apache.avro.specific.SpecificData;
@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class Value extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = 1535666612264345392L;
+  private static final long serialVersionUID = 8996657056646779112L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Value\",\"namespace\":\"debezium.account.appointment_outbox\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Uuid\"}},{\"name\":\"created_at\",\"type\":{\"type\":\"long\",\"connect.version\":1,\"connect.name\":\"io.debezium.time.MicroTimestamp\"}},{\"name\":\"processed_at\",\"type\":[\"null\",{\"type\":\"long\",\"connect.version\":1,\"connect.name\":\"io.debezium.time.MicroTimestamp\"}],\"default\":null},{\"name\":\"payload\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Json\"}},{\"name\":\"version\",\"type\":\"int\"}],\"connect.name\":\"debezium.account.appointment_outbox.Value\"}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Value\",\"namespace\":\"appointment_created.appointment.appointment_outbox\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Uuid\"}},{\"name\":\"created_at\",\"type\":{\"type\":\"long\",\"connect.version\":1,\"connect.name\":\"io.debezium.time.MicroTimestamp\"}},{\"name\":\"payload\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\",\"connect.version\":1,\"connect.name\":\"io.debezium.data.Json\"}},{\"name\":\"version\",\"type\":\"int\"}],\"connect.name\":\"appointment_created.appointment.appointment_outbox.Value\"}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -75,7 +75,6 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
 
   private java.lang.String id;
   private long created_at;
-  private java.lang.Long processed_at;
   private java.lang.String payload;
   private int version;
 
@@ -90,14 +89,12 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
    * All-args constructor.
    * @param id The new value for id
    * @param created_at The new value for created_at
-   * @param processed_at The new value for processed_at
    * @param payload The new value for payload
    * @param version The new value for version
    */
-  public Value(java.lang.String id, java.lang.Long created_at, java.lang.Long processed_at, java.lang.String payload, java.lang.Integer version) {
+  public Value(java.lang.String id, java.lang.Long created_at, java.lang.String payload, java.lang.Integer version) {
     this.id = id;
     this.created_at = created_at;
-    this.processed_at = processed_at;
     this.payload = payload;
     this.version = version;
   }
@@ -109,9 +106,8 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
     switch (field$) {
     case 0: return id;
     case 1: return created_at;
-    case 2: return processed_at;
-    case 3: return payload;
-    case 4: return version;
+    case 2: return payload;
+    case 3: return version;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -122,9 +118,8 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
     switch (field$) {
     case 0: id = value$ != null ? value$.toString() : null; break;
     case 1: created_at = (java.lang.Long)value$; break;
-    case 2: processed_at = (java.lang.Long)value$; break;
-    case 3: payload = value$ != null ? value$.toString() : null; break;
-    case 4: version = (java.lang.Integer)value$; break;
+    case 2: payload = value$ != null ? value$.toString() : null; break;
+    case 3: version = (java.lang.Integer)value$; break;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
   }
@@ -161,23 +156,6 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
    */
   public void setCreatedAt(long value) {
     this.created_at = value;
-  }
-
-  /**
-   * Gets the value of the 'processed_at' field.
-   * @return The value of the 'processed_at' field.
-   */
-  public java.lang.Long getProcessedAt() {
-    return processed_at;
-  }
-
-
-  /**
-   * Sets the value of the 'processed_at' field.
-   * @param value the value to set.
-   */
-  public void setProcessedAt(java.lang.Long value) {
-    this.processed_at = value;
   }
 
   /**
@@ -218,8 +196,8 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
    * Creates a new Value RecordBuilder.
    * @return A new Value RecordBuilder
    */
-  public static debezium.account.appointment_outbox.Value.Builder newBuilder() {
-    return new debezium.account.appointment_outbox.Value.Builder();
+  public static appointment_created.appointment.appointment_outbox.Value.Builder newBuilder() {
+    return new appointment_created.appointment.appointment_outbox.Value.Builder();
   }
 
   /**
@@ -227,11 +205,11 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
    * @param other The existing builder to copy.
    * @return A new Value RecordBuilder
    */
-  public static debezium.account.appointment_outbox.Value.Builder newBuilder(debezium.account.appointment_outbox.Value.Builder other) {
+  public static appointment_created.appointment.appointment_outbox.Value.Builder newBuilder(appointment_created.appointment.appointment_outbox.Value.Builder other) {
     if (other == null) {
-      return new debezium.account.appointment_outbox.Value.Builder();
+      return new appointment_created.appointment.appointment_outbox.Value.Builder();
     } else {
-      return new debezium.account.appointment_outbox.Value.Builder(other);
+      return new appointment_created.appointment.appointment_outbox.Value.Builder(other);
     }
   }
 
@@ -240,11 +218,11 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
    * @param other The existing instance to copy.
    * @return A new Value RecordBuilder
    */
-  public static debezium.account.appointment_outbox.Value.Builder newBuilder(debezium.account.appointment_outbox.Value other) {
+  public static appointment_created.appointment.appointment_outbox.Value.Builder newBuilder(appointment_created.appointment.appointment_outbox.Value other) {
     if (other == null) {
-      return new debezium.account.appointment_outbox.Value.Builder();
+      return new appointment_created.appointment.appointment_outbox.Value.Builder();
     } else {
-      return new debezium.account.appointment_outbox.Value.Builder(other);
+      return new appointment_created.appointment.appointment_outbox.Value.Builder(other);
     }
   }
 
@@ -257,7 +235,6 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
 
     private java.lang.String id;
     private long created_at;
-    private java.lang.Long processed_at;
     private java.lang.String payload;
     private int version;
 
@@ -270,27 +247,23 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(debezium.account.appointment_outbox.Value.Builder other) {
+    private Builder(appointment_created.appointment.appointment_outbox.Value.Builder other) {
       super(other);
-      if (RecordBuilderBase.isValidValue(fields()[0], other.id)) {
+      if (isValidValue(fields()[0], other.id)) {
         this.id = data().deepCopy(fields()[0].schema(), other.id);
         fieldSetFlags()[0] = other.fieldSetFlags()[0];
       }
-      if (RecordBuilderBase.isValidValue(fields()[1], other.created_at)) {
+      if (isValidValue(fields()[1], other.created_at)) {
         this.created_at = data().deepCopy(fields()[1].schema(), other.created_at);
         fieldSetFlags()[1] = other.fieldSetFlags()[1];
       }
-      if (RecordBuilderBase.isValidValue(fields()[2], other.processed_at)) {
-        this.processed_at = data().deepCopy(fields()[2].schema(), other.processed_at);
+      if (isValidValue(fields()[2], other.payload)) {
+        this.payload = data().deepCopy(fields()[2].schema(), other.payload);
         fieldSetFlags()[2] = other.fieldSetFlags()[2];
       }
-      if (RecordBuilderBase.isValidValue(fields()[3], other.payload)) {
-        this.payload = data().deepCopy(fields()[3].schema(), other.payload);
+      if (isValidValue(fields()[3], other.version)) {
+        this.version = data().deepCopy(fields()[3].schema(), other.version);
         fieldSetFlags()[3] = other.fieldSetFlags()[3];
-      }
-      if (RecordBuilderBase.isValidValue(fields()[4], other.version)) {
-        this.version = data().deepCopy(fields()[4].schema(), other.version);
-        fieldSetFlags()[4] = other.fieldSetFlags()[4];
       }
     }
 
@@ -298,27 +271,23 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
      * Creates a Builder by copying an existing Value instance
      * @param other The existing instance to copy.
      */
-    private Builder(debezium.account.appointment_outbox.Value other) {
+    private Builder(appointment_created.appointment.appointment_outbox.Value other) {
       super(SCHEMA$, MODEL$);
-      if (RecordBuilderBase.isValidValue(fields()[0], other.id)) {
+      if (isValidValue(fields()[0], other.id)) {
         this.id = data().deepCopy(fields()[0].schema(), other.id);
         fieldSetFlags()[0] = true;
       }
-      if (RecordBuilderBase.isValidValue(fields()[1], other.created_at)) {
+      if (isValidValue(fields()[1], other.created_at)) {
         this.created_at = data().deepCopy(fields()[1].schema(), other.created_at);
         fieldSetFlags()[1] = true;
       }
-      if (RecordBuilderBase.isValidValue(fields()[2], other.processed_at)) {
-        this.processed_at = data().deepCopy(fields()[2].schema(), other.processed_at);
+      if (isValidValue(fields()[2], other.payload)) {
+        this.payload = data().deepCopy(fields()[2].schema(), other.payload);
         fieldSetFlags()[2] = true;
       }
-      if (RecordBuilderBase.isValidValue(fields()[3], other.payload)) {
-        this.payload = data().deepCopy(fields()[3].schema(), other.payload);
+      if (isValidValue(fields()[3], other.version)) {
+        this.version = data().deepCopy(fields()[3].schema(), other.version);
         fieldSetFlags()[3] = true;
-      }
-      if (RecordBuilderBase.isValidValue(fields()[4], other.version)) {
-        this.version = data().deepCopy(fields()[4].schema(), other.version);
-        fieldSetFlags()[4] = true;
       }
     }
 
@@ -336,7 +305,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'id'.
       * @return This builder.
       */
-    public debezium.account.appointment_outbox.Value.Builder setId(java.lang.String value) {
+    public appointment_created.appointment.appointment_outbox.Value.Builder setId(java.lang.String value) {
       validate(fields()[0], value);
       this.id = value;
       fieldSetFlags()[0] = true;
@@ -356,7 +325,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'id' field.
       * @return This builder.
       */
-    public debezium.account.appointment_outbox.Value.Builder clearId() {
+    public appointment_created.appointment.appointment_outbox.Value.Builder clearId() {
       id = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -376,7 +345,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'created_at'.
       * @return This builder.
       */
-    public debezium.account.appointment_outbox.Value.Builder setCreatedAt(long value) {
+    public appointment_created.appointment.appointment_outbox.Value.Builder setCreatedAt(long value) {
       validate(fields()[1], value);
       this.created_at = value;
       fieldSetFlags()[1] = true;
@@ -396,48 +365,8 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'created_at' field.
       * @return This builder.
       */
-    public debezium.account.appointment_outbox.Value.Builder clearCreatedAt() {
+    public appointment_created.appointment.appointment_outbox.Value.Builder clearCreatedAt() {
       fieldSetFlags()[1] = false;
-      return this;
-    }
-
-    /**
-      * Gets the value of the 'processed_at' field.
-      * @return The value.
-      */
-    public java.lang.Long getProcessedAt() {
-      return processed_at;
-    }
-
-
-    /**
-      * Sets the value of the 'processed_at' field.
-      * @param value The value of 'processed_at'.
-      * @return This builder.
-      */
-    public debezium.account.appointment_outbox.Value.Builder setProcessedAt(java.lang.Long value) {
-      validate(fields()[2], value);
-      this.processed_at = value;
-      fieldSetFlags()[2] = true;
-      return this;
-    }
-
-    /**
-      * Checks whether the 'processed_at' field has been set.
-      * @return True if the 'processed_at' field has been set, false otherwise.
-      */
-    public boolean hasProcessedAt() {
-      return fieldSetFlags()[2];
-    }
-
-
-    /**
-      * Clears the value of the 'processed_at' field.
-      * @return This builder.
-      */
-    public debezium.account.appointment_outbox.Value.Builder clearProcessedAt() {
-      processed_at = null;
-      fieldSetFlags()[2] = false;
       return this;
     }
 
@@ -455,10 +384,10 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'payload'.
       * @return This builder.
       */
-    public debezium.account.appointment_outbox.Value.Builder setPayload(java.lang.String value) {
-      validate(fields()[3], value);
+    public appointment_created.appointment.appointment_outbox.Value.Builder setPayload(java.lang.String value) {
+      validate(fields()[2], value);
       this.payload = value;
-      fieldSetFlags()[3] = true;
+      fieldSetFlags()[2] = true;
       return this;
     }
 
@@ -467,7 +396,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @return True if the 'payload' field has been set, false otherwise.
       */
     public boolean hasPayload() {
-      return fieldSetFlags()[3];
+      return fieldSetFlags()[2];
     }
 
 
@@ -475,9 +404,9 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'payload' field.
       * @return This builder.
       */
-    public debezium.account.appointment_outbox.Value.Builder clearPayload() {
+    public appointment_created.appointment.appointment_outbox.Value.Builder clearPayload() {
       payload = null;
-      fieldSetFlags()[3] = false;
+      fieldSetFlags()[2] = false;
       return this;
     }
 
@@ -495,10 +424,10 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @param value The value of 'version'.
       * @return This builder.
       */
-    public debezium.account.appointment_outbox.Value.Builder setVersion(int value) {
-      validate(fields()[4], value);
+    public appointment_created.appointment.appointment_outbox.Value.Builder setVersion(int value) {
+      validate(fields()[3], value);
       this.version = value;
-      fieldSetFlags()[4] = true;
+      fieldSetFlags()[3] = true;
       return this;
     }
 
@@ -507,7 +436,7 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * @return True if the 'version' field has been set, false otherwise.
       */
     public boolean hasVersion() {
-      return fieldSetFlags()[4];
+      return fieldSetFlags()[3];
     }
 
 
@@ -515,8 +444,8 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
       * Clears the value of the 'version' field.
       * @return This builder.
       */
-    public debezium.account.appointment_outbox.Value.Builder clearVersion() {
-      fieldSetFlags()[4] = false;
+    public appointment_created.appointment.appointment_outbox.Value.Builder clearVersion() {
+      fieldSetFlags()[3] = false;
       return this;
     }
 
@@ -527,9 +456,8 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
         Value record = new Value();
         record.id = fieldSetFlags()[0] ? this.id : (java.lang.String) defaultValue(fields()[0]);
         record.created_at = fieldSetFlags()[1] ? this.created_at : (java.lang.Long) defaultValue(fields()[1]);
-        record.processed_at = fieldSetFlags()[2] ? this.processed_at : (java.lang.Long) defaultValue(fields()[2]);
-        record.payload = fieldSetFlags()[3] ? this.payload : (java.lang.String) defaultValue(fields()[3]);
-        record.version = fieldSetFlags()[4] ? this.version : (java.lang.Integer) defaultValue(fields()[4]);
+        record.payload = fieldSetFlags()[2] ? this.payload : (java.lang.String) defaultValue(fields()[2]);
+        record.version = fieldSetFlags()[3] ? this.version : (java.lang.Integer) defaultValue(fields()[3]);
         return record;
       } catch (org.apache.avro.AvroMissingFieldException e) {
         throw e;
@@ -566,14 +494,6 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
 
     out.writeLong(this.created_at);
 
-    if (this.processed_at == null) {
-      out.writeIndex(0);
-      out.writeNull();
-    } else {
-      out.writeIndex(1);
-      out.writeLong(this.processed_at);
-    }
-
     out.writeString(this.payload);
 
     out.writeInt(this.version);
@@ -589,19 +509,12 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
 
       this.created_at = in.readLong();
 
-      if (in.readIndex() != 1) {
-        in.readNull();
-        this.processed_at = null;
-      } else {
-        this.processed_at = in.readLong();
-      }
-
       this.payload = in.readString();
 
       this.version = in.readInt();
 
     } else {
-      for (int i = 0; i < 5; i++) {
+      for (int i = 0; i < 4; i++) {
         switch (fieldOrder[i].pos()) {
         case 0:
           this.id = in.readString();
@@ -612,19 +525,10 @@ public class Value extends org.apache.avro.specific.SpecificRecordBase implement
           break;
 
         case 2:
-          if (in.readIndex() != 1) {
-            in.readNull();
-            this.processed_at = null;
-          } else {
-            this.processed_at = in.readLong();
-          }
-          break;
-
-        case 3:
           this.payload = in.readString();
           break;
 
-        case 4:
+        case 3:
           this.version = in.readInt();
           break;
 

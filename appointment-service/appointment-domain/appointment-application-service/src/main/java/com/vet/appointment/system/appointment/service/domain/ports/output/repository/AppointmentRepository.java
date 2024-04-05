@@ -11,5 +11,5 @@ public interface AppointmentRepository {
 
     Appointment save(Appointment appointment);
 
-    Optional<Appointment> findById(UUID accountId);
+    Optional<Appointment> findById(UUID appointmentId);
 }

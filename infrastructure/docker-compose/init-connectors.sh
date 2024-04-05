@@ -32,6 +32,29 @@ account_appointment_json=$(jq -n \
 
 echo "";
 
+appointment_created_json=$(jq -n \
+  --arg dbh "$DATABASE_HOSTNAME" \
+  --arg user "$DATABASE_USER" \
+  --arg password "$DATABASE_PASSWORD" \
+  '{
+    "name": "appointment-created-connector",
+    "config": {
+      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "tasks.max": "1",
+      "database.hostname": $dbh,
+      "database.user": $user,
+      "database.password": $password,
+      "database.dbname": "postgres",
+      "table.include.list": "appointment.appointment_outbox",
+      "topic.prefix": "appointment_created",
+      "tombstones.on.delete" : "false",
+      "slot.name": "appointment_created_outbox_slot",
+      "plugin.name": "pgoutput"
+    }
+  }')
+
+echo "";
+
 pet_appointment_json=$(jq -n \
   --arg dbh "$DATABASE_HOSTNAME" \
   --arg user "$DATABASE_USER" \
@@ -162,6 +185,9 @@ sleep $SLEEP_TIME
 curl -X POST -H "Content-Type: application/json" --data "$appointment_payment_json" http://localhost:8083/connectors
 sleep $SLEEP_TIME
 curl -X POST -H "Content-Type: application/json" --data "$payment_appointment_json" http://localhost:8083/connectors
+sleep $SLEEP_TIME
+curl -X POST -H "Content-Type: application/json" --data "$appointment_created_json" http://localhost:8083/connectors
+
 
 echo "";
 echo "Current connectors: "
