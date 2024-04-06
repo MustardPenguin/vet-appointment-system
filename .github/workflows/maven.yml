@@ -34,19 +34,19 @@ jobs:
     - name: Tag and push to Azure
       run: >
         docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/appointment-service"; 
-        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/appointment-service";
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/appointment-service:1.0-SNAPSHOT";
         docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/payment-service"; 
-        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/payment-service";
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/payment-service:1.0-SNAPSHOT";
         docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/account-service"; 
-        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/account-service";
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/account-service:1.0-SNAPSHOT";
         docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/pet-service"; 
-        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/pet-service";
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/pet-service:1.0-SNAPSHOT";
         docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/availability-service"; 
-        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/availability-service";
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/availability-service:1.0-SNAPSHOT";
         docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/api-gateway"; 
-        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/api-gateway";
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/api-gateway:1.0-SNAPSHOT";
         docker tag com.vet.appointment.system/appointment-service:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/eureka-server"; 
-        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/eureka-server";
+        docker push "${{ secrets.AZCR_URL }}/com.vet.appointment.system/eureka-server:1.0-SNAPSHOT";
     #   agony
     - name: Logout
       if: always()
