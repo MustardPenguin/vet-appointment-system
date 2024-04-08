@@ -32,8 +32,7 @@ jobs:
     - name: Login to ACR
       run: echo ${{ secrets.AZCR_PASS }} | docker login -u ${{ secrets.AZCR_USER }} --password-stdin ${{ secrets.AZCR_URL }}
     - name: Build the new debezium container
-      run: ls /home/runner/work/vet-appointment-system/vet-appointment-system/deployment
-      #docker build -t com.vet.appointment.system/debezium-connect:1.0-SNAPSHOT -f debezium-connect-avro.dockerfile ../
+      run: docker build -t com.vet.appointment.system/debezium-connect:1.0-SNAPSHOT -f debezium-connect-avro.dockerfile /home/runner/work/vet-appointment-system/vet-appointment-system/deployment
     - name: Tag and push to Azure
       run: >
         docker tag com.vet.appointment.system/debezium-connect:1.0-SNAPSHOT "${{ secrets.AZCR_URL }}/com.vet.appointment.system/debezium-connect:1.0-SNAPSHOT"; 
