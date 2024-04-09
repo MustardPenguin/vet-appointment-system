@@ -48,7 +48,7 @@ public class AppointmentPaymentSaga implements SagaSteps<PaymentResponse> {
         AppointmentPaymentOutboxMessage appointmentPaymentOutboxMessage =
                 paymentOutboxHelper.findPaymentOutboxMessageBySagaIdAndSagaStatus(paymentResponse.getSagaId(), SagaStatus.PROCESSING);
         if(appointmentPaymentOutboxMessage == null) {
-            return;
+//            return;
         }
         Appointment appointment = appointmentServiceDataHelper.getAppointmentById(paymentResponse.getAppointmentId());
         appointment.setPaymentId(paymentResponse.getPaymentId());
@@ -66,7 +66,7 @@ public class AppointmentPaymentSaga implements SagaSteps<PaymentResponse> {
         AppointmentPaymentOutboxMessage appointmentPaymentOutboxMessage =
                 paymentOutboxHelper.findPaymentOutboxMessageBySagaIdAndSagaStatus(paymentResponse.getSagaId(), SagaStatus.PROCESSING);
         if(appointmentPaymentOutboxMessage == null) {
-            return;
+//            return;
         }
         Appointment appointment = appointmentServiceDataHelper.getAppointmentById(paymentResponse.getAppointmentId());
         AppointmentEvent appointmentEvent = appointmentDomainService.initiateAppointmentCancelled(appointment, paymentResponse.getErrorMessages());

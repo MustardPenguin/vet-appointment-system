@@ -1,4 +1,4 @@
-package com.vet.appointment.system.availability.service.application.rest;
+package com.vet.appointment.system.payment.service.application.rest;
 
 import com.vet.appointment.system.application.debezium.DebeziumConnectConfig;
 import com.vet.appointment.system.application.debezium.DebeziumConnectService;
@@ -24,9 +24,9 @@ public class DebeziumConnectStartup implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         DebeziumConnectConfig availabilityResponseConfig = DebeziumConnectConfig.builder()
-                .tableIncludeList("availability.appointment_outbox")
-                .slotName("availability_appointment_outbox_slot")
-                .topicPrefix("availability_response")
+                .tableIncludeList("payment.appointment_outbox")
+                .slotName("payment_appointment_outbox_slot")
+                .topicPrefix("payment_response")
                 .name(APPLICATION_DEPLOYMENT_NAME + "-appointment-connector")
                 .build();
 

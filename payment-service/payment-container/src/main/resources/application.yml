@@ -3,6 +3,18 @@
 server:
   port: 8185
 
+# Logging
+logging:
+  level:
+    com.vet.appointment.system: DEBUG
+    org:
+      springframework: ${LOGGING_LEVEL:INFO}
+
+# For Debezium connect
+applicationDeploymentName: ${APPLICATION_DEPLOYMENT_NAME:payment-deployment}
+databaseHost: ${DATABASE_HOST:localhost}
+debeziumHost: ${DEBEZIUM_HOST:http://localhost}:8083/connectors
+
 # Database
 spring:
   application:

@@ -33,6 +33,10 @@
             <groupId>com.vet.appointment.system</groupId>
             <artifactId>payment-dataaccess</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.vet.appointment.system</groupId>
+            <artifactId>payment-application</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

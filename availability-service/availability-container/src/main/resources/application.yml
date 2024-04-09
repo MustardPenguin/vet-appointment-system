@@ -7,6 +7,18 @@ availability-service:
 server:
   port: 8184
 
+# Logging
+logging:
+  level:
+    com.vet.appointment.system: DEBUG
+    org:
+      springframework: ${LOGGING_LEVEL:INFO}
+
+# For Debezium connect
+applicationDeploymentName: ${APPLICATION_DEPLOYMENT_NAME:availability-deployment}
+databaseHost: ${DATABASE_HOST:localhost}
+debeziumHost: ${DEBEZIUM_HOST:http://localhost}:8083/connectors
+
 # Service registry
 eureka:
   client:

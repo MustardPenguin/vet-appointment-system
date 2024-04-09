@@ -42,6 +42,7 @@ public class AppointmentAvailabilityKafkaListener implements KafkaConsumer<Envel
                         @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,
                         @Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,
                         @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
+        log.info("received appointment event");
 
         messages.forEach(avroModel -> {
             if(avroModel.getBefore() == null && avroModel.getOp().equals(DebeziumOp.CREATE.getValue())) {

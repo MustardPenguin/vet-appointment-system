@@ -1,4 +1,4 @@
-package com.vet.appointment.system.appointment.service.application.rest;
+package com.vet.appointment.system.availability.service.application.rest;
 
 import com.vet.appointment.system.application.debezium.DebeziumConnectConfig;
 import com.vet.appointment.system.application.debezium.DebeziumConnectService;
@@ -23,30 +23,13 @@ public class DebeziumConnectStartup implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        DebeziumConnectConfig appointmentCreatedConfig = DebeziumConnectConfig.builder()
-                .tableIncludeList("appointment.appointment_outbox")
-                .slotName("appointment_created_outbox_slot")
-                .topicPrefix("appointment_created")
-                .name(APPLICATION_DEPLOYMENT_NAME + "-appointment-created-connector")
+        DebeziumConnectConfig availabilityResponseConfig = DebeziumConnectConfig.builder()
+                .tableIncludeList("availability.appointment_outbox")
+                .slotName("availability_appointment_outbox_slot")
+                .topicPrefix("availability_response")
+                .name(APPLICATION_DEPLOYMENT_NAME + "-appointment-connector")
                 .build();
 
-        DebeziumConnectConfig appointmentAvailabilityConfig = DebeziumConnectConfig.builder()
-                .tableIncludeList("appointment.availability_outbox")
-                .slotName("appointment_availability_outbox_slot")
-                .topicPrefix("availability_request")
-                .name(APPLICATION_DEPLOYMENT_NAME + "-availability-connector")
-                .build();
-
-
-        DebeziumConnectConfig appointmentPaymentConfig = DebeziumConnectConfig.builder()
-                .tableIncludeList("appointment.payment_outbox")
-                .slotName("appointment_payment_outbox_slot")
-                .topicPrefix("payment_request")
-                .name(APPLICATION_DEPLOYMENT_NAME + "-payment-connector")
-                .build();
-
-        debeziumConnectService.createDebeziumConnector(appointmentCreatedConfig);
-        debeziumConnectService.createDebeziumConnector(appointmentAvailabilityConfig);
-        debeziumConnectService.createDebeziumConnector(appointmentPaymentConfig);
+        debeziumConnectService.createDebeziumConnector(availabilityResponseConfig);
     }
 }
