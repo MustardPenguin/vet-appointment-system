@@ -27,8 +27,9 @@ public class AppointmentDomainServiceImpl implements AppointmentDomainService {
     }
 
     @Override
-    public void initiateAppointmentUnavailable(Appointment appointment, String errorMessages) {
+    public AppointmentCancelledEvent initiateAppointmentUnavailable(Appointment appointment, String errorMessages) {
         appointment.initUnavailability(errorMessages);
+        return new AppointmentCancelledEvent(appointment, ZonedDateTime.now(ZoneId.of(UTC)));
     }
 
     @Override

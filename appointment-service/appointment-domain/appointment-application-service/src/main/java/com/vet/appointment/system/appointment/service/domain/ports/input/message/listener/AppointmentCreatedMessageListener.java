@@ -2,7 +2,9 @@ package com.vet.appointment.system.appointment.service.domain.ports.input.messag
 
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 
+import java.util.UUID;
+
 public interface AppointmentCreatedMessageListener {
 
-    void appointmentCreated(Appointment appointment);
+    void appointmentCreated(Appointment appointment, UUID outboxId);
 }

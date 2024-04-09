@@ -17,6 +17,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Component
@@ -49,7 +50,8 @@ public class AppointmentCreatedEventKafkaListener implements KafkaConsumer<Envel
                 AppointmentCreatedEventPayload appointmentCreatedEventPayload =
                         kafkaMessageHelper.getEventPayload(avroModel.getPayload(), AppointmentCreatedEventPayload.class);
                 appointmentCreatedMessageListener.appointmentCreated(
-                        appointmentMessagingDataMapper.appointmentCreatedEventPayloadToAppointment(appointmentCreatedEventPayload));
+                        appointmentMessagingDataMapper.appointmentCreatedEventPayloadToAppointment(appointmentCreatedEventPayload),
+                        UUID.fromString(avroModel.getId()));
             }
         });
     }

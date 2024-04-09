@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Slf4j
 @Component
 public class AppointmentOutboxHelper {
@@ -37,11 +40,15 @@ public class AppointmentOutboxHelper {
         Appointment appointment = appointmentEvent.getEntity();
         String payload = outboxHelper.createPayload(appointmentCreatedEventPayload(appointment), appointment.getId().getValue());
         AppointmentOutboxMessage appointmentOutboxMessage = AppointmentOutboxMessage.builder()
-                .id(appointment.getId().getValue())
+                .id(UUID.randomUUID())
                 .createdAt(appointmentEvent.getCreatedAt())
                 .payload(payload)
                 .build();
         save(appointmentOutboxMessage);
+    }
+
+    public Optional<AppointmentOutboxMessage> findById(UUID id) {
+        return appointmentOutboxRepository.findById(id);
     }
 
     private AppointmentCreatedEventPayload appointmentCreatedEventPayload(Appointment appointment) {

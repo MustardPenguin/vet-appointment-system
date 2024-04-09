@@ -4,8 +4,11 @@ import com.vet.appointment.system.appointment.service.domain.dto.outbox.Appointm
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public interface AppointmentOutboxRepository {
 
     AppointmentOutboxMessage save(AppointmentOutboxMessage appointmentOutboxMessage);
+
+    Optional<AppointmentOutboxMessage> findById(UUID id);
 }

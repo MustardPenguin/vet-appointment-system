@@ -11,7 +11,7 @@ public interface AppointmentDomainService {
 
     AppointmentAvailableEvent initiateAppointmentAvailability(Appointment appointment);
 
-    void initiateAppointmentUnavailable(Appointment appointment, String errorMessages);
+    AppointmentCancelledEvent initiateAppointmentUnavailable(Appointment appointment, String errorMessages);
 
     AppointmentCancelledEvent initiateAppointmentCancelled(Appointment appointment, String errorMessages);
 }

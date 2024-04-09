@@ -9,6 +9,7 @@ import com.vet.appointment.system.dataaccess.outbox.appointment.repository.Appoi
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class AppointmentOutboxRepositoryImpl implements AppointmentOutboxRepository {
@@ -27,5 +28,14 @@ public class AppointmentOutboxRepositoryImpl implements AppointmentOutboxReposit
         AppointmentOutboxEntity appointmentOutboxEntity = appointmentOutboxJpaRepository.save(appointmentOutboxDataAccessMapper
                         .appointmentOutboxMessageToOutboxEntity(appointmentOutboxMessage));
         return appointmentOutboxDataAccessMapper.appointmentOutboxEntityToOutboxMessage(appointmentOutboxEntity);
+    }
+
+    @Override
+    public Optional<AppointmentOutboxMessage> findById(UUID id) {
+        try {
+            return appointmentOutboxJpaRepository.findById(id).map(appointmentOutboxDataAccessMapper::appointmentOutboxEntityToOutboxMessage);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
     }
 }

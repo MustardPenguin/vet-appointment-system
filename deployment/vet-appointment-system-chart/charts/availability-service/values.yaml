@@ -5,7 +5,7 @@
 postgresName: availability-postgres
 serviceName: availability-service
 namespace: default
-replicaCount: 2
+replicaCount: 1
 
 serviceImage: com.vet.appointment.system/availability-service:1.0-SNAPSHOT
 servicePort: 8184
