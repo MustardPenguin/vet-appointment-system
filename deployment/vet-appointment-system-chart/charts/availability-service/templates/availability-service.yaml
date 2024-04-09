@@ -1,0 +1,111 @@
+---
+# Global variables
+{{- $postgresName := .Values.postgresName }}
+{{- $serviceName := .Values.serviceName }}
+{{- $namespace := .Values.namespace }}
+{{- $serviceDeploymentName := printf "%s%s" $serviceName "-deployment" }}
+{{- $postgresDeploymentName := printf "%s%s" $postgresName "-deployment" }}
+
+# Availability service
+  {{ with .Values }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $serviceDeploymentName }}
+  namespace: {{ $namespace }}
+  labels:
+    app: {{ $serviceDeploymentName }}
+spec:
+  replicas: {{ .replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ $serviceDeploymentName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $serviceDeploymentName }}
+    spec:
+      initContainers:
+        - name: init-database
+          image: busybox:1.36.1
+          command:
+            - sh
+            - -c
+            - >
+              until nslookup {{ printf "%s.%s.svc.cluster.local" $postgresName $namespace }}; do
+                echo 'Waiting for postgres DB to initiate';
+                sleep 2;
+              done
+      containers:
+        - name: availability-service
+          image: {{ .serviceImage }}
+          env:
+            - name: DATABASE_HOST
+              value: {{ $postgresName }}
+            - name: KAFKA_BOOTSTRAP_HOST
+              value: {{ .global.microservice.KAFKA_BOOTSTRAP_HOST }}
+            - name: KAFKA_BOOTSTRAP_PORT
+              value: {{ .global.microservice.KAFKA_BOOTSTRAP_PORT | quote }}
+            - name: EUREKA_HOST
+              value: {{ .global.microservice.EUREKA_HOST }}
+            - name: SCHEMA_REGISTRY_HOST
+              value: {{ .global.microservice.SCHEMA_REGISTRY_HOST }}
+            - name: DEBEZIUM_HOST
+              value: {{ .global.microservice.DEBEZIUM_HOST }}
+            - name: APPLICATION_DEPLOYMENT_NAME
+              value: {{ $serviceDeploymentName }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $serviceName }}
+  namespace: {{ $namespace }}
+  labels:
+    app: {{ $serviceDeploymentName }}
+spec:
+  selector:
+    app: {{ $serviceDeploymentName }}
+  ports:
+    - protocol: TCP
+      port: {{ .servicePort }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $postgresDeploymentName }}
+  namespace: {{ $namespace }}
+  labels:
+    app: {{ $postgresDeploymentName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ $postgresDeploymentName }}
+  template:
+    metadata:
+      labels:
+        app: {{ $postgresDeploymentName }}
+    spec:
+      containers:
+        - name: {{ $postgresName }}
+          image: {{ $.Values.global.postgres.image }}
+          env:
+            - name: POSTGRES_USER
+              value: {{ $.Values.global.postgres.POSTGRES_USER }}
+            - name: POSTGRES_PASSWORD
+              value: {{ $.Values.global.postgres.POSTGRES_PASSWORD }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $postgresName }}
+  namespace: {{ $namespace }}
+  labels:
+    app: {{ $postgresDeploymentName }}
+spec:
+  selector:
+    app: {{ $postgresDeploymentName }}
+  ports:
+    - protocol: TCP
+      port: {{ $.Values.global.postgres.port }}
+  type: ClusterIP
+  {{- end}}

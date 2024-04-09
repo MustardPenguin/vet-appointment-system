@@ -1,0 +1,81 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-postgres-deployment
+  namespace: default
+  labels:
+    app: account-postgres-deployment
+    commonLabel: postgres-service
+spec:
+  selector:
+    matchLabels:
+      app: account-postgres-deployment
+  template:
+    metadata:
+      labels:
+        app: account-postgres-deployment
+    spec:
+      containers:
+        - name: postgres
+          image: debezium/postgres:16
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_PASSWORD
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pet-postgres-deployment
+  namespace: default
+  labels:
+    app: pet-postgres-deployment
+spec:
+  selector:
+    matchLabels:
+      app: pet-postgres-deployment
+  template:
+    metadata:
+      labels:
+        app: pet-postgres-deployment
+    spec:
+      containers:
+        - name: postgres
+          image: debezium/postgres:16
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: default
+  labels:
+    app: postgres-deployment
+spec:
+  selector:
+    app: postgres-deployment
+    commonLabel: postgres-service
+  ports:
+    - name: postgres-service-port
+      protocol: TCP
+      port: 5432
+  type: LoadBalancer
+---
