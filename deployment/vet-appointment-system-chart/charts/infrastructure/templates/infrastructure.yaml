@@ -120,6 +120,23 @@ spec:
   type: ClusterIP
 {{- end }}
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: script-configmap
+data:
+  kafka-topics.sh: |-
+    BOOTSTRAP_SERVER=${1:-localhost:29092}
+    PARTITIONS=${2:-3}
+    kafka-topics --list --bootstrap-server $BOOTSTRAP_SERVER
+    kafka-topics --alter --topic account_created.account.appointment_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
+    kafka-topics --alter --topic appointment_created.appointment.appointment_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
+    kafka-topics --alter --topic pet_created.pet.appointment_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
+    kafka-topics --alter --topic availability_request.appointment.availability_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
+    kafka-topics --alter --topic availability_response.availability.appointment_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
+    kafka-topics --alter --topic payment_request.appointment.payment_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
+    kafka-topics --alter --topic payment_response.payment.appointment_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
+---
 {{ with .Values.kafkaBroker }}
 apiVersion: apps/v1
 kind: Deployment
@@ -140,11 +157,18 @@ spec:
       containers:
         - name: kafka-broker
           image: {{ .image }}
+          volumeMounts:
+            - name: script-volume
+              mountPath: /scripts
           env:
             {{- range .env }}
             - name: {{ .name }}
               value: {{ .value | quote }}
             {{- end }}
+      volumes:
+        - name: script-volume
+          configMap:
+            name: script-configmap
 ---
 apiVersion: v1
 kind: Service
