@@ -21,6 +21,7 @@ CREATE TABLE "payment".balances(
     account_id uuid NOT NULL,
     email varchar NOT NULL,
     credit numeric(10, 2) NOT NULL,
+    version integer NOT NULL,
     CONSTRAINT balance_pkey PRIMARY KEY (id)
 );
 

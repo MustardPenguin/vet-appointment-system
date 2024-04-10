@@ -3,6 +3,7 @@ package com.vet.appointment.system.payment.service.dataaccess.balance.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -16,6 +17,8 @@ public class BalanceEntity {
     private UUID accountId;
     private String email;
     private BigDecimal credit;
+    @Version
+    private int version;
 
     public BalanceEntity() {}
 
@@ -40,5 +43,9 @@ public class BalanceEntity {
 
     public BigDecimal getCredit() {
         return credit;
+    }
+
+    public int getVersion() {
+        return version;
     }
 }
