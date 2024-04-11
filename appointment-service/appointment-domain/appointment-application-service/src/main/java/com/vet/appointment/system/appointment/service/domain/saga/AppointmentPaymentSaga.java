@@ -6,6 +6,7 @@ import com.vet.appointment.system.appointment.service.domain.dto.outbox.Appointm
 import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentPaymentOutboxMessage;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentEvent;
+import com.vet.appointment.system.appointment.service.domain.helper.AppointmentOutboxHelper;
 import com.vet.appointment.system.appointment.service.domain.helper.AppointmentServiceDataHelper;
 import com.vet.appointment.system.appointment.service.domain.helper.AvailabilityOutboxHelper;
 import com.vet.appointment.system.appointment.service.domain.helper.PaymentOutboxHelper;
@@ -29,59 +30,66 @@ public class AppointmentPaymentSaga implements SagaSteps<PaymentResponse> {
     private final AvailabilityOutboxHelper availabilityOutboxHelper;
     private final PaymentOutboxHelper paymentOutboxHelper;
     private final AppointmentDataMapper appointmentDataMapper;
+    private final AppointmentOutboxHelper appointmentOutboxHelper;
 
     public AppointmentPaymentSaga(AppointmentServiceDataHelper appointmentServiceDataHelper,
                                   AppointmentDomainService appointmentDomainService,
                                   AvailabilityOutboxHelper availabilityOutboxHelper,
                                   PaymentOutboxHelper paymentOutboxHelper,
-                                  AppointmentDataMapper appointmentDataMapper) {
+                                  AppointmentDataMapper appointmentDataMapper,
+                                  AppointmentOutboxHelper appointmentOutboxHelper) {
         this.appointmentServiceDataHelper = appointmentServiceDataHelper;
         this.appointmentDomainService = appointmentDomainService;
         this.availabilityOutboxHelper = availabilityOutboxHelper;
         this.paymentOutboxHelper = paymentOutboxHelper;
         this.appointmentDataMapper = appointmentDataMapper;
+        this.appointmentOutboxHelper = appointmentOutboxHelper;
     }
 
     @Override
     @Transactional
     public void process(PaymentResponse paymentResponse) {
-        AppointmentPaymentOutboxMessage appointmentPaymentOutboxMessage =
-                paymentOutboxHelper.findPaymentOutboxMessageBySagaIdAndSagaStatus(paymentResponse.getSagaId(), SagaStatus.PROCESSING);
-        if(appointmentPaymentOutboxMessage == null) {
+//        AppointmentPaymentOutboxMessage appointmentPaymentOutboxMessage =
+//                paymentOutboxHelper.findPaymentOutboxMessageBySagaIdAndSagaStatus(paymentResponse.getSagaId(), SagaStatus.PROCESSING);
+//        if(appointmentPaymentOutboxMessage == null) {
 //            return;
-        }
+//        }
         Appointment appointment = appointmentServiceDataHelper.getAppointmentById(paymentResponse.getAppointmentId());
         appointment.setPaymentId(paymentResponse.getPaymentId());
-        appointment.confirmAppointment();
+
+        AppointmentEvent appointmentEvent = appointmentDomainService.initiateAppointmentConfirmed(appointment);
 
         appointmentServiceDataHelper.saveAppointmentEntity(appointment);
-        appointmentPaymentOutboxMessage.setSagaStatus(SagaStatus.SUCCEEDED);
-        paymentOutboxHelper.save(appointmentPaymentOutboxMessage);
+        appointmentOutboxHelper.saveAppointmentOutboxMessage(appointmentEvent);
+//        appointmentPaymentOutboxMessage.setSagaStatus(SagaStatus.SUCCEEDED);
+//        paymentOutboxHelper.save(appointmentPaymentOutboxMessage);
         log.info("Successfully confirmed appointment for appointment id: {}!", paymentResponse.getAppointmentId());
     }
 
     @Override
     @Transactional
     public void rollback(PaymentResponse paymentResponse) {
-        AppointmentPaymentOutboxMessage appointmentPaymentOutboxMessage =
-                paymentOutboxHelper.findPaymentOutboxMessageBySagaIdAndSagaStatus(paymentResponse.getSagaId(), SagaStatus.PROCESSING);
-        if(appointmentPaymentOutboxMessage == null) {
+//        AppointmentPaymentOutboxMessage appointmentPaymentOutboxMessage =
+//                paymentOutboxHelper.findPaymentOutboxMessageBySagaIdAndSagaStatus(paymentResponse.getSagaId(), SagaStatus.PROCESSING);
+//        if(appointmentPaymentOutboxMessage == null) {
 //            return;
-        }
+//        }
         Appointment appointment = appointmentServiceDataHelper.getAppointmentById(paymentResponse.getAppointmentId());
         AppointmentEvent appointmentEvent = appointmentDomainService.initiateAppointmentCancelled(appointment, paymentResponse.getErrorMessages());
         appointmentServiceDataHelper.saveAppointmentEntity(appointment);
-        appointmentPaymentOutboxMessage.setSagaStatus(SagaStatus.COMPENSATED);
-        paymentOutboxHelper.save(appointmentPaymentOutboxMessage);
+        appointmentOutboxHelper.saveAppointmentOutboxMessage(appointmentEvent);
+
+//        appointmentPaymentOutboxMessage.setSagaStatus(SagaStatus.COMPENSATED);
+//        paymentOutboxHelper.save(appointmentPaymentOutboxMessage);
         log.info("Payment failed for appointment id: {}, performing compensating transactions!", paymentResponse.getAppointmentId());
 
-        Optional<AppointmentAvailabilityOutboxMessage> appointmentAvailabilityOutboxMessageOptional =
-                availabilityOutboxHelper.findAvailabilityOutboxMessageBySagaIdAndSagaStatus(paymentResponse.getSagaId(), SagaStatus.SUCCEEDED);
-        if(appointmentAvailabilityOutboxMessageOptional.isEmpty()) {
-            log.info("Unable to find appointment availability outbox message for saga id: {} and appointment id: {}!",
-                    paymentResponse.getSagaId(), appointment.getId().getValue());
-            return;
-        }
+//        Optional<AppointmentAvailabilityOutboxMessage> appointmentAvailabilityOutboxMessageOptional =
+//                availabilityOutboxHelper.findAvailabilityOutboxMessageBySagaIdAndSagaStatus(paymentResponse.getSagaId(), SagaStatus.SUCCEEDED);
+//        if(appointmentAvailabilityOutboxMessageOptional.isEmpty()) {
+//            log.info("Unable to find appointment availability outbox message for saga id: {} and appointment id: {}!",
+//                    paymentResponse.getSagaId(), appointment.getId().getValue());
+//            return;
+//        }
 
         availabilityOutboxHelper.saveAvailabilityOutboxMessage(
                 appointmentDataMapper.appointmentEventToEventPayload(appointmentEvent),

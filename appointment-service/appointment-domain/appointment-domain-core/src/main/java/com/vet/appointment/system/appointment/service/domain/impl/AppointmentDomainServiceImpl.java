@@ -4,6 +4,7 @@ import com.vet.appointment.system.appointment.service.domain.AppointmentDomainSe
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentAvailableEvent;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCancelledEvent;
+import com.vet.appointment.system.appointment.service.domain.event.AppointmentConfirmedEvent;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
 import com.vet.appointment.system.appointment.service.domain.exception.AppointmentDomainException;
 
@@ -37,4 +38,12 @@ public class AppointmentDomainServiceImpl implements AppointmentDomainService {
         appointment.initCancelling(errorMessages);
         return new AppointmentCancelledEvent(appointment, ZonedDateTime.now(ZoneId.of(UTC)));
     }
+
+    @Override
+    public AppointmentConfirmedEvent initiateAppointmentConfirmed(Appointment appointment) {
+        appointment.confirmAppointment();
+        return new AppointmentConfirmedEvent(appointment, ZonedDateTime.now(ZoneId.of(UTC)));
+    }
+
+
 }

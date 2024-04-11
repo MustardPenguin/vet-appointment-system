@@ -7,6 +7,7 @@ import com.vet.appointment.system.pet.service.domain.entity.Pet;
 import com.vet.appointment.system.pet.service.domain.ports.output.repository.PetRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -29,10 +30,10 @@ public class PetRepositoryImpl implements PetRepository {
 
     @Override
     public Pet getPetById(UUID id) {
-        PetEntity pet = petJpaRepository.findById(id).orElse(null);
-        if(pet == null) {
+        Optional<PetEntity> pet = petJpaRepository.findById(id);
+        if(pet.isEmpty()) {
             return null;
         }
-        return petDataAccessMapper.petEntityToPet(pet);
+        return petDataAccessMapper.petEntityToPet(pet.get());
     }
 }

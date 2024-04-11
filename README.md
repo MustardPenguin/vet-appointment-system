@@ -8,7 +8,7 @@ The purpose of this project is purely for educational purposes to learn how to d
 
 <h2>Links</h2>
 
-<h3>To run a local Kubernetes cluster using Kind</h3>
+<h3>To run a local Kubernetes cluster using Kind and Helm</h3>
 
 [Deployment Instructions](deployment/instructions.md)
 

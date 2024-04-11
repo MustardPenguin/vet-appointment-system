@@ -3,6 +3,7 @@ package com.vet.appointment.system.appointment.service.domain;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentAvailableEvent;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCancelledEvent;
+import com.vet.appointment.system.appointment.service.domain.event.AppointmentConfirmedEvent;
 import com.vet.appointment.system.appointment.service.domain.event.AppointmentCreatedEvent;
 
 public interface AppointmentDomainService {
@@ -14,4 +15,6 @@ public interface AppointmentDomainService {
     AppointmentCancelledEvent initiateAppointmentUnavailable(Appointment appointment, String errorMessages);
 
     AppointmentCancelledEvent initiateAppointmentCancelled(Appointment appointment, String errorMessages);
+
+    AppointmentConfirmedEvent initiateAppointmentConfirmed(Appointment appointment);
 }

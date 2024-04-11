@@ -23,7 +23,7 @@ public class PetCreatedMessageListenerImpl implements PetCreatedMessageListener 
     public void petCreated(Pet pet) {
         log.info("Successfully received propagation event for pet id: {} and owner id: {}", pet.getId().getValue(), pet.getOwnerId());
 
-        Pet existingPet = petRepository.getPetById(UUID.randomUUID());
+        Pet existingPet = petRepository.getPetById(pet.getId().getValue());
         if(existingPet != null) {
             log.info("Pet with id: {} already exists in the database, either this instance is the source of message or it received a duplicate message!", pet.getId().getValue());
             return;
