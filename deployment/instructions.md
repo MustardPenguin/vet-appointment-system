@@ -5,6 +5,7 @@ Prerequisites:
  - Kubectl
  - Kind
  - Maven
+ - Helm charts
 
 First, the image of all the microservices are needed, run at the root of the project(vet-appointment-system).
 ```bash
@@ -84,24 +85,20 @@ kind load docker-image provectuslabs/kafka-ui:latest
 ```
 
 
-Afterwards, the deployment files in kubernetes directory can be run with these commands in this order:
+Afterwards, at the directory of vet-appointment-system-chart, run the infrastructure chart, then all the services in any order:
+
 ```bash
-kubectl apply -f config.yml
-kubectl apply -f database-deployment.yml
-kubectl apply -f infrastructure-deployment.yml
-kubectl apply -f microservices-deployment.yml
+helm install <name> ./charts/infrastructure
+helm install <name> ./charts/account-service -f ./values.yml
+helm install <name> ./charts/pet-service -f ./values.yml
+helm install <name> ./charts/appointment-service -f ./values.yml
+helm install <name> ./charts/availability-service -f ./values.yml
+helm install <name> ./charts/payment-service -f ./values.yml
 ```
 
-Finally, port forward the Debezium connectors to the host machine, replacing the <debezium-pod-name> with the pod name from 'kubectl get pods':
-
+To uninstall the chart, run:
 ```bash
-kubectl port-forward pods/<debezuium-pod-name> 8083:8083
-```
-
-Start the Debezium connector script to create the connectors:
-
-```bash
-./init-connectors
+helm uninstall <chart-name>
 ```
 
 <h3>Accessing the Kubernetes dashboard</h3>

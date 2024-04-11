@@ -136,6 +136,7 @@ data:
     kafka-topics --alter --topic availability_response.availability.appointment_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
     kafka-topics --alter --topic payment_request.appointment.payment_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
     kafka-topics --alter --topic payment_response.payment.appointment_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
+    kafka-topics --alter --topic transaction_created.payment.payment_outbox --partitions $PARTITIONS --bootstrap-server $BOOTSTRAP_SERVER
 ---
 {{ with .Values.kafkaBroker }}
 apiVersion: apps/v1
