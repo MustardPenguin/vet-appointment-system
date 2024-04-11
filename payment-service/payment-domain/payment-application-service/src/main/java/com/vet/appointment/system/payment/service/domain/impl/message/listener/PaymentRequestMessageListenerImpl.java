@@ -1,4 +1,4 @@
-package com.vet.appointment.system.payment.service.domain.impl;
+package com.vet.appointment.system.payment.service.domain.impl.message.listener;
 
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 import com.vet.appointment.system.payment.service.domain.PaymentDomainService;
@@ -8,6 +8,7 @@ import com.vet.appointment.system.payment.service.domain.entity.Balance;
 import com.vet.appointment.system.payment.service.domain.entity.Payment;
 import com.vet.appointment.system.payment.service.domain.event.PaymentEvent;
 import com.vet.appointment.system.payment.service.domain.helper.AppointmentOutboxHelper;
+import com.vet.appointment.system.payment.service.domain.helper.PaymentOutboxHelper;
 import com.vet.appointment.system.payment.service.domain.helper.PaymentServiceDataHelper;
 import com.vet.appointment.system.payment.service.domain.helper.TransactionServiceDataHelper;
 import com.vet.appointment.system.payment.service.domain.mapper.PaymentDataMapper;
@@ -34,17 +35,20 @@ public class PaymentRequestMessageListenerImpl implements PaymentRequestMessageL
     private final PaymentServiceDataHelper paymentServiceDataHelper;
     private final AppointmentOutboxHelper appointmentOutboxHelper;
     private final PaymentDomainService paymentDomainService;
+    private final PaymentOutboxHelper paymentOutboxHelper;
     private final PaymentDataMapper paymentDataMapper;
 
     public PaymentRequestMessageListenerImpl(TransactionServiceDataHelper transactionServiceDataHelper,
                                              PaymentServiceDataHelper paymentServiceDataHelper,
                                              AppointmentOutboxHelper appointmentOutboxHelper,
                                              PaymentDomainService paymentDomainService,
+                                             PaymentOutboxHelper paymentOutboxHelper,
                                              PaymentDataMapper paymentDataMapper) {
         this.transactionServiceDataHelper = transactionServiceDataHelper;
         this.paymentServiceDataHelper = paymentServiceDataHelper;
         this.appointmentOutboxHelper = appointmentOutboxHelper;
         this.paymentDomainService = paymentDomainService;
+        this.paymentOutboxHelper = paymentOutboxHelper;
         this.paymentDataMapper = paymentDataMapper;
     }
 
@@ -74,6 +78,10 @@ public class PaymentRequestMessageListenerImpl implements PaymentRequestMessageL
 
         paymentServiceDataHelper.saveBalance(balance);
         TransactionModel transactionModel = paymentDataMapper.paymentToTransactionModel(paymentRequest);
-        transactionServiceDataHelper.save(transactionModel, paymentRequest.getSagaId());
+        transactionServiceDataHelper.save(transactionModel);
+
+        paymentOutboxHelper.savePaymentOutboxMessage(
+                paymentDataMapper.transactionModelToEventPayload(transactionModel),
+                paymentEvent);
     }
 }

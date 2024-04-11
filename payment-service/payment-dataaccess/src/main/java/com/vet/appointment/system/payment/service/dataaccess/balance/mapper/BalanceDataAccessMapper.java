@@ -8,18 +8,22 @@ import org.springframework.stereotype.Component;
 public class BalanceDataAccessMapper {
 
     public Balance balanceEntityToBalance(BalanceEntity balanceEntity) {
-        return new Balance(
-                balanceEntity.getId(),
-                balanceEntity.getAccountId(),
-                balanceEntity.getEmail(),
-                balanceEntity.getCredit());
+        return Balance.builder()
+                .id(balanceEntity.getId())
+                .accountId(balanceEntity.getAccountId())
+                .email(balanceEntity.getEmail())
+                .credit(balanceEntity.getCredit())
+                .version(balanceEntity.getVersion())
+                .build();
     }
 
     public BalanceEntity balanceToBalanceEntity(Balance balance) {
-        return new BalanceEntity(
-                balance.getId(),
-                balance.getAccountId(),
-                balance.getEmail(),
-                balance.getCredit());
+        return BalanceEntity.builder()
+                .id(balance.getId())
+                .accountId(balance.getAccountId())
+                .email(balance.getEmail())
+                .credit(balance.getCredit())
+                .version(balance.getVersion())
+                .build();
     }
 }

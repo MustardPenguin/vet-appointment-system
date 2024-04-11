@@ -35,3 +35,13 @@ CREATE TABLE "payment".transactions(
     created_at timestamp NOT NULL,
     CONSTRAINT transaction_pkey PRIMARY KEY (id)
 );
+
+DROP TABLE IF EXISTS "payment".payment_outbox CASCADE;
+
+CREATE TABLE "payment".payment_outbox(
+    id uuid NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    payload jsonb NOT NULL,
+    version integer NOT NULL,
+    CONSTRAINT payment_outbox_pkey PRIMARY KEY (id)
+);

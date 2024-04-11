@@ -30,6 +30,14 @@ public class DebeziumConnectStartup implements ApplicationRunner {
                 .name(APPLICATION_DEPLOYMENT_NAME + "-appointment-connector")
                 .build();
 
+        DebeziumConnectConfig transactionCreatedConfig = DebeziumConnectConfig.builder()
+                .tableIncludeList("payment.payment_outbox")
+                .slotName("transaction_created_outbox_slot")
+                .topicPrefix("transaction_created")
+                .name(APPLICATION_DEPLOYMENT_NAME + "-payment-connector")
+                .build();
+
         debeziumConnectService.createDebeziumConnector(availabilityResponseConfig);
+        debeziumConnectService.createDebeziumConnector(transactionCreatedConfig);
     }
 }

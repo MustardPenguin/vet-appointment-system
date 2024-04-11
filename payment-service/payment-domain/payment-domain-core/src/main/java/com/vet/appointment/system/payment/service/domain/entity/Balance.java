@@ -9,12 +9,18 @@ public class Balance {
     private UUID accountId;
     private String email;
     private BigDecimal credit;
+    private int version;
 
-    public Balance(UUID id, UUID accountId, String email, BigDecimal credit) {
-        this.id = id;
-        this.accountId = accountId;
-        this.email = email;
-        this.credit = credit;
+    private Balance(Builder builder) {
+        id = builder.id;
+        accountId = builder.accountId;
+        email = builder.email;
+        credit = builder.credit;
+        version = builder.version;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public BigDecimal subtractCredit(BigDecimal amount) {
@@ -37,5 +43,50 @@ public class Balance {
 
     public BigDecimal getCredit() {
         return credit;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+
+    public static final class Builder {
+        private UUID id;
+        private UUID accountId;
+        private String email;
+        private BigDecimal credit;
+        private int version;
+
+        private Builder() {
+        }
+
+        public Builder id(UUID val) {
+            id = val;
+            return this;
+        }
+
+        public Builder accountId(UUID val) {
+            accountId = val;
+            return this;
+        }
+
+        public Builder email(String val) {
+            email = val;
+            return this;
+        }
+
+        public Builder credit(BigDecimal val) {
+            credit = val;
+            return this;
+        }
+
+        public Builder version(int val) {
+            version = val;
+            return this;
+        }
+
+        public Balance build() {
+            return new Balance(this);
+        }
     }
 }

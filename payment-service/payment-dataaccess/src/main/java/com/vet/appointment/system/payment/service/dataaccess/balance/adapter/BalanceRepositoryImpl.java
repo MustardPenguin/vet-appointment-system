@@ -28,8 +28,12 @@ public class BalanceRepositoryImpl implements BalanceRepository {
 
     @Override
     public void createNewAccountBalance(AccountModel accountModel) {
-        BalanceEntity balanceEntity = new BalanceEntity(
-                UUID.randomUUID(), accountModel.getId(), accountModel.getEmail(), new BigDecimal(50.00));
+        BalanceEntity balanceEntity = BalanceEntity.builder()
+                .id(UUID.randomUUID())
+                .accountId(accountModel.getId())
+                .email(accountModel.getEmail())
+                .credit(new BigDecimal(50.00))
+                .build();
         BalanceEntity response = balanceJpaRepository.save(balanceEntity);
         if(response == null) {
             throw new RuntimeException("Balance could not be created for account id: " + accountModel.getId());
@@ -45,7 +49,13 @@ public class BalanceRepositoryImpl implements BalanceRepository {
 
     @Override
     public Balance save(Balance balance) {
-        BalanceEntity balanceEntity = balanceJpaRepository.save(balanceDataAccessMapper.balanceToBalanceEntity(balance));
-        return balanceDataAccessMapper.balanceEntityToBalance(balanceEntity);
+        try {
+            BalanceEntity balanceEntity = balanceJpaRepository.save(balanceDataAccessMapper.balanceToBalanceEntity(balance));
+            return balanceDataAccessMapper.balanceEntityToBalance(balanceEntity);
+        } catch (Exception e) {
+            log.error("Unable to save balance entity, error: {}", e.getMessage());
+            return null;
+        }
+
     }
 }

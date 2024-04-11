@@ -20,13 +20,12 @@ public class TransactionServiceDataHelper {
     }
 
     @Transactional
-    public void save(TransactionModel transactionModel, UUID sagaId) {
+    public void save(TransactionModel transactionModel) {
         TransactionModel response = transactionRepository.save(transactionModel);
         if(response == null) {
-            log.error("Transaction could not be saved for saga id {} and account id {}", sagaId, transactionModel.getAccountId());
-            throw new PaymentDomainException("Transaction could not be saved for saga id " + sagaId
-                    + " and account id " + transactionModel.getAccountId());
+            log.error("Transaction could not be saved for account id {}", transactionModel.getAccountId());
+            throw new PaymentDomainException("Transaction could not be saved for account id " + transactionModel.getAccountId());
         }
-        log.info("Transaction has been saved for saga id {} and account id {}", sagaId, transactionModel.getAccountId());
+        log.info("Transaction has been saved for account id {}", transactionModel.getAccountId());
     }
 }

@@ -7,6 +7,9 @@ import com.vet.appointment.system.payment.service.domain.dto.model.TransactionMo
 import com.vet.appointment.system.payment.service.domain.ports.output.repository.TransactionRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Component
 public class TransactionRepositoryImpl implements TransactionRepository {
 
@@ -21,8 +24,21 @@ public class TransactionRepositoryImpl implements TransactionRepository {
 
     @Override
     public TransactionModel save(TransactionModel transactionModel) {
-        TransactionEntity response = transactionJpaRepository.save(
-                transactionDataAccessMapper.transactionModelToEntity(transactionModel));
-        return transactionDataAccessMapper.transactionEntityToModel(response);
+        try {
+            TransactionEntity response = transactionJpaRepository.save(
+                    transactionDataAccessMapper.transactionModelToEntity(transactionModel));
+            return transactionDataAccessMapper.transactionEntityToModel(response);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
+    public TransactionModel findById(UUID id) {
+        Optional<TransactionEntity> response = transactionJpaRepository.findById(id);
+        if(response.isEmpty()) {
+            return null;
+        }
+        return transactionDataAccessMapper.transactionEntityToModel(response.get());
     }
 }

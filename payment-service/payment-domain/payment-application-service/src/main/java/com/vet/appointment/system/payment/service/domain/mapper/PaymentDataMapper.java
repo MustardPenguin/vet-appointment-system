@@ -3,6 +3,7 @@ package com.vet.appointment.system.payment.service.domain.mapper;
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 import com.vet.appointment.system.messaging.event.PaymentAppointmentEventPayload;
 import com.vet.appointment.system.payment.service.domain.dto.message.PaymentRequest;
+import com.vet.appointment.system.payment.service.domain.dto.message.TransactionCreatedEventPayload;
 import com.vet.appointment.system.payment.service.domain.dto.model.TransactionModel;
 import com.vet.appointment.system.payment.service.domain.entity.Payment;
 import com.vet.appointment.system.payment.service.domain.event.PaymentEvent;
@@ -45,6 +46,16 @@ public class PaymentDataMapper {
                 .errorMessages(String.join(", ", paymentEvent.getErrorMessages()))
                 .createdAt(paymentEvent.getCreatedAt())
                 .paymentStatus(paymentEvent.getEntity().getPaymentStatus())
+                .build();
+    }
+
+    public TransactionCreatedEventPayload transactionModelToEventPayload(TransactionModel transactionModel) {
+        return TransactionCreatedEventPayload.builder()
+                .id(transactionModel.getId())
+                .accountId(transactionModel.getAccountId())
+                .cost(transactionModel.getCost())
+                .createdAt(transactionModel.getCreatedAt())
+                .reason(transactionModel.getReason())
                 .build();
     }
 }

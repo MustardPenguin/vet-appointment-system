@@ -22,12 +22,18 @@ public class BalanceEntity {
 
     public BalanceEntity() {}
 
-    public BalanceEntity(UUID id, UUID accountId, String email, BigDecimal credit) {
-        this.id = id;
-        this.accountId = accountId;
-        this.email = email;
-        this.credit = credit;
+    private BalanceEntity(Builder builder) {
+        id = builder.id;
+        accountId = builder.accountId;
+        email = builder.email;
+        credit = builder.credit;
+        version = builder.version;
     }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
 
     public UUID getId() {
         return id;
@@ -47,5 +53,45 @@ public class BalanceEntity {
 
     public int getVersion() {
         return version;
+    }
+
+    public static final class Builder {
+        private UUID id;
+        private UUID accountId;
+        private String email;
+        private BigDecimal credit;
+        private int version;
+
+        private Builder() {
+        }
+
+        public Builder id(UUID val) {
+            id = val;
+            return this;
+        }
+
+        public Builder accountId(UUID val) {
+            accountId = val;
+            return this;
+        }
+
+        public Builder email(String val) {
+            email = val;
+            return this;
+        }
+
+        public Builder credit(BigDecimal val) {
+            credit = val;
+            return this;
+        }
+
+        public Builder version(int val) {
+            version = val;
+            return this;
+        }
+
+        public BalanceEntity build() {
+            return new BalanceEntity(this);
+        }
     }
 }

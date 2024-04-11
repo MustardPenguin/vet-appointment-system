@@ -33,7 +33,7 @@ public class PaymentServiceDataHelper {
     @Transactional
     public void saveBalance(Balance balance) {
         Balance response = balanceRepository.save(balance);
-        if(balance == null) {
+        if(response == null) {
             log.error("Could not persist balance entity of id {} with account id {}", balance.getId(), balance.getAccountId());
             throw new PaymentDomainException("Could not persist balance entity of id " + balance.getId()
                     + " with account id " + balance.getAccountId());
@@ -41,7 +41,4 @@ public class PaymentServiceDataHelper {
         log.info("Successfully persisted balance entity of id {} with account id {}", balance.getId(), balance.getAccountId());
     }
 
-    public void saveTransaction(TransactionModel transactionModel) {
-
-    }
 }

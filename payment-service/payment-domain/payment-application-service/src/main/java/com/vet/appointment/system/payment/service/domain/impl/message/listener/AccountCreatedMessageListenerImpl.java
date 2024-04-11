@@ -1,4 +1,4 @@
-package com.vet.appointment.system.payment.service.domain.impl;
+package com.vet.appointment.system.payment.service.domain.impl.message.listener;
 
 import com.vet.appointment.system.payment.service.domain.dto.message.AccountModel;
 import com.vet.appointment.system.payment.service.domain.ports.input.message.listener.AccountCreatedMessageListener;

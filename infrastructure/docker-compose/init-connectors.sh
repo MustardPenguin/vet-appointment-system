@@ -170,7 +170,28 @@ payment_appointment_json=$(jq -n \
 
 echo "";
 
+transaction_created_json=$(jq -n \
+  --arg dbh "$DATABASE_HOSTNAME" \
+  --arg user "$DATABASE_USER" \
+  --arg password "$DATABASE_PASSWORD" \
+  '{
+    "name": "transaction_created_connector",
+    "config": {
+      "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+      "tasks.max": "1",
+      "database.hostname": $dbh,
+      "database.user": $user,
+      "database.password": $password,
+      "database.dbname": "postgres",
+      "table.include.list": "payment.payment_outbox",
+      "topic.prefix": "transaction_created",
+      "tombstones.on.delete" : "false",
+      "slot.name": "transaction_created_outbox_slot",
+      "plugin.name": "pgoutput"
+    }
+  }')
 
+echo "";
 
 # Curl POST request to Debezium connector
 echo "Sending post requests to Debezium connect..."
@@ -187,6 +208,8 @@ sleep $SLEEP_TIME
 curl -X POST -H "Content-Type: application/json" --data "$payment_appointment_json" http://localhost:8083/connectors
 sleep $SLEEP_TIME
 curl -X POST -H "Content-Type: application/json" --data "$appointment_created_json" http://localhost:8083/connectors
+sleep $SLEEP_TIME
+curl -X POST -H "Content-Type: application/json" --data "$transaction_created_json" http://localhost:8083/connectors
 
 
 echo "";
