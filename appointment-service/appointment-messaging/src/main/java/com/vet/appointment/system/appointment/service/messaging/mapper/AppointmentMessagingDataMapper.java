@@ -3,12 +3,14 @@ package com.vet.appointment.system.appointment.service.messaging.mapper;
 import appointment_created.appointment.appointment_outbox.Value;
 import com.vet.appointment.system.appointment.service.domain.dto.message.AvailabilityResponse;
 import com.vet.appointment.system.appointment.service.domain.dto.message.PaymentResponse;
+import com.vet.appointment.system.appointment.service.domain.dto.message.PetModel;
 import com.vet.appointment.system.appointment.service.domain.dto.outbox.AppointmentCreatedEventPayload;
 import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.domain.valueobject.AppointmentStatus;
 import com.vet.appointment.system.domain.valueobject.PaymentStatus;
 import com.vet.appointment.system.messaging.event.AvailabilityAppointmentEventPayload;
 import com.vet.appointment.system.messaging.event.PaymentAppointmentEventPayload;
+import com.vet.appointment.system.messaging.event.PetCreatedEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -66,12 +68,13 @@ public class AppointmentMessagingDataMapper {
                 .build();
     }
 
-    private LocalDateTime convertMicroTimestampToLocalDateTime(long microTimestamp) {
-        long milliTimestamp = microTimestamp / 1000;
-        return Instant.ofEpochMilli(milliTimestamp)
-                .atZone(ZoneId.of(UTC))
-                .toLocalDateTime();
+    public PetModel petEventToPetModel(PetCreatedEventPayload petCreatedEventPayload) {
+        return PetModel.builder()
+                .id(UUID.fromString(petCreatedEventPayload.getId()))
+                .ownerId(UUID.fromString(petCreatedEventPayload.getOwnerId()))
+                .name(petCreatedEventPayload.getName())
+                .species(petCreatedEventPayload.getSpecies())
+                .birthDate(petCreatedEventPayload.getBirthDate())
+                .build();
     }
-
-
 }

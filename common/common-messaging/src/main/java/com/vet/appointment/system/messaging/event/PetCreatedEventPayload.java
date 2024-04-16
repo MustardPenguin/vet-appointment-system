@@ -19,6 +19,8 @@ public class PetCreatedEventPayload {
     private LocalDate birthDate;
     @JsonProperty
     private ZonedDateTime createdAt;
+    @JsonProperty
+    private String propagationType;
 
     public PetCreatedEventPayload() {}
 
@@ -29,6 +31,7 @@ public class PetCreatedEventPayload {
         species = builder.species;
         birthDate = builder.birthDate;
         createdAt = builder.createdAt;
+        propagationType = builder.propagationType;
     }
 
     public static Builder builder() {
@@ -59,6 +62,10 @@ public class PetCreatedEventPayload {
         return createdAt;
     }
 
+    public String getPropagationType() {
+        return propagationType;
+    }
+
     public static final class Builder {
         private String id;
         private String ownerId;
@@ -66,6 +73,7 @@ public class PetCreatedEventPayload {
         private String species;
         private LocalDate birthDate;
         private ZonedDateTime createdAt;
+        private String propagationType;
 
         private Builder() {
         }
@@ -97,6 +105,11 @@ public class PetCreatedEventPayload {
 
         public Builder createdAt(ZonedDateTime val) {
             createdAt = val;
+            return this;
+        }
+
+        public Builder propagationType(String val) {
+            propagationType = val;
             return this;
         }
 

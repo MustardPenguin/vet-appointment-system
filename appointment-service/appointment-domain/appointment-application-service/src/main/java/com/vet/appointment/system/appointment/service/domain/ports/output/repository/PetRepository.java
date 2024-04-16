@@ -10,4 +10,6 @@ public interface PetRepository {
     PetModel save(PetModel petModel);
 
     Optional<PetModel> findById(UUID id);
+
+    void deleteById(UUID id);
 }

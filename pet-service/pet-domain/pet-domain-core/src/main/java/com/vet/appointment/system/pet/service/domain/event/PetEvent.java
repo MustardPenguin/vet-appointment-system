@@ -5,9 +5,9 @@ import com.vet.appointment.system.pet.service.domain.entity.Pet;
 
 import java.time.ZonedDateTime;
 
-public class PetCreatedEvent extends PetEvent {
+public class PetEvent extends DomainEvent<Pet> {
 
-    public PetCreatedEvent(Pet pet, ZonedDateTime createdAt) {
+    public PetEvent(Pet pet, ZonedDateTime createdAt) {
         super(pet, createdAt);
     }
 }

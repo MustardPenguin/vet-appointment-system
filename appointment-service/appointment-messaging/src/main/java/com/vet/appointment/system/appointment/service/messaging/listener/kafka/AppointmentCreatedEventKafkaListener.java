@@ -49,6 +49,7 @@ public class AppointmentCreatedEventKafkaListener implements KafkaConsumer<Envel
                 Value avroModel = message.getAfter();
                 AppointmentCreatedEventPayload appointmentCreatedEventPayload =
                         kafkaMessageHelper.getEventPayload(avroModel.getPayload(), AppointmentCreatedEventPayload.class);
+
                 appointmentCreatedMessageListener.appointmentCreated(
                         appointmentMessagingDataMapper.appointmentCreatedEventPayloadToAppointment(appointmentCreatedEventPayload),
                         UUID.fromString(avroModel.getId()));

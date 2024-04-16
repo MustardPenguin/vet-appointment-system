@@ -7,6 +7,8 @@ import com.vet.appointment.system.appointment.service.domain.ports.output.reposi
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Slf4j
 @Component
 public class PetCreatedMessageListenerImpl implements PetCreatedMessageListener {
@@ -26,5 +28,18 @@ public class PetCreatedMessageListenerImpl implements PetCreatedMessageListener 
                                             + " to appointment database!");
         }
         log.info("Successfully saved pet entity of id: {} to appointment database.", petModel.getId());
+    }
+
+    @Override
+    public void petDeleted(PetModel petModel) {
+        log.info("Deleting pet of id: {}", petModel.getId());
+        Optional<PetModel> response = petRepository.findById(petModel.getId());
+        if(response.isEmpty()) {
+            log.info("Cannot delete pet of id: {} as it does not exist in the database!", petModel.getId());
+            return;
+        }
+
+        petRepository.deleteById(petModel.getId());
+        log.info("Successfully deleted pet of id: {}", petModel.getId());
     }
 }
