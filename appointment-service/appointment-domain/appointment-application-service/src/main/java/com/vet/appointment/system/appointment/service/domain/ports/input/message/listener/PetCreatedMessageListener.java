@@ -5,4 +5,6 @@ import com.vet.appointment.system.appointment.service.domain.dto.message.PetMode
 public interface PetCreatedMessageListener {
 
     void petCreated(PetModel petModel);
+
+    void petDeleted(PetModel petModel);
 }

@@ -7,6 +7,7 @@ import com.vet.appointment.system.pet.service.domain.entity.Pet;
 import com.vet.appointment.system.pet.service.domain.ports.output.repository.PetRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,7 +26,12 @@ public class PetRepositoryImpl implements PetRepository {
     @Override
     public Pet savePet(Pet pet) {
         PetEntity petEntity = petDataAccessMapper.petToPetEntity(pet);
-        return petDataAccessMapper.petEntityToPet(petJpaRepository.save(petEntity));
+        try {
+            Pet savedPet = petDataAccessMapper.petEntityToPet(petJpaRepository.save(petEntity));
+            return savedPet;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
@@ -35,5 +41,17 @@ public class PetRepositoryImpl implements PetRepository {
             return null;
         }
         return petDataAccessMapper.petEntityToPet(pet.get());
+    }
+
+    @Override
+    public void deletePet(UUID id) {
+        petJpaRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Pet> findPetsByOwnerId(UUID ownerId) {
+        return petJpaRepository.findPetEntitiesByOwnerId(ownerId).stream()
+                .map(petDataAccessMapper::petEntityToPet)
+                .toList();
     }
 }

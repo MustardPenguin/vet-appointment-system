@@ -16,6 +16,7 @@ import pet_created.pet.appointment_outbox.Envelope;
 import pet_created.pet.appointment_outbox.Value;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Component
@@ -46,7 +47,16 @@ public class PetCreatedEventKafkaListener implements KafkaConsumer<Envelope> {
                 Value avroModel = message.getAfter();
                 PetCreatedEventPayload petCreatedEventPayload =
                         kafkaMessageHelper.getEventPayload(avroModel.getPayload(), PetCreatedEventPayload.class);
-                petCreatedMessageListener.petCreated(petMessagingDataMapper.petCreatedEventPayloadToPet(petCreatedEventPayload));
+                if(petCreatedEventPayload.getPropagationType() != null && petCreatedEventPayload.getPropagationType().equals("D")) {
+                    petCreatedMessageListener.petDeleted(
+                            petMessagingDataMapper.petCreatedEventPayloadToPet(petCreatedEventPayload),
+                            UUID.fromString(avroModel.getId()));
+                    return;
+                }
+
+                petCreatedMessageListener.petCreated(
+                        petMessagingDataMapper.petCreatedEventPayloadToPet(petCreatedEventPayload),
+                        UUID.fromString(avroModel.getId()));
             }
         });
     }

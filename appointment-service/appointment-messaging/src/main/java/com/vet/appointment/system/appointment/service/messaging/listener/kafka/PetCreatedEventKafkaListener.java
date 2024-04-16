@@ -2,6 +2,7 @@ package com.vet.appointment.system.appointment.service.messaging.listener.kafka;
 
 import com.vet.appointment.system.appointment.service.domain.dto.message.PetModel;
 import com.vet.appointment.system.appointment.service.domain.ports.input.message.listener.PetCreatedMessageListener;
+import com.vet.appointment.system.appointment.service.messaging.mapper.AppointmentMessagingDataMapper;
 import com.vet.appointment.system.kafka.consumer.KafkaConsumer;
 import com.vet.appointment.system.kafka.producer.KafkaMessageHelper;
 import com.vet.appointment.system.messaging.DebeziumOp;
@@ -23,11 +24,14 @@ import java.util.UUID;
 @Component
 public class PetCreatedEventKafkaListener implements KafkaConsumer<Envelope> {
 
+    private final AppointmentMessagingDataMapper appointmentMessagingDataMapper;
     private final PetCreatedMessageListener petCreatedMessageListener;
     private final KafkaMessageHelper kafkaMessageHelper;
 
-    public PetCreatedEventKafkaListener(PetCreatedMessageListener petCreatedMessageListener,
+    public PetCreatedEventKafkaListener(AppointmentMessagingDataMapper appointmentMessagingDataMapper,
+                                        PetCreatedMessageListener petCreatedMessageListener,
                                         KafkaMessageHelper kafkaMessageHelper) {
+        this.appointmentMessagingDataMapper = appointmentMessagingDataMapper;
         this.petCreatedMessageListener = petCreatedMessageListener;
         this.kafkaMessageHelper = kafkaMessageHelper;
     }
@@ -50,13 +54,14 @@ public class PetCreatedEventKafkaListener implements KafkaConsumer<Envelope> {
                 Value petEventAvroModel = avroModel.getAfter();
                 PetCreatedEventPayload petCreatedEventPayload = kafkaMessageHelper
                         .getEventPayload(petEventAvroModel.getPayload(), PetCreatedEventPayload.class);
-                petCreatedMessageListener.petCreated(PetModel.builder()
-                                .id(UUID.fromString(petCreatedEventPayload.getId()))
-                                .ownerId(UUID.fromString(petCreatedEventPayload.getOwnerId()))
-                                .name(petCreatedEventPayload.getName())
-                                .species(petCreatedEventPayload.getSpecies())
-                                .birthDate(petCreatedEventPayload.getBirthDate())
-                                .build());
+
+                if(petCreatedEventPayload.getPropagationType() != null && petCreatedEventPayload.getPropagationType().equals("D")) {
+                    log.info("Propagation type is delete!");
+                    petCreatedMessageListener.petDeleted(appointmentMessagingDataMapper.petEventToPetModel(petCreatedEventPayload));
+                    return;
+                }
+
+                petCreatedMessageListener.petCreated(appointmentMessagingDataMapper.petEventToPetModel(petCreatedEventPayload));
             }
         });
     }

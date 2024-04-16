@@ -23,8 +23,16 @@ public class GatewayConfig {
                         .and().method(HttpMethod.POST)
                         .filters(filter -> filter.filter(authenticationFilter))
                         .uri("lb://account-service"))
+                .route("get-pet-by-owner-id", route -> route
+                        .path("/api/account/**")
+                        .filters(filter -> filter.filter(authenticationFilter))
+                        .uri("lb://pet-service"))
                 .route("register-pet", route -> route
                         .path("/api/pet")
+                        .filters(filter -> filter.filter(authenticationFilter))
+                        .uri("lb://pet-service"))
+                .route("pet-path-variable", route -> route
+                        .path("/api/pet/**")
                         .filters(filter -> filter.filter(authenticationFilter))
                         .uri("lb://pet-service"))
                 .route("create-appointment", route -> route

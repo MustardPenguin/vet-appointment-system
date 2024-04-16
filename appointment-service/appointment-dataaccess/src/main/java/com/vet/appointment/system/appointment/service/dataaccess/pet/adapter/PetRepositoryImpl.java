@@ -30,7 +30,16 @@ public class PetRepositoryImpl implements PetRepository {
 
     @Override
     public Optional<PetModel> findById(UUID id) {
-        return petJpaRepository.findById(id)
-                .map(petDataAccessMapper::petEntityToPetModel);
+        try {
+            return petJpaRepository.findById(id)
+                    .map(petDataAccessMapper::petEntityToPetModel);
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        petJpaRepository.deleteById(id);
     }
 }

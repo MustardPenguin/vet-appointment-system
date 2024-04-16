@@ -7,6 +7,9 @@ import com.vet.appointment.system.pet.service.domain.dto.outbox.PetAppointmentOu
 import com.vet.appointment.system.pet.service.domain.ports.output.repository.AppointmentOutboxRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Component
 public class AppointmentOutboxRepositoryImpl implements AppointmentOutboxRepository {
 
@@ -29,5 +32,14 @@ public class AppointmentOutboxRepositoryImpl implements AppointmentOutboxReposit
     @Override
     public void deletePetAppointmentOutboxMessage() {
         appointmentOutboxJpaRepository.deleteAll();
+    }
+
+    @Override
+    public Optional<PetAppointmentOutboxMessage> getPetAppointmentOutboxMessage(UUID id) {
+        Optional<AppointmentOutboxEntity> appointmentOutboxEntity = appointmentOutboxJpaRepository.findAppointmentOutboxEntityById(id);
+        if(appointmentOutboxEntity.isEmpty()) {
+            return Optional.empty();
+        }
+        return appointmentOutboxEntity.map(appointmentDataAccessMapper::outboxEntityToPetAppointmentOutboxMessage);
     }
 }
