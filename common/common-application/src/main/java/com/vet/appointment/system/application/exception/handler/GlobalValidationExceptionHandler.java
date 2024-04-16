@@ -18,7 +18,7 @@ public class GlobalValidationExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> validationError(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ErrorResponse> validationError(MethodArgumentNotValidException exception) {
         log.error("Invalid request body!");
 
         Map<String, String> errors = new HashMap<>();
@@ -28,6 +28,9 @@ public class GlobalValidationExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
 
-        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST.value(), errors.toString());
+        return ResponseEntity.ok(errorResponse);
     }
 }
+
+record ErrorResponse(int statusCode, String message) {}

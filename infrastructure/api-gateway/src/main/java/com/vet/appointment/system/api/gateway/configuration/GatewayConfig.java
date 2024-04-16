@@ -21,7 +21,7 @@ public class GatewayConfig {
                 .route("register-account", route -> route
                         .path("/api/account")
                         .and().method(HttpMethod.POST)
-                        .filters(filter -> filter.filter(authenticationFilter))
+//                        .filters(filter -> filter.filter(authenticationFilter))
                         .uri("lb://account-service"))
                 .route("register-pet", route -> route
                         .path("/api/pet")
@@ -29,7 +29,6 @@ public class GatewayConfig {
                         .uri("lb://pet-service"))
                 .route("create-appointment", route -> route
                         .path("/api/appointment/**")
-//                        .and().method(HttpMethod.POST)
                         .filters(filter -> filter.filter(authenticationFilter))
                         .uri("lb://appointment-service"))
                 .route("get-appointment", route -> route
