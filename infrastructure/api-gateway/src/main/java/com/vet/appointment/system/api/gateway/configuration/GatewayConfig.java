@@ -43,6 +43,10 @@ public class GatewayConfig {
                         .path("/api/appointment/**")
                         .filters(filter -> filter.filter(authenticationFilter))
                         .uri("lb://appointment-service"))
+                .route("get-payment-service", route -> route
+                        .path("/api/account/{accountId}/balance", "/api/account/{accountId}/transaction")
+                        .filters(filter -> filter.filter(authenticationFilter))
+                        .uri("lb://payment-service"))
                 .route("get-appointment", route -> route
                         .path("/api/appointment/**")
                         .and().method(HttpMethod.GET)

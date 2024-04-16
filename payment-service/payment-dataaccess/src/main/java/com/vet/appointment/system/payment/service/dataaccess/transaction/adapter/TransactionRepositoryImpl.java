@@ -7,8 +7,10 @@ import com.vet.appointment.system.payment.service.domain.dto.model.TransactionMo
 import com.vet.appointment.system.payment.service.domain.ports.output.repository.TransactionRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class TransactionRepositoryImpl implements TransactionRepository {
@@ -40,5 +42,11 @@ public class TransactionRepositoryImpl implements TransactionRepository {
             return null;
         }
         return transactionDataAccessMapper.transactionEntityToModel(response.get());
+    }
+
+    @Override
+    public List<TransactionModel> findTransactionsByAccountId(UUID accountId) {
+        return transactionJpaRepository.findTransactionEntitiesByAccountId(accountId)
+                .stream().map(transactionDataAccessMapper::transactionEntityToModel).collect(Collectors.toList());
     }
 }
