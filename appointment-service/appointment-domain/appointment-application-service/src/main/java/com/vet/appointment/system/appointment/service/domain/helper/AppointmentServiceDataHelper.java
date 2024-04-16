@@ -10,6 +10,7 @@ import com.vet.appointment.system.appointment.service.domain.ports.output.reposi
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -74,5 +75,9 @@ public class AppointmentServiceDataHelper {
             log.warn("Owner id of pet and account does not match!");
             throw new AppointmentDomainException("Owner id of pet and account does not match!");
         }
+    }
+
+    public List<Appointment> getAppointmentsByAccountId(UUID accountId) {
+        return appointmentRepository.findAppointmentsByOwnerId(accountId);
     }
 }

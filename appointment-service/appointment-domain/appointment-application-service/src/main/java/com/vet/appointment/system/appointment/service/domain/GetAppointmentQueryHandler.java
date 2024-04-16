@@ -6,6 +6,7 @@ import com.vet.appointment.system.appointment.service.domain.helper.AppointmentS
 import com.vet.appointment.system.appointment.service.domain.mapper.AppointmentDataMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -22,7 +23,10 @@ public class GetAppointmentQueryHandler {
 
     public GetAppointmentResponse getAppointmentFromQuery(UUID appointmentId) {
         Appointment appointment = appointmentServiceDataHelper.getAppointmentById(appointmentId);
-        // TODO: Expand upon this, adding account + pet info to it
         return appointmentDataMapper.appointmentToGetAppointmentResponse(appointment);
+    }
+
+    public List<Appointment> getAppointmentByAccountIdFromQuery(UUID accountId) {
+        return appointmentServiceDataHelper.getAppointmentsByAccountId(accountId);
     }
 }

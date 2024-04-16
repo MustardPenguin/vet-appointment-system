@@ -54,7 +54,7 @@ public class PetController {
         return ResponseEntity.ok(createPetResponse);
     }
 
-    @GetMapping("/api/account/{accountId}/pets")
+    @GetMapping("/api/account/{accountId}/pet")
     public ResponseEntity<List<Pet>> getPetsByOwnerId(@PathVariable UUID accountId) {
         return ResponseEntity.ok(petApplicationService.findPetsByOwnerId(accountId));
     }

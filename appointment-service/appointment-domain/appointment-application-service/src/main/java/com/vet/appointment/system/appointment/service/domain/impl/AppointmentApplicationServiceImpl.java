@@ -5,10 +5,12 @@ import com.vet.appointment.system.appointment.service.domain.GetAppointmentQuery
 import com.vet.appointment.system.appointment.service.domain.dto.rest.create.CreateAppointmentResponse;
 import com.vet.appointment.system.appointment.service.domain.dto.rest.create.CreateAppointmentCommand;
 import com.vet.appointment.system.appointment.service.domain.dto.rest.get.GetAppointmentResponse;
+import com.vet.appointment.system.appointment.service.domain.entity.Appointment;
 import com.vet.appointment.system.appointment.service.domain.ports.input.AppointmentApplicationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -34,5 +36,10 @@ public class AppointmentApplicationServiceImpl implements AppointmentApplication
     public GetAppointmentResponse getAppointmentById(UUID appointmentId) {
         log.info("Getting appointment by id at the service layer for appointment id {}", appointmentId);
         return getAppointmentQueryHandler.getAppointmentFromQuery(appointmentId);
+    }
+
+    @Override
+    public List<Appointment> getAppointmentsByAccountId(UUID accountId) {
+        return getAppointmentQueryHandler.getAppointmentByAccountIdFromQuery(accountId);
     }
 }

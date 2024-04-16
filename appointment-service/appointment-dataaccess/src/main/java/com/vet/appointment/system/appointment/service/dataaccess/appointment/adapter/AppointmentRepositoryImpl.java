@@ -9,8 +9,10 @@ import com.vet.appointment.system.appointment.service.domain.ports.output.reposi
 import com.vet.appointment.system.domain.valueobject.AccountId;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class AppointmentRepositoryImpl implements AppointmentRepository {
@@ -34,5 +36,11 @@ public class AppointmentRepositoryImpl implements AppointmentRepository {
     @Override
     public Optional<Appointment> findById(UUID accountId) {
         return appointmentJpaRepository.findById(accountId).map(appointmentDataAccessMapper::appointmentEntityToAppointment);
+    }
+
+    @Override
+    public List<Appointment> findAppointmentsByOwnerId(UUID accountId) {
+        return appointmentJpaRepository.findAppointmentEntitiesByOwnerId(accountId)
+                .stream().map(appointmentDataAccessMapper::appointmentEntityToAppointment).collect(Collectors.toList());
     }
 }
